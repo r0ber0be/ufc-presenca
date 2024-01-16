@@ -1,12 +1,11 @@
-import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { FormValues } from "@/components/form";
+import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase/config";
+import { FormValuesT } from "@/types/FormTypes";
 
-export async function signUpWithEmailService(data: FormValues) {
+export async function signUpWithEmailService(data: FormValuesT) {
   const response = await createUserWithEmailAndPassword(auth, data.email, data.senha)
     .then(userCredential => {
       const user = userCredential.user
-      console.log('user:', user)
       return user
     }).catch((error: any) => {
       let errorCode = error?.code

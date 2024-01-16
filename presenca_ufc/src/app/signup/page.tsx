@@ -1,13 +1,14 @@
 'use client'
 
-import FormTemplate, { FormValues } from "@/components/form";
+import React, { useState } from "react";
 import { signUpWithEmailService, signUpWithGoogle } from "@/services/auth";
 import { Box, Button, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from 'next/navigation'
+import FormTemplate from "@/components/form";
 import { DASHBOARD, SIGN_IN } from "@/lib/constants/routes";
+import { FormValuesT } from "@/types/FormTypes";
  
 
 export default function Signup() {
@@ -15,7 +16,7 @@ export default function Signup() {
 	const [isSubmmiting, setIsSubmmiting] = useState<boolean>(false);
 	const toast = useToast()
 
-	const onSubmit: SubmitHandler<FormValues> = async data => {
+	const onSubmit: SubmitHandler<FormValuesT> = async data => {
 		setIsSubmmiting(true)
 
 		let title = ''
@@ -24,7 +25,6 @@ export default function Signup() {
 
 		await signUpWithEmailService(data)
 			.then(res => {
-				console.log('eu', res)
 				const {response, values} = res
 				title = values.title
 				description = values.description

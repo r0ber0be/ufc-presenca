@@ -1,13 +1,9 @@
+import { FormValuesT } from "@/types/FormTypes";
 import { Button, FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-export interface FormValues {
-	email: string,
-	senha: string
-}
-
-export default function FormTemplate(props:{ onSubmit:SubmitHandler<FormValues>, isSubmmiting: boolean, buttonText: String, loadingText: String }) {
-	const { register, handleSubmit } = useForm<FormValues>();
+export default function FormTemplate(props:{ onSubmit:SubmitHandler<FormValuesT>, isSubmmiting: boolean, buttonText: String, loadingText: String }) {
+	const { register, handleSubmit } = useForm<FormValuesT>();
 
   return (
 		<form onSubmit={handleSubmit(props.onSubmit)} autoComplete="">
