@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import PressButton from '@/app/components/button'
+import PressButton from '@/components/button'
 
 describe('Button', () => {
   it('Deveria renderizar o botão', () => {
