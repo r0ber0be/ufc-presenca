@@ -1,15 +1,16 @@
 import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase/config";
+import { FirebaseError } from "firebase/app";
 import { FormValuesT } from "@/types/FormTypes";
+import { CONTA_CRIADA, EMAIL_JA_CADASTRADO, EMAIL_EM_USO, REDIRECIONAR_PARA_LOGIN } from "@/lib/constants/strings";
 
 export async function signUpWithEmailService(data: FormValuesT) {
   const response = await createUserWithEmailAndPassword(auth, data.email, data.senha)
     .then(userCredential => {
       const user = userCredential.user
       return user
-    }).catch((error: any) => {
-      let errorCode = error?.code
-      return errorCode
+    }).catch((error: FirebaseError) => {
+      return error.code
     })
 
   let values = {
@@ -19,12 +20,12 @@ export async function signUpWithEmailService(data: FormValuesT) {
   }
 
   if(response === 'auth/email-already-in-use') {
-    values.title = 'Email já cadastrado!'
-    values.description = 'Este email já está sendo utilizado'
+    values.title = EMAIL_JA_CADASTRADO
+    values.description = EMAIL_EM_USO
     values.status = 'warning'
   } else {
-    values.title = 'Conta criada!'
-		values.description = 'Você será redirecionado para a tela de login'
+    values.title = CONTA_CRIADA
+		values.description = REDIRECIONAR_PARA_LOGIN
 		values.status = 'success'
   }
   
@@ -33,5 +34,5 @@ export async function signUpWithEmailService(data: FormValuesT) {
 
 export async function signUpWithGoogle() {
   const provider = new GoogleAuthProvider()
-  await signInWithPopup(auth, provider)
+  return await signInWithPopup(auth, provider)
 }
