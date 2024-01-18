@@ -1,5 +1,5 @@
 import { Tinos } from 'next/font/google'
-import PressButton from './components/button'
+import PressButton from '@/components/button'
 
 const tinos = Tinos({ subsets: ['latin'], weight: "400" })
 
