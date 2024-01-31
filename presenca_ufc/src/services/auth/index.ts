@@ -1,4 +1,4 @@
-import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase/config";
 import { FirebaseError } from "firebase/app";
 import { FormValuesT } from "@/types/FormTypes";
@@ -46,4 +46,8 @@ export async function signUpWithEmailService(data: FormValuesT) {
 export async function googleAuthService() {
   const provider = new GoogleAuthProvider()
   return await signInWithPopup(auth, provider)
+}
+
+export async function logoutService() {
+  return await signOut(auth)
 }
