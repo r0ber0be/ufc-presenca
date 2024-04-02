@@ -6,7 +6,7 @@ export default function FormTemplate(props:{ onSubmit:SubmitHandler<FormValuesT>
 	const { register, handleSubmit } = useForm<FormValuesT>();
 
   return (
-		<form onSubmit={handleSubmit(props.onSubmit)} autoComplete="">
+		<form onSubmit={handleSubmit(props.onSubmit)} autoComplete="on">
 			<FormControl>
 				<FormLabel htmlFor='email'>Email</FormLabel>
 				<Input {...register('email', { 

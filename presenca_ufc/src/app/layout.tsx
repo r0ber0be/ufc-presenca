@@ -2,18 +2,28 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Providers } from './providers'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], weight: '400' })
 
 export const metadata: Metadata = {
+  applicationName: 'UFC Presenças',
   title: {
     default: 'UFC Presenças',
     template: '%s | UFC Presenças'
   },
-  description: 'Projeto de cadastro de presenças',
-  icons: 'https://www.infoenem.com.br/wp-content/uploads/2012/10/ufc_simbol.png'
+  description: 'Projeto de cadastro automatizado de presenças no SIGAA.',
+  authors: [{ name:'Robson Lopes Cavalcante', url: 'https://github.com/r0ber0be' }],
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true
+    }
+  }
 }
-
+ 
 export default function RootLayout({
   children,
 }: {
@@ -22,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )

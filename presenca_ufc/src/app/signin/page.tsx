@@ -1,9 +1,8 @@
-'use client'
 
 import FormTemplate from "@/components/form";
 import GoogleAuthTemplate from "@/components/googleAuth";
 import { SIGN_UP } from "@/lib/constants/routes";
-import { AUTH_CREDENCIAL_INVALIDA, ERRO_CREDENCIAIS_INVALIDAS, ERRO_FECHAR_POPUP, TENTE_NOVAMENTE } from "@/lib/constants/strings";
+import { ERRO_FECHAR_POPUP, TENTE_NOVAMENTE } from "@/lib/constants/strings";
 import { signInWithEmailService } from "@/services/auth";
 import { FormValuesT } from "@/types/FormTypes";
 import { Box, useToast } from "@chakra-ui/react";
@@ -17,20 +16,17 @@ export default function Signin() {
   const onSubmit: SubmitHandler<FormValuesT> = async data => {
 		try {
 			const userCredential = await signInWithEmailService(data)
-			if(userCredential.toString() !== AUTH_CREDENCIAL_INVALIDA) {
+			if(typeof userCredential !== 'string') {
 				router.push('/dashboard')
-				return
 			}
+		} catch (error: any) {
 			toast({
 				position: 'top-right',
-				title: ERRO_CREDENCIAIS_INVALIDAS,
+				title: error,
 				description: TENTE_NOVAMENTE,
 				status: 'warning',
 				duration: 3000
 			})
-		} catch (error) {
-			console.log(error)
-			return
 		}
 	}
 
@@ -42,7 +38,7 @@ export default function Signin() {
         buttonText='Entrar'
         loadingText='Entrando'
       />
-			<Box as='span' color='gray.600' fontSize='small' fontWeight='500'>Ou</Box>
+			<Box as='span' color='gray.600' fontSize='medium' fontWeight='500'>Ou</Box>
 
 			<GoogleAuthTemplate
 				title={ERRO_FECHAR_POPUP}
