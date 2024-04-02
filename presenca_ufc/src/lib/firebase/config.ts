@@ -1,5 +1,5 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -13,3 +13,21 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app)
+
+// o google recomenda adicionar um observer para verificar se há um usuário logado ou não 
+onAuthStateChanged(auth, (user) => {
+  if(user) {
+    const uid = user.uid
+    const userName =  user.displayName
+    const email = user.email
+    console.log('Logado', userName, email, uid, user)
+    if(user.emailVerified) {
+      console.log('Email verificado')
+    } else {
+      console.log('Email não verificado')
+    }
+  }
+  else {
+    console.log('Deslogado')
+  }
+})
