@@ -1,6 +1,6 @@
 export type ProfessorT = {
   sub: String,
-  name: String,
+  name: string,
   isSynced: Boolean,
   picture: string
 }
