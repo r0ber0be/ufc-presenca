@@ -1,8 +1,6 @@
 'use server'
 
 import { api } from "@/lib/axios/api"
-import { ProfessorT } from "@/types/Professor"
-import { jwtDecode } from "jwt-decode"
 import { cookies } from "next/headers"
 
 export async function verifyToken(idToken: string) {

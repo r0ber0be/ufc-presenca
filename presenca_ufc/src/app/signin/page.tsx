@@ -1,3 +1,4 @@
+'use client'
 
 import FormTemplate from "@/components/form";
 import GoogleAuthTemplate from "@/components/googleAuth";

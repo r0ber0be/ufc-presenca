@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter } from "next/navigation";
 import { Box, Button, useToast } from "@chakra-ui/react";
 import { DASHBOARD } from "@/lib/constants/routes";

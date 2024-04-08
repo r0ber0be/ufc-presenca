@@ -1,12 +1,14 @@
-import type { NextRequest } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
  
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  console.log('pathname', request.nextUrl.pathname)
   const cookies = request.cookies.has('token-ufc')
-  const redirectURL = new URL('/', request.url)
+  const redirectURL = new URL('/signin', request.url)
   if(!cookies) {
-    //NextResponse.redirect(redirectURL , { url: 'https://localhost:3000/signin' })
+    console.log('Não temos cookies')
+    if(!request.nextUrl.pathname.endsWith('/signin') && !request.nextUrl.pathname.endsWith('/signup')) {
+      console.log('pathname', request.nextUrl.pathname)
+      return NextResponse.redirect(redirectURL , { url: 'https://localhost:3000/signin' })
+    }
   } 
 }
  
