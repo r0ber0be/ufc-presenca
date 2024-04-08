@@ -10,10 +10,14 @@ export default function Header() {
       <Flex h='10vh' align='center' justify='space-between' px={{ base: 4, sm: 9}}>
         <Box>
           <Heading as='h2'>UFC</Heading>
-          <Text align='center' fontSize='x-small'>PRESENÇAS</Text>
+          <Text align='center' fontSize={{ base: '8px', md: 'x-small' }} >PRESENÇAS</Text>
         </Box>
         <Link href='dashboard/profile' className='flex hover:transition-colors'>
-          <Text alignSelf='center' display={{ base: 'none', sm: 'revert' }} pe={2}>{name}</Text>
+          <Text alignSelf='center' 
+            display={{ base: 'none', sm: 'revert' }} pe={2}
+          >
+            {name}
+          </Text>
           { 
             picture 
             ? <Image src={picture} width={40} height={40} className='w-10 h-10 rounded-full' alt='Foto de perfil' />
