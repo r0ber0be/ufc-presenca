@@ -12,7 +12,7 @@ export default function Header() {
           <Heading as='h2'>UFC</Heading>
           <Text align='center' fontSize={{ base: '8px', md: 'x-small' }} >PRESENÇAS</Text>
         </Box>
-        <Link href='dashboard/profile' className='flex hover:transition-colors'>
+        <Link href='dashboard/profile' className='flex'>
           <Text alignSelf='center' 
             display={{ base: 'none', sm: 'revert' }} pe={2}
           >
