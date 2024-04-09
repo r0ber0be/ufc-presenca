@@ -1,16 +1,16 @@
 import ClassCard from "./classCard";
 
-const turmas = [
-  { name: 'Fundamentos da programação',  days: 'Segunda-Feira', hour: '13:30 - 15:30', id: 1 },
-  { name: 'Matemática Básica',           days: 'Quarta-Feira',  hour: '13:30 - 15:30', id: 2 },
-  { name: 'Arquitetura de Computadores', days: 'Quinta-Feira',  hour: '10:00 - 12:00', id: 3 }
+const turmasMock = [
+  { id: 1, name: 'Fundamentos da programação',  days: 'SEG, TER', hour: '13:30 - 15:30', extraHour: null },
+  { id: 2, name: 'Matemática Básica',           days: 'QUA',      hour: '13:30 - 15:30', extraHour: null },
+  { id: 3, name: 'Arquitetura de Computadores', days: 'QUI, SEX', hour: '10:00 - 12:00', extraHour: '08:00 - 10:00' }
 ]
 
 export default function ClassList() {
   return (
     <>
-      { turmas.map((turma) => (
-        <ClassCard turma={turma} key={turma.id}/>
+      { turmasMock.map((turma) => (
+        <ClassCard turma={ turma } key={ turma.id } />
       ))}
     </>
   )
