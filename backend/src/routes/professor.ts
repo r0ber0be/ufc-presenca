@@ -96,11 +96,4 @@ export async function professorRoutes(app: FastifyInstance) {
     )
     return res.status(200).send(token)
   })
-
-  app.get('/fakeGETexample', async (request, response) => {
-    await request.jwtVerify() // verifica se a requisição feita pelo frontend contém o token do usuário
-    const { user } = request
-    console.log(user)
-    return response
-  })
 }
