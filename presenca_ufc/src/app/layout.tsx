@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Providers } from './providers'
 import './globals.css'
+import { cookies } from 'next/headers'
+import Header from '@/components/header'
 
 const inter = Inter({ subsets: ['latin'], weight: '400' })
 
@@ -25,15 +27,13 @@ export const metadata: Metadata = {
   }
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children, }: { children: React.ReactNode }) {
+  const isAuthenticated = cookies().get('token-ufc')?.value
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
+      <body className={`container-content ${inter.className}`}>
         <Providers>
+          { isAuthenticated && <Header /> }
           {children}
         </Providers>
       </body>

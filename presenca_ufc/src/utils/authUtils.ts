@@ -22,3 +22,7 @@ export async function removeCookies() {
     cookies().delete('token-ufc')
   }
 }
+
+export async function getCookies() {
+  return cookies().get('token-ufc')?.value
+}

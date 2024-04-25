@@ -2,6 +2,7 @@ import fastify from 'fastify'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import { professorRoutes } from './routes/professor'
+import { turmaRoutes } from './routes/turma'
 
 const app = fastify()
 
@@ -14,6 +15,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(professorRoutes)
+app.register(turmaRoutes)
 
 app
   .listen({

@@ -1,17 +1,30 @@
+import { TurmaT } from "@/types/Turma";
 import ClassCard from "./classCard";
+import EmptyPage from "./emptyPage";
+import { getCookies } from "@/utils/authUtils";
+import { api } from "@/lib/axios/api";
 
-const turmasMock = [
-  { id: 1, name: 'Fundamentos da programação',  days: 'SEG, TER', hour: '13:30 - 15:30', extraHour: null },
-  { id: 2, name: 'Matemática Básica',           days: 'QUA',      hour: '13:30 - 15:30', extraHour: null },
-  { id: 3, name: 'Arquitetura de Computadores', days: 'QUI, SEX', hour: '10:00 - 12:00', extraHour: '08:00 - 10:00' }
-]
+export default async function ClassList() {
+  const token = await getCookies()
 
-export default function ClassList() {
+  const response = await api.get(`/api/turmas`, { 
+    headers: { 
+      Authorization: `Bearer ${ token }` 
+    }, 
+  })
+    
+  const turmas: Array<TurmaT> = response.data
+
+  if(turmas.length === 0) {
+    return <EmptyPage />
+  }
+
   return (
     <>
-      { turmasMock.map((turma) => (
-        <ClassCard turma={ turma } key={ turma.id } />
-      ))}
+      { turmas.map((turma) => (
+          <ClassCard turma={ turma } key={ turma.id } />
+        ))
+      }
     </>
   )
 }

@@ -1,13 +1,8 @@
-import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, signOut, sendEmailVerification, applyActionCode, User, setPersistence, browserLocalPersistence, browserSessionPersistence, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification } from "firebase/auth";
 import { auth } from "@/lib/firebase/config";
-import { FirebaseError } from "firebase/app";
 import { FormValuesT } from "@/types/FormTypes";
-import { CONTA_CRIADA, EMAIL_EM_USO, ERRO_MUITAS_REQUISICOES, ERRO_EMAIL_NAO_VERIFICADO, ERRO_CADASTRO, VERIFICAR_EMAIL, AUTH_CREDENCIAL_INVALIDA, ERRO_CREDENCIAIS_INVALIDAS, AUTH_MUITAS_REQUISICOES, AUTH_EMAIL_JA_UTILIZADO } from "@/lib/constants/strings";
-import { api } from "@/lib/axios/api";
+import { ERRO_MUITAS_REQUISICOES, AUTH_CREDENCIAL_INVALIDA, ERRO_CREDENCIAIS_INVALIDAS, AUTH_MUITAS_REQUISICOES } from "@/lib/constants/strings";
 import { removeCookies, verifyToken } from "@/utils/authUtils";
-import { redirect } from "next/navigation";
-import { SIGN_IN } from "@/lib/constants/routes";
-import { Router } from "next/router";
 
 auth.useDeviceLanguage()
 

@@ -1,5 +1,5 @@
 export type TurmaT = {
-  id: Number
+  id: number
   name: string,
   days: string,
   hour: string,

@@ -6,8 +6,10 @@ export default function ClassCard({ turma }:{ turma: TurmaT }) {
   const { name, hour, days, id, extraHour } = turma
   return (
     <ChakraLink as={Link} href={`/dashboard/classe/${id}`}>
-      <Card maxW='100%' 
-        variant='filled' 
+      <Card maxW='100%'
+        variant='filled'
+        borderBottom='2px'
+        borderColor='gray.200'
         _hover={{ 
           bgGradient: 'linear(to-r, green.200, blue.100)',
         }}
