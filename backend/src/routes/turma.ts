@@ -39,7 +39,6 @@ export async function turmaRoutes(app: FastifyInstance) {
   ]
 
   app.get('/api/turmas', async (req, res) => {
-    console.log(req.body)
     const { sub } = await req.jwtVerify()
 
     const professor = await prisma.professor.findUnique({
