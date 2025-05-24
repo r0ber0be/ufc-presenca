@@ -1,6 +1,6 @@
+import Link from "next/link"
 import ClassList from "@/components/classCardsList"
 import { SIGN_IN } from "@/lib/constants/routes"
-import Link from "next/link"
 
 export default function Dashboard() {
   return (

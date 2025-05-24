@@ -17,6 +17,7 @@ export default function Signup() {
 	const [isSubmmiting, setIsSubmmiting] = useState<boolean>(false);
 
 	const onSubmit: SubmitHandler<FormValuesT> = async data => {
+		console.log('sending', data)
 		setIsSubmmiting(true)
 
 		try {
@@ -31,7 +32,8 @@ export default function Signup() {
 			})
 			router.push(DASHBOARD)
 		} catch (error) {
-			return
+			console.log(error)
+			throw new Error('Não foi possível se cadastrar')
 		}
 	}
 

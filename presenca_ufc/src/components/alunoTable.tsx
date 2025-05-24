@@ -1,0 +1,77 @@
+'use server'
+
+import dynamic from 'next/dynamic'
+import { api } from '@/lib/axios/api'
+import { getCookies } from '@/utils/authUtils'
+import { Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'
+import { AlunoTableFooter } from './alunoTableFooter'
+import { AlunoTableBody } from './alunoTableBody'
+//const AlunoTableBody = dynamic(() => import('@/components/alunoTableBody'), { ssr: false })
+
+type Turma = {
+  turmaId: string
+}
+
+type PresencasResponse = {
+  status: number,
+  code?: string,
+  data: []
+}
+
+export default async function AlunoTable({ turmaId }: Turma) {
+  console.log('Id da turma', turmaId)
+  const token = await getCookies()
+  
+  const diasDeAula: PresencasResponse = await api.get(`/api/${turmaId}/presencas/aulas`, {
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    }).catch(er=> { return er })
+  
+  const presencasAlunos: PresencasResponse = await api.get(`/api/${turmaId}/presencas/alunos`, {
+    headers: { 
+      Authorization: `Bearer ${token}` 
+    },
+  }).catch(er=> { return er })
+
+  const { status, data, code } = presencasAlunos
+
+  if(status === 401) {
+    return <p>Você não tem permissão para acessar essa página.</p>
+  }
+
+  if(code === 'ECONNREFUSED') {
+    return <p>Não foi possível se conectar com o servidor. Tente novamente.</p>
+  }
+
+  if(data.length === 0) {
+    return <p>Nada aqui por enquanto</p>
+  }
+
+  const formatarData = (isoDate: string) => {
+    return new Intl.DateTimeFormat('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+    }).format(new Date(isoDate));
+  };
+
+  return (
+    <>
+      <TableContainer>
+        <Table variant='striped' colorScheme='teal' size='sm' maxW='100%'>
+          <Thead>
+            <Tr>
+              <Th>Aluno</Th>
+              { diasDeAula.data.map((aula: { date: string, id: string }, index: number) => {
+                return ( <Th key={aula.id}> { formatarData(aula.date) } </Th> )
+              })}
+            </Tr>
+          </Thead>
+          <AlunoTableBody data={data} dias={diasDeAula.data} />
+        </Table>
+      </TableContainer>
+
+      <AlunoTableFooter />
+    </>
+  )
+}

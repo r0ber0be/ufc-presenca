@@ -1,3 +1,5 @@
+'use server'
+
 import { TurmaT } from "@/types/Turma";
 import ClassCard from "./classCard";
 import EmptyPage from "./emptyPage";
@@ -11,8 +13,16 @@ export default async function ClassList() {
     headers: { 
       Authorization: `Bearer ${ token }` 
     }, 
+  }).catch((err) => { 
+    return err
   })
-    
+
+  const status = response.request.res?.statusCode
+  if(status !== 200) {
+    return <EmptyPage />
+  }
+  
+  console.log(response.data)
   const turmas: Array<TurmaT> = response.data
 
   if(turmas.length === 0) {
@@ -27,4 +37,4 @@ export default async function ClassList() {
       }
     </>
   )
-}
+} 

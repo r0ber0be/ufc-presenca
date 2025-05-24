@@ -3,56 +3,110 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
-model Professor {
-  uid      String  @id @unique
-  name     String
-  picture  String
-  email    String  @unique
-  isSynced Boolean @default(false)
-  turmas   Turma[]
+model Teacher {
+  id        String  @id @default(uuid())
+  uid       String  @unique // external ID from google
+  name      String
+  picture   String?
+  email     String  @unique
+  isSynced  Boolean @default(false)
+  classes     Class[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Turma {
-  id                     String    @id @unique
+model Class {
+  id                     String @id @default(uuid())
+  code                   String @unique
   name                   String
-  code                   String    @unique
-  numberOfStudents       String
-  hour                   String
-  extraHour              String
-  days                   String
-  acceptPresenceByQRCode String
-  block                  String?
-  classroom              String?
-  professorID            String
-  refPresenca            Presenca? @relation("TurmaPresenca")
-  refProfessor           Professor @relation(fields: [professorID], references: [uid])
-  refAluno               Aluno[]   @relation("TurmaAluno")
+  numberOfStudents       Int
+  classBlock             String?
+  classRoom              String?
+  acceptPresenceByQRCode Boolean @default(false)
+
+  teacherId              String
+  teacher                Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  schedules              Schedule[]
+  enrollments            Enrollment[]
+  lessons                Lesson[]
+  
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }
 
-model Aluno {
-  id          String    @id @unique
-  name        String
-  refPresenca Presenca?
-  refTurma    Turma[]   @relation("TurmaAluno")
+model Schedule {
+  id        String @id @default(uuid())
+  weekDay   WeekDay
+  startTime String
+  endTime   String
+  
+  classId   String
+  class     Class @relation(fields: [classId], references: [id], onDelete: Cascade)
 }
 
-model Presenca {
-  id           String        @id @default(uuid())
-  alunoID      String        @unique
-  turmaID      String        @unique
-  refTurma     Turma         @relation("TurmaPresenca", fields: [turmaID], references: [id])
-  refAluno     Aluno         @relation(fields: [alunoID], references: [id])
-  presencasDia PresencaDia[]
+enum WeekDay {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+model Student {
+  id                     String @id @default(uuid())
+  enrollmentId           String @unique // Academic enrollment code
+  name                   String
+  email                  String? @unique
+
+  enrollments            Enrollment[]
+  classAttendanceRecords ClassAttendanceRecord[]
+  
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 }
 
-model PresencaDia {
-  id         String   @id @default(uuid())
-  date       DateTime
-  isPresent  Boolean
-  presencaID String
-  presenca   Presenca @relation(fields: [presencaID], references: [id])
+model Enrollment {
+  id        String @id @default(uuid())
+  
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  classId   String
+  class     Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([studentId, classId]) // A student can only be enrolled once in each class
+}
+
+model Lesson {
+  id                     String @id @default(uuid())
+  date                   DateTime @default(now())
+  
+  classId                String
+  class                  Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classAttendanceRecords ClassAttendanceRecord[]
+  
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}
+
+model ClassAttendanceRecord {
+  id        String @id @default(uuid())
+  present   Boolean @default(false)
+  
+  // Relations
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([studentId, lessonId]) // A student can only have one attendance record per lesson
 }

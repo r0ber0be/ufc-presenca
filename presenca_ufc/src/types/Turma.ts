@@ -1,7 +1,9 @@
 export type TurmaT = {
-  id: number
+  id: number,
+  code: string,
   name: string,
-  days: string,
-  hour: string,
-  extraHour?: string | null,
+  numberOfStudents: number,
+  classBlock: string | null,
+  classRoom: string | null,
+  acceptPresenceByQRCode: boolean,
 }

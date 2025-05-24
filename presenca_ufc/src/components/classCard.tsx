@@ -3,7 +3,7 @@ import { Box, Card, Flex, Heading, Link as ChakraLink, Text } from "@chakra-ui/r
 import Link from "next/link"
 
 export default function ClassCard({ turma }:{ turma: TurmaT }) {
-  const { name, hour, days, id, extraHour } = turma
+  const { id, code, name, numberOfStudents, classBlock, classRoom } = turma
   return (
     <ChakraLink as={Link} href={`/dashboard/classe/${id}`}>
       <Card maxW='100%'
@@ -16,25 +16,37 @@ export default function ClassCard({ turma }:{ turma: TurmaT }) {
       >
         <Flex p={{ base: '12px', sm:'15px'}}>
           <Flex flex='1' gap={{ base: 'none', sm: '4' }} flexWrap='nowrap' justify='space-evenly'>
-            <Box alignContent='center' w='50%' maxW='250px' minW='150px' p='10px'>
-              <Heading size={{ base: 'xs', md: 'sm'}}>
-                { name }
+            <Box alignContent='center' maxW={{ base:'350px', '2xl': '450px' }} minW='150px' p='10px'>
+              <Heading size={{ base: 'xs', md: 'sm', '2xl': 'md'}} textTransform='uppercase'>
+                { name } - { code }
               </Heading>
+              
+              <Text pt='2' 
+                align='center' 
+                fontSize={{ base: 'xs', md: 'sm' }} 
+                textTransform='uppercase'
+              >
+                Bloco {classBlock}, Sala {classRoom}
+              </Text>
             </Box>
 
             <Box minW='100px' p='10px'>
-              <Heading size='xs'>
-                { days }
+              <Heading size='xs' textTransform='uppercase'>
+                Presentes:
+              </Heading>
+              <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
+                0 / { numberOfStudents }
+              </Text>
+            </Box>
+
+            <Box minW='100px' p='10px'>
+              <Heading size='xs' textTransform='uppercase'>
+                Seg - Ter
               </Heading>
               
               <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                { hour }
+                13:30 - 15:30
               </Text>
-
-              { extraHour &&
-                <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                  { extraHour }
-                </Text> }
             </Box>
           </Flex>
         </Flex>
