@@ -11,9 +11,8 @@ type Presencas = {
 export async function presencaRoutes(app: FastifyInstance) {
   app.get<{
     Params: { turmaId: string }
-  }>('/api/:turmaId/presencas/aulas', async (req, res) => {
+  }>('/:turmaId/presencas/aulas', async (req, res) => {
     const { turmaId } = req.params
-    await req.jwtVerify()
 
     if (!turmaId || typeof turmaId !== 'string') {
       return res.status(400).send({ message: 'turmaId inválido' })
@@ -40,9 +39,8 @@ export async function presencaRoutes(app: FastifyInstance) {
   // Retorna a presença dos alunos
   app.get<{
     Params: { turmaId: string }
-  }>('/api/:turmaId/presencas/alunos', async (req, res) => {
+  }>('/:turmaId/presencas/alunos', async (req, res) => {
     const { turmaId } = req.params
-    await req.jwtVerify()
 
     if (!turmaId || typeof turmaId !== 'string') {
       return res.status(400).send({ message: 'turmaId inválido' })
@@ -97,8 +95,7 @@ export async function presencaRoutes(app: FastifyInstance) {
 
   app.post<{
     Body: Presencas[]
-  }>('/api/presencas/alunos/atualizar', async (req, res) => {
-    await req.jwtVerify()
+  }>('/presencas/alunos/atualizar', async (req, res) => {
     const presencasAtualizadas = req.body
 
     await prisma.$transaction(async (db) => {

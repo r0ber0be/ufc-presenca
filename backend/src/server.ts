@@ -1,12 +1,20 @@
 import fastify from 'fastify'
+import fastifyHelmet from '@fastify/helmet'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
-import { professorRoutes } from './routes/professor'
-import { turmaRoutes } from './routes/turma'
-import { presencaRoutes } from './routes/presenca'
 import { env } from './config/env'
+import { professorRoutes } from './routes/professor'
+import { authenticatedRoutes } from './plugins/authenticatedRoutes'
 
-const app = fastify()
+const app = fastify({
+  logger: {
+    redact: ['req.headers.authorization'],
+    transport: {
+      target: 'pino-pretty',
+    },
+  },
+  connectionTimeout: 30000,
+})
 
 app.register(fastifyJwt, {
   secret: env.SECRET_KEY,
@@ -14,10 +22,15 @@ app.register(fastifyJwt, {
 
 app.register(fastifyCors, {
   origin: ['https://localhost:3000'],
+  methods: ['GET', 'POST'],
 })
 
+app.register(fastifyHelmet, {
+  global: true,
+  frameguard: { action: 'deny' },
+})
+
+app.register(authenticatedRoutes)
 app.register(professorRoutes)
-app.register(turmaRoutes)
-app.register(presencaRoutes)
 
 export default app

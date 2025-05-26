@@ -17,15 +17,16 @@ interface RequestBody {
 }
 
 export async function professorRoutes(app: FastifyInstance) {
-  app.post('/api/create/professor', async (request) => {
+  app.post('/api/create/professor', async (request, res) => {
     const { uid, name, email, picture } = request.body as RequestBody
     const professorExists = await prisma.teacher.findUnique({
       where: { uid },
     })
 
     if (professorExists) {
-      return { error: 'Usuário já cadastrado!' }
+      res.status(401).send({ message: 'Usuário já cadastrado!' })
     }
+
     const newProfessor = await prisma.teacher.create({
       data: {
         uid,
@@ -35,7 +36,7 @@ export async function professorRoutes(app: FastifyInstance) {
         picture,
       },
     })
-    return newProfessor
+    return res.status(201).send(newProfessor)
   })
 
   app.post('/api/verifytoken/professor', async (req, res) => {
@@ -55,18 +56,14 @@ export async function professorRoutes(app: FastifyInstance) {
           return res.status(401).send({ message: error }) // o token é inválido
         }
       })
-    const { uid, email, name } = professorInfo
-    let { picture } = professorInfo
+
+    const { uid, email, name, picture } = professorInfo
 
     if (!email) {
       return res.status(400).send({
         message:
           'Não foi possível encontrar um email associado a sua conta Google.',
       })
-    }
-
-    if (!picture) {
-      picture = '...'
     }
 
     let professor = await prisma.teacher.findUnique({
@@ -81,7 +78,7 @@ export async function professorRoutes(app: FastifyInstance) {
           name,
           email,
           isSynced: false,
-          picture,
+          picture: picture || '...',
         },
       })
     }

@@ -16,7 +16,7 @@ export default async function ClassList() {
   }).catch((err) => { 
     return err
   })
-
+console.log(response.request)
   const status = response.request.res?.statusCode
   if(status !== 200) {
     return <EmptyPage />

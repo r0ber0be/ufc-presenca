@@ -6,13 +6,13 @@ beforeAll(async () => {
 })
 
 beforeEach(async () => {
-  await prisma.teacher.deleteMany()
   await prisma.class.deleteMany()
   await prisma.student.deleteMany()
   await prisma.enrollment.deleteMany()
   await prisma.classAttendanceRecord.deleteMany()
   await prisma.schedule.deleteMany()
   await prisma.lesson.deleteMany()
+  await prisma.teacher.deleteMany()
 })
 
 describe('GET Presença', () => {
@@ -219,7 +219,7 @@ describe('POST Presenças', () => {
       },
     })
 
-    const attendance = await prisma.classAttendanceRecord.create({
+    await prisma.classAttendanceRecord.create({
       data: {
         studentId: student.id,
         lessonId: lesson.id,

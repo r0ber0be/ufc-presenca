@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { prisma } from '../lib/prisma'
 
 export async function turmaRoutes(app: FastifyInstance) {
-  app.get('/api/turmas', async (req, res) => {
+  app.get('/turmas', async (req, res) => {
     try {
       const { sub } = await req.jwtVerify<{ sub: string }>()
 
@@ -14,7 +14,7 @@ export async function turmaRoutes(app: FastifyInstance) {
       })
 
       if (!professorTurmas) {
-        return res.status(401).send({ message: 'Não autorizado' })
+        return res.status(401).send({ message: 'Não identificado no sistema' })
       }
 
       const { classes } = professorTurmas
@@ -33,10 +33,8 @@ export async function turmaRoutes(app: FastifyInstance) {
   // Nova aula
   app.post<{
     Params: { turmaId: string }
-  }>('/api/:turmaId/aula', async (req, res) => {
+  }>('/:turmaId/aula', async (req, res) => {
     const { turmaId } = req.params
-
-    console.log(req, res)
 
     try {
       const turma = await prisma.class.findUnique({

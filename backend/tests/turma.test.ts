@@ -27,7 +27,7 @@ describe('GET Turma', () => {
     })
 
     expect(response.statusCode).toBe(401)
-    expect(response.json()).toEqual({ message: 'Não autorizado' })
+    expect(response.json()).toEqual({ message: 'Não identificado no sistema' })
   })
 
   it('Deve retornar 404 se professor não tiver turmas', async () => {
