@@ -15,6 +15,10 @@ beforeEach(async () => {
   await prisma.teacher.deleteMany()
 })
 
+afterAll(async () => {
+  await prisma.$disconnect()
+})
+
 describe('GET Presença', () => {
   it('Deve retornar todos os dias de aula de uma turma', async () => {
     const token = app.jwt.sign({ id: '12345' })

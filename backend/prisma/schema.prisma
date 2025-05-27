@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -8,44 +9,86 @@ datasource db {
 }
 
 model Teacher {
-  id        String  @id @default(uuid())
-  uid       String  @unique // external ID from google
+  id        String   @id @default(uuid())
+  uid       String   @unique
   name      String
   picture   String?
-  email     String  @unique
-  isSynced  Boolean @default(false)
-  classes     Class[]
+  email     String   @unique
+  isSynced  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  classes   Class[]
 }
 
 model Class {
-  id                     String @id @default(uuid())
-  code                   String @unique
+  id                     String       @id @default(uuid())
+  code                   String       @unique
   name                   String
   numberOfStudents       Int
   classBlock             String?
   classRoom              String?
-  acceptPresenceByQRCode Boolean @default(false)
-
+  acceptPresenceByQRCode Boolean      @default(false)
   teacherId              String
-  teacher                Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
-  schedules              Schedule[]
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime     @updatedAt
+  teacher                Teacher      @relation(fields: [teacherId], references: [id], onDelete: Cascade)
   enrollments            Enrollment[]
   lessons                Lesson[]
-  
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
+  schedules              Schedule[]
 }
 
 model Schedule {
-  id        String @id @default(uuid())
+  id        String  @id @default(uuid())
   weekDay   WeekDay
   startTime String
   endTime   String
-  
   classId   String
-  class     Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model Student {
+  id                     String                  @id @default(uuid())
+  enrollmentId           String                  @unique
+  name                   String
+  email                  String?                 @unique
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  classAttendanceRecords ClassAttendanceRecord[]
+  enrollments            Enrollment[]
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  studentId String
+  classId   String
+  createdAt DateTime @default(now())
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, classId])
+}
+
+model Lesson {
+  id                     String                  @id @default(uuid())
+  date                   DateTime                @default(now())
+  classId                String
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  classAttendanceRecords ClassAttendanceRecord[]
+  class                  Class                   @relation(fields: [classId], references: [id], onDelete: Cascade)
+}
+
+model ClassAttendanceRecord {
+  id        String   @id @default(uuid())
+  present   Boolean  @default(false)
+  studentId String
+  lessonId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, lessonId])
 }
 
 enum WeekDay {
@@ -56,57 +99,4 @@ enum WeekDay {
   FRIDAY
   SATURDAY
   SUNDAY
-}
-model Student {
-  id                     String @id @default(uuid())
-  enrollmentId           String @unique // Academic enrollment code
-  name                   String
-  email                  String? @unique
-
-  enrollments            Enrollment[]
-  classAttendanceRecords ClassAttendanceRecord[]
-  
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-}
-
-model Enrollment {
-  id        String @id @default(uuid())
-  
-  studentId String
-  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  classId   String
-  class     Class @relation(fields: [classId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  
-  @@unique([studentId, classId]) // A student can only be enrolled once in each class
-}
-
-model Lesson {
-  id                     String @id @default(uuid())
-  date                   DateTime @default(now())
-  
-  classId                String
-  class                  Class @relation(fields: [classId], references: [id], onDelete: Cascade)
-  classAttendanceRecords ClassAttendanceRecord[]
-  
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
-}
-
-model ClassAttendanceRecord {
-  id        String @id @default(uuid())
-  present   Boolean @default(false)
-  
-  // Relations
-  studentId String
-  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  lessonId  String
-  lesson    Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  @@unique([studentId, lessonId]) // A student can only have one attendance record per lesson
 }
