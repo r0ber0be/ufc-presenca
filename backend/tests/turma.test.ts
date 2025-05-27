@@ -1,5 +1,5 @@
-import { prisma } from '../src/lib/prisma'
 import app from '../src/server'
+import { prisma } from '../src/lib/prisma'
 
 beforeAll(async () => {
   await app.ready()

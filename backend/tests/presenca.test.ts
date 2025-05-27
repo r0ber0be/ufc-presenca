@@ -1,5 +1,5 @@
-import { prisma } from '../src/lib/prisma'
 import app from '../src/server'
+import { prisma } from '../src/lib/prisma'
 
 beforeAll(async () => {
   await app.ready()
@@ -13,10 +13,6 @@ beforeEach(async () => {
   await prisma.schedule.deleteMany()
   await prisma.lesson.deleteMany()
   await prisma.teacher.deleteMany()
-})
-
-afterAll(async () => {
-  await prisma.$disconnect()
 })
 
 describe('GET Presença', () => {
