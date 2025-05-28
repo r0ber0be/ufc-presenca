@@ -12,11 +12,30 @@ type Turma = {
   turmaId: string
 }
 
-type PresencasResponse = {
+type ErrorApiResponseData = {
+  message: string
+}
+
+type ErrorResponseStructure = {
   status: number,
   code?: string,
-  data: []
+  // Quando há erro, 'data' pode não existir ou ser vazia,
+  // mas o erro relevante está em 'response.data.message'
+  data?: [],
+  response: {
+    data: ErrorApiResponseData,
+    status: number,
+  };
 }
+
+type SucccesPresencasResponse = {
+  status: number,
+  data: [],
+  code?: string,
+  response?: never,
+}
+
+type PresencasResponse = ErrorResponseStructure | SucccesPresencasResponse
 
 export default async function AlunoTable({ turmaId }: Turma) {
   console.log('Id da turma', turmaId)
@@ -27,6 +46,13 @@ export default async function AlunoTable({ turmaId }: Turma) {
         Authorization: `Bearer ${token}` 
       },
     }).catch(er=> { return er })
+  
+  const message = diasDeAula.response?.data.message
+  if(message) {
+    return <p>{message}</p>
+  }
+
+  const dataDiasDeAula = diasDeAula.data!
   
   const presencasAlunos: PresencasResponse = await api.get(`/api/${turmaId}/presencas/alunos`, {
     headers: { 
@@ -44,7 +70,7 @@ export default async function AlunoTable({ turmaId }: Turma) {
     return <p>Não foi possível se conectar com o servidor. Tente novamente.</p>
   }
 
-  if(data.length === 0) {
+  if(!data || data.length === 0) {
     return <p>Nada aqui por enquanto</p>
   }
 
@@ -62,12 +88,12 @@ export default async function AlunoTable({ turmaId }: Turma) {
           <Thead>
             <Tr>
               <Th>Aluno</Th>
-              { diasDeAula.data.map((aula: { date: string, id: string }, index: number) => {
+              { dataDiasDeAula.map((aula: { date: string, id: string }) => {
                 return ( <Th key={aula.id}> { formatarData(aula.date) } </Th> )
               })}
             </Tr>
           </Thead>
-          <AlunoTableBody data={data} dias={diasDeAula.data} />
+          <AlunoTableBody data={data} dias={dataDiasDeAula} />
         </Table>
       </TableContainer>
 
