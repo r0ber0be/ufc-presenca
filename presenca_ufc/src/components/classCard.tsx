@@ -1,12 +1,15 @@
 import { TurmaT } from "@/types/Turma";
 import { Box, Card, Flex, Heading, Link as ChakraLink, Text } from "@chakra-ui/react";
 import Link from "next/link"
+import { memo } from "react";
 
-export default function ClassCard({ turma }:{ turma: TurmaT }) {
-  const { id, code, name, numberOfStudents, classBlock, classRoom } = turma
+const ClassCard = memo(function MemoizeCard({ turma }:{ turma: TurmaT }) {
+  const { id, code, name, numberOfStudents, classBlock, classRoom, schedules, _count } = turma
+
   return (
     <ChakraLink as={Link} href={`/dashboard/classe/${id}`}>
       <Card maxW='100%'
+        tabIndex={0}
         variant='filled'
         borderBottom='2px'
         borderColor='gray.200'
@@ -35,22 +38,39 @@ export default function ClassCard({ turma }:{ turma: TurmaT }) {
                 Presentes:
               </Heading>
               <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                0 / { numberOfStudents }
+                0 / { _count.enrollments }
               </Text>
             </Box>
 
             <Box minW='100px' p='10px'>
               <Heading size='xs' textTransform='uppercase'>
-                Seg - Ter
+                { schedules[0].weekDay } - { schedules[1]?.weekDay || '' }
               </Heading>
-              
-              <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                13:30 - 15:30
-              </Text>
+              {
+                schedules[0].startTime == schedules[1]?.startTime ? 
+                  <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
+                    { schedules[0].startTime } às { schedules[0].endTime }
+                  </Text> 
+                :
+                <>
+                  <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
+                    { schedules[0].startTime } às { schedules[0].endTime }
+                  </Text>
+                  {
+                    schedules.length > 1 ? 
+                      <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
+                        { schedules[1].startTime } às { schedules[1].endTime }
+                      </Text>
+                      : <></>
+                  }
+                </>
+              }
             </Box>
           </Flex>
         </Flex>
       </Card>
     </ChakraLink>
   )
-}
+})
+
+export default ClassCard

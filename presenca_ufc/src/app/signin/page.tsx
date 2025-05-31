@@ -1,14 +1,15 @@
 'use client'
 
-import FormTemplate from "@/components/form";
-import GoogleAuthTemplate from "@/components/googleAuth";
-import { SIGN_UP } from "@/lib/constants/routes";
-import { ERRO_FECHAR_POPUP, TENTE_NOVAMENTE } from "@/lib/constants/strings";
-import { signInWithEmailService } from "@/services/auth";
-import { FormValuesT } from "@/types/FormTypes";
-import { Box, useToast } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import { SubmitHandler } from "react-hook-form";
+import dynamic from "next/dynamic"
+import FormTemplate from "@/components/form"
+import { SIGN_UP } from "@/lib/constants/routes"
+import { ERRO_FECHAR_POPUP, TENTE_NOVAMENTE } from "@/lib/constants/strings"
+import { signInWithEmailService } from "@/services/auth"
+import { FormValuesT } from "@/types/FormTypes"
+import { Box, useToast } from "@chakra-ui/react"
+import { useRouter } from "next/navigation"
+import { SubmitHandler } from "react-hook-form"
+const GoogleAuthTemplate = dynamic(() => import('@/components/googleAuth'), { ssr: true })
 
 export default function Signin() {
 	const router = useRouter()

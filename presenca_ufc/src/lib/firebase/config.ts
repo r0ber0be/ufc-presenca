@@ -10,9 +10,10 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 
-export const auth = getAuth(app)
+const auth = getAuth(app)
+export { auth }
 
 // o google recomenda adicionar um observer para verificar se há um usuário logado ou não 
 onAuthStateChanged(auth, (user) => {

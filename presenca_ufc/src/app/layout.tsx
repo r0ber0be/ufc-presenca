@@ -1,9 +1,8 @@
+import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Providers } from './providers'
-import './globals.css'
-import { cookies } from 'next/headers'
-import Header from '@/components/header'
+import Head from 'next/head'
+import { Provider } from './provider'
 
 const inter = Inter({ subsets: ['latin'], weight: '400' })
 
@@ -28,14 +27,18 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
-  const isAuthenticated = cookies().get('token-ufc')?.value
   return (
     <html lang="pt-br">
-      <body className={`container-content ${inter.className}`}>
-        <Providers>
-          { isAuthenticated && <Header /> }
-          {children}
-        </Providers>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+        <meta name="theme-color" content="#ffffff" />
+        {/* Preload de recursos críticos */}
+        <link rel="preconnect" href="http://localhost:3333" />
+        <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
+      </Head>
+      <body className={`${inter.className}`} suppressHydrationWarning={true} >
+        <Provider>{children}</Provider>
       </body>
     </html>
   )

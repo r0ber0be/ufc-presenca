@@ -1,6 +1,5 @@
 'use server'
 
-import dynamic from 'next/dynamic'
 import { api } from '@/lib/axios/api'
 import { getCookies } from '@/utils/authUtils'
 import { Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'

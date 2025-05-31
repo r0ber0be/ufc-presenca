@@ -9,7 +9,29 @@ export async function turmaRoutes(app: FastifyInstance) {
       const professorTurmas = await prisma.teacher.findFirst({
         where: { uid: sub },
         include: {
-          classes: true,
+          classes: {
+            select: {
+              id: true,
+              name: true,
+              code: true,
+              numberOfStudents: true,
+              acceptPresenceByQRCode: true,
+              classBlock: true,
+              classRoom: true,
+              schedules: {
+                select: {
+                  startTime: true,
+                  endTime: true,
+                  weekDay: true,
+                },
+              },
+              _count: {
+                select: {
+                  enrollments: true,
+                },
+              },
+            },
+          },
         },
       })
 

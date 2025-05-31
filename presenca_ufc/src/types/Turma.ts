@@ -6,4 +6,14 @@ export type TurmaT = {
   classBlock: string | null,
   classRoom: string | null,
   acceptPresenceByQRCode: boolean,
+  schedules: ScheduleT[],
+  _count: {
+    enrollments: number,
+  }
+}
+
+type ScheduleT = {
+  startTime: string,
+  endTime: string,
+  weekDay: string,
 }

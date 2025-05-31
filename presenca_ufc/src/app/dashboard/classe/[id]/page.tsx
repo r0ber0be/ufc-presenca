@@ -1,5 +1,7 @@
-import AlunoTable from "@/components/alunoTable";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+
+const DynamicAlunoTable = dynamic(() => import('@/components/alunoTable'))
 
 export default function DetailsPage({ params }: { params: { id: string } }) {
   const { id } = params
@@ -11,7 +13,7 @@ export default function DetailsPage({ params }: { params: { id: string } }) {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <AlunoTable turmaId={id} />
+          <DynamicAlunoTable turmaId={id} />
         </TabPanel>
         <TabPanel>
           <p>Hey sup!</p>

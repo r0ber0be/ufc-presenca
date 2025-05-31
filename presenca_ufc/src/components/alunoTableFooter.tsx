@@ -5,30 +5,29 @@ import { useState, useEffect } from 'react'
 import { getPresencaChanges, salvarPresencas, addChangeListener } from '@/services/presenca/presencaService'
 
 export function AlunoTableFooter() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [changeCount, setChangeCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
+  const [changeCount, setChangeCount] = useState(0)
 
   // Escuta as mudanças no serviço
   useEffect(() => {
-    // Configuração inicial
-    setChangeCount(getPresencaChanges().length);
+    setChangeCount(getPresencaChanges().length)
     
     // Registra o listener para atualizações futuras
     const removeListener = addChangeListener(() => {
-      setChangeCount(getPresencaChanges().length);
+      setChangeCount(getPresencaChanges().length)
     });
     
     // Limpa o listener quando o componente é desmontado
-    return removeListener;
-  }, []);
+    return removeListener
+  }, [])
 
   const handleClick = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
     try {
-      await salvarPresencas();
-      setChangeCount(getPresencaChanges().length); // Atualiza após salvar
+      await salvarPresencas()
+      setChangeCount(0); // Após as mudanças bem sucedidas, reseta o count
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   };
 
