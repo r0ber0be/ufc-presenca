@@ -1,25 +1,38 @@
 import { NextResponse, type NextRequest } from 'next/server'
- 
-export function middleware(request: NextRequest) {
-  const cookies = request.cookies.has('token-ufc')
-  const signinPath = request.nextUrl.pathname.endsWith('/signin')
-  const signupPath = request.nextUrl.pathname.endsWith('/signup')
 
-  if(!cookies) {
-    const redirectURL = new URL('/signin', request.url)
-    if(!signinPath && !signupPath) {
-      return NextResponse.redirect(redirectURL, { url: 'https://localhost:3000/signin' })
-    }
-  } 
-  else {
-    if(signinPath || signupPath) {
-      const redirectURL = new URL('/dashboard', request.url)
-      return NextResponse.redirect(redirectURL, { url: 'https://localhost:3000/dashboard' })
-    }
+const PUBLIC_ROUTES = ['/signin', '/signup']
+const PROTECTED_ROUTES = ['/dashboard']
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  const hasToken = request.cookies.has('token-ufc')
+  
+  const isPublicRoute = PUBLIC_ROUTES.some(route => pathname.startsWith(route))
+  const isProtectedRoute = PROTECTED_ROUTES.some(route => pathname.startsWith(route))
+
+  // Redirect não autenticados para login
+  if (!hasToken && isProtectedRoute) {
+    return NextResponse.redirect(new URL('/signin', request.url))
   }
+
+  // Redirect autenticados para dashboard
+  if (hasToken && isPublicRoute) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
+  // Redirect root para dashboard se autenticado
+  if (pathname === '/' && hasToken) {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
+  // Redirect root para signin se não autenticado  
+  if (pathname === '/' && !hasToken) {
+    return NextResponse.redirect(new URL('/signin', request.url))
+  }
+
   return NextResponse.next()
 }
- 
+
 export const config = {
-  matcher: ['/', '/dashboard:path*', '/signin', '/signup' ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }

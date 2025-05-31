@@ -21,7 +21,7 @@ export default function Header() {
           </Text>
           { 
             picture 
-            ? <Image src={picture} width={40} height={40} className='w-10 h-10 rounded-full' alt='Foto de perfil' />
+            ? <Image src={picture} priority width={40} height={40} className='w-10 h-10 rounded-full' alt='Foto de perfil' />
             : <Avatar size='md' />
           }
         </Link>

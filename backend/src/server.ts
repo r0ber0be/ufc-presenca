@@ -1,26 +1,36 @@
 import fastify from 'fastify'
+import fastifyHelmet from '@fastify/helmet'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
+import { env } from './config/env'
 import { professorRoutes } from './routes/professor'
-import { turmaRoutes } from './routes/turma'
+import { authenticatedRoutes } from './plugins/authenticatedRoutes'
 
-const app = fastify()
-
-app.register(fastifyCors, {
-  origin: ['https://localhost:3000'],
+const app = fastify({
+  logger: {
+    redact: ['req.headers.authorization'],
+    transport: {
+      target: 'pino-pretty',
+    },
+  },
+  connectionTimeout: 30000,
 })
 
 app.register(fastifyJwt, {
-  secret: 'ufc-presença',
+  secret: env.SECRET_KEY,
 })
 
-app.register(professorRoutes)
-app.register(turmaRoutes)
+app.register(fastifyCors, {
+  origin: ['https://localhost:3000'],
+  methods: ['GET', 'POST'],
+})
 
-app
-  .listen({
-    port: 3333,
-  })
-  .then(() => {
-    console.log('Server is running on port 3333')
-  })
+app.register(fastifyHelmet, {
+  global: true,
+  frameguard: { action: 'deny' },
+})
+
+app.register(authenticatedRoutes)
+app.register(professorRoutes)
+
+export default app

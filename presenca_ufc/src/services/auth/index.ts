@@ -31,18 +31,6 @@ export async function signUpWithEmailService(data: FormValuesT) {
 
   const idToken = await user.getIdToken()
   await verifyToken(idToken)
-  
-  //let values = {
-  //  title: '',
-	//	description: '',
-	//	status: ''
-  //}
-
-  //values.title = response === AUTH_EMAIL_JA_UTILIZADO ? ERRO_CADASTRO : CONTA_CRIADA
-  //values.description = response === AUTH_EMAIL_JA_UTILIZADO ? EMAIL_EM_USO : VERIFICAR_EMAIL
-  //values.status = response === AUTH_EMAIL_JA_UTILIZADO ? 'warning' : 'success'
-  //
-  //return { values, response }
 }
 
 export async function googleAuthService() {
