@@ -135,7 +135,6 @@ exports.Prisma.ClassScalarFieldEnum = {
   numberOfStudents: 'numberOfStudents',
   classBlock: 'classBlock',
   classRoom: 'classRoom',
-  acceptPresenceByQRCode: 'acceptPresenceByQRCode',
   teacherId: 'teacherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -168,6 +167,7 @@ exports.Prisma.EnrollmentScalarFieldEnum = {
 exports.Prisma.LessonScalarFieldEnum = {
   id: 'id',
   date: 'date',
+  acceptPresenceByQRCode: 'acceptPresenceByQRCode',
   classId: 'classId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -197,13 +197,13 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.WeekDay = exports.$Enums.WeekDay = {
-  MONDAY: 'MONDAY',
-  TUESDAY: 'TUESDAY',
-  WEDNESDAY: 'WEDNESDAY',
-  THURSDAY: 'THURSDAY',
-  FRIDAY: 'FRIDAY',
-  SATURDAY: 'SATURDAY',
-  SUNDAY: 'SUNDAY'
+  SEG: 'SEG',
+  TER: 'TER',
+  QUA: 'QUA',
+  QUI: 'QUI',
+  SEX: 'SEX',
+  SAB: 'SAB',
+  DOM: 'DOM'
 };
 
 exports.Prisma.ModelName = {

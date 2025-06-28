@@ -21,20 +21,19 @@ model Teacher {
 }
 
 model Class {
-  id                     String       @id @default(uuid())
-  code                   String       @unique
-  name                   String
-  numberOfStudents       Int
-  classBlock             String?
-  classRoom              String?
-  acceptPresenceByQRCode Boolean      @default(false)
-  teacherId              String
-  createdAt              DateTime     @default(now())
-  updatedAt              DateTime     @updatedAt
-  teacher                Teacher      @relation(fields: [teacherId], references: [id], onDelete: Cascade)
-  enrollments            Enrollment[]
-  lessons                Lesson[]
-  schedules              Schedule[]
+  id               String       @id @default(uuid())
+  code             String       @unique
+  name             String
+  numberOfStudents Int
+  classBlock       String?
+  classRoom        String?
+  teacherId        String
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  teacher          Teacher      @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  enrollments      Enrollment[]
+  lessons          Lesson[]
+  schedules        Schedule[]
 }
 
 model Schedule {
@@ -71,6 +70,7 @@ model Enrollment {
 model Lesson {
   id                     String                  @id @default(uuid())
   date                   DateTime                @default(now())
+  acceptPresenceByQRCode Boolean                 @default(false)
   classId                String
   createdAt              DateTime                @default(now())
   updatedAt              DateTime                @updatedAt
@@ -92,11 +92,11 @@ model ClassAttendanceRecord {
 }
 
 enum WeekDay {
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
-  SATURDAY
-  SUNDAY
+  SEG
+  TER
+  QUA
+  QUI
+  SEX
+  SAB
+  DOM
 }

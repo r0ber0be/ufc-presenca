@@ -15,7 +15,6 @@ export async function turmaRoutes(app: FastifyInstance) {
               name: true,
               code: true,
               numberOfStudents: true,
-              acceptPresenceByQRCode: true,
               classBlock: true,
               classRoom: true,
               schedules: {
@@ -71,6 +70,7 @@ export async function turmaRoutes(app: FastifyInstance) {
         const lesson = await db.lesson.create({
           data: {
             classId: turmaId,
+            acceptPresenceByQRCode: true,
             date: new Date(),
           },
         })

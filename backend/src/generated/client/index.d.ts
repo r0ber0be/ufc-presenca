@@ -54,13 +54,13 @@ export type ClassAttendanceRecord = $Result.DefaultSelection<Prisma.$ClassAttend
  */
 export namespace $Enums {
   export const WeekDay: {
-  MONDAY: 'MONDAY',
-  TUESDAY: 'TUESDAY',
-  WEDNESDAY: 'WEDNESDAY',
-  THURSDAY: 'THURSDAY',
-  FRIDAY: 'FRIDAY',
-  SATURDAY: 'SATURDAY',
-  SUNDAY: 'SUNDAY'
+  SEG: 'SEG',
+  TER: 'TER',
+  QUA: 'QUA',
+  QUI: 'QUI',
+  SEX: 'SEX',
+  SAB: 'SAB',
+  DOM: 'DOM'
 };
 
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
@@ -2723,7 +2723,6 @@ export namespace Prisma {
     numberOfStudents: number | null
     classBlock: string | null
     classRoom: string | null
-    acceptPresenceByQRCode: boolean | null
     teacherId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2736,7 +2735,6 @@ export namespace Prisma {
     numberOfStudents: number | null
     classBlock: string | null
     classRoom: string | null
-    acceptPresenceByQRCode: boolean | null
     teacherId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2749,7 +2747,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock: number
     classRoom: number
-    acceptPresenceByQRCode: number
     teacherId: number
     createdAt: number
     updatedAt: number
@@ -2772,7 +2769,6 @@ export namespace Prisma {
     numberOfStudents?: true
     classBlock?: true
     classRoom?: true
-    acceptPresenceByQRCode?: true
     teacherId?: true
     createdAt?: true
     updatedAt?: true
@@ -2785,7 +2781,6 @@ export namespace Prisma {
     numberOfStudents?: true
     classBlock?: true
     classRoom?: true
-    acceptPresenceByQRCode?: true
     teacherId?: true
     createdAt?: true
     updatedAt?: true
@@ -2798,7 +2793,6 @@ export namespace Prisma {
     numberOfStudents?: true
     classBlock?: true
     classRoom?: true
-    acceptPresenceByQRCode?: true
     teacherId?: true
     createdAt?: true
     updatedAt?: true
@@ -2898,7 +2892,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock: string | null
     classRoom: string | null
-    acceptPresenceByQRCode: boolean
     teacherId: string
     createdAt: Date
     updatedAt: Date
@@ -2930,7 +2923,6 @@ export namespace Prisma {
     numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
-    acceptPresenceByQRCode?: boolean
     teacherId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2948,7 +2940,6 @@ export namespace Prisma {
     numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
-    acceptPresenceByQRCode?: boolean
     teacherId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2962,7 +2953,6 @@ export namespace Prisma {
     numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
-    acceptPresenceByQRCode?: boolean
     teacherId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2976,13 +2966,12 @@ export namespace Prisma {
     numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
-    acceptPresenceByQRCode?: boolean
     teacherId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "numberOfStudents" | "classBlock" | "classRoom" | "acceptPresenceByQRCode" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
+  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "numberOfStudents" | "classBlock" | "classRoom" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
   export type ClassInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teacher?: boolean | TeacherDefaultArgs<ExtArgs>
     enrollments?: boolean | Class$enrollmentsArgs<ExtArgs>
@@ -3012,7 +3001,6 @@ export namespace Prisma {
       numberOfStudents: number
       classBlock: string | null
       classRoom: string | null
-      acceptPresenceByQRCode: boolean
       teacherId: string
       createdAt: Date
       updatedAt: Date
@@ -3449,7 +3437,6 @@ export namespace Prisma {
     readonly numberOfStudents: FieldRef<"Class", 'Int'>
     readonly classBlock: FieldRef<"Class", 'String'>
     readonly classRoom: FieldRef<"Class", 'String'>
-    readonly acceptPresenceByQRCode: FieldRef<"Class", 'Boolean'>
     readonly teacherId: FieldRef<"Class", 'String'>
     readonly createdAt: FieldRef<"Class", 'DateTime'>
     readonly updatedAt: FieldRef<"Class", 'DateTime'>
@@ -7174,6 +7161,7 @@ export namespace Prisma {
   export type LessonMinAggregateOutputType = {
     id: string | null
     date: Date | null
+    acceptPresenceByQRCode: boolean | null
     classId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7182,6 +7170,7 @@ export namespace Prisma {
   export type LessonMaxAggregateOutputType = {
     id: string | null
     date: Date | null
+    acceptPresenceByQRCode: boolean | null
     classId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7190,6 +7179,7 @@ export namespace Prisma {
   export type LessonCountAggregateOutputType = {
     id: number
     date: number
+    acceptPresenceByQRCode: number
     classId: number
     createdAt: number
     updatedAt: number
@@ -7200,6 +7190,7 @@ export namespace Prisma {
   export type LessonMinAggregateInputType = {
     id?: true
     date?: true
+    acceptPresenceByQRCode?: true
     classId?: true
     createdAt?: true
     updatedAt?: true
@@ -7208,6 +7199,7 @@ export namespace Prisma {
   export type LessonMaxAggregateInputType = {
     id?: true
     date?: true
+    acceptPresenceByQRCode?: true
     classId?: true
     createdAt?: true
     updatedAt?: true
@@ -7216,6 +7208,7 @@ export namespace Prisma {
   export type LessonCountAggregateInputType = {
     id?: true
     date?: true
+    acceptPresenceByQRCode?: true
     classId?: true
     createdAt?: true
     updatedAt?: true
@@ -7297,6 +7290,7 @@ export namespace Prisma {
   export type LessonGroupByOutputType = {
     id: string
     date: Date
+    acceptPresenceByQRCode: boolean
     classId: string
     createdAt: Date
     updatedAt: Date
@@ -7322,6 +7316,7 @@ export namespace Prisma {
   export type LessonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
+    acceptPresenceByQRCode?: boolean
     classId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7333,6 +7328,7 @@ export namespace Prisma {
   export type LessonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
+    acceptPresenceByQRCode?: boolean
     classId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7342,6 +7338,7 @@ export namespace Prisma {
   export type LessonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
+    acceptPresenceByQRCode?: boolean
     classId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7351,12 +7348,13 @@ export namespace Prisma {
   export type LessonSelectScalar = {
     id?: boolean
     date?: boolean
+    acceptPresenceByQRCode?: boolean
     classId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "classId" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
+  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "acceptPresenceByQRCode" | "classId" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
   export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     classAttendanceRecords?: boolean | Lesson$classAttendanceRecordsArgs<ExtArgs>
     class?: boolean | ClassDefaultArgs<ExtArgs>
@@ -7378,6 +7376,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       date: Date
+      acceptPresenceByQRCode: boolean
       classId: string
       createdAt: Date
       updatedAt: Date
@@ -7808,6 +7807,7 @@ export namespace Prisma {
   interface LessonFieldRefs {
     readonly id: FieldRef<"Lesson", 'String'>
     readonly date: FieldRef<"Lesson", 'DateTime'>
+    readonly acceptPresenceByQRCode: FieldRef<"Lesson", 'Boolean'>
     readonly classId: FieldRef<"Lesson", 'String'>
     readonly createdAt: FieldRef<"Lesson", 'DateTime'>
     readonly updatedAt: FieldRef<"Lesson", 'DateTime'>
@@ -9363,7 +9363,6 @@ export namespace Prisma {
     numberOfStudents: 'numberOfStudents',
     classBlock: 'classBlock',
     classRoom: 'classRoom',
-    acceptPresenceByQRCode: 'acceptPresenceByQRCode',
     teacherId: 'teacherId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9408,6 +9407,7 @@ export namespace Prisma {
   export const LessonScalarFieldEnum: {
     id: 'id',
     date: 'date',
+    acceptPresenceByQRCode: 'acceptPresenceByQRCode',
     classId: 'classId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -9617,7 +9617,6 @@ export namespace Prisma {
     numberOfStudents?: IntFilter<"Class"> | number
     classBlock?: StringNullableFilter<"Class"> | string | null
     classRoom?: StringNullableFilter<"Class"> | string | null
-    acceptPresenceByQRCode?: BoolFilter<"Class"> | boolean
     teacherId?: StringFilter<"Class"> | string
     createdAt?: DateTimeFilter<"Class"> | Date | string
     updatedAt?: DateTimeFilter<"Class"> | Date | string
@@ -9634,7 +9633,6 @@ export namespace Prisma {
     numberOfStudents?: SortOrder
     classBlock?: SortOrderInput | SortOrder
     classRoom?: SortOrderInput | SortOrder
-    acceptPresenceByQRCode?: SortOrder
     teacherId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9654,7 +9652,6 @@ export namespace Prisma {
     numberOfStudents?: IntFilter<"Class"> | number
     classBlock?: StringNullableFilter<"Class"> | string | null
     classRoom?: StringNullableFilter<"Class"> | string | null
-    acceptPresenceByQRCode?: BoolFilter<"Class"> | boolean
     teacherId?: StringFilter<"Class"> | string
     createdAt?: DateTimeFilter<"Class"> | Date | string
     updatedAt?: DateTimeFilter<"Class"> | Date | string
@@ -9671,7 +9668,6 @@ export namespace Prisma {
     numberOfStudents?: SortOrder
     classBlock?: SortOrderInput | SortOrder
     classRoom?: SortOrderInput | SortOrder
-    acceptPresenceByQRCode?: SortOrder
     teacherId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9692,7 +9688,6 @@ export namespace Prisma {
     numberOfStudents?: IntWithAggregatesFilter<"Class"> | number
     classBlock?: StringNullableWithAggregatesFilter<"Class"> | string | null
     classRoom?: StringNullableWithAggregatesFilter<"Class"> | string | null
-    acceptPresenceByQRCode?: BoolWithAggregatesFilter<"Class"> | boolean
     teacherId?: StringWithAggregatesFilter<"Class"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
@@ -9876,6 +9871,7 @@ export namespace Prisma {
     NOT?: LessonWhereInput | LessonWhereInput[]
     id?: StringFilter<"Lesson"> | string
     date?: DateTimeFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
     classId?: StringFilter<"Lesson"> | string
     createdAt?: DateTimeFilter<"Lesson"> | Date | string
     updatedAt?: DateTimeFilter<"Lesson"> | Date | string
@@ -9886,6 +9882,7 @@ export namespace Prisma {
   export type LessonOrderByWithRelationInput = {
     id?: SortOrder
     date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
     classId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9899,6 +9896,7 @@ export namespace Prisma {
     OR?: LessonWhereInput[]
     NOT?: LessonWhereInput | LessonWhereInput[]
     date?: DateTimeFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
     classId?: StringFilter<"Lesson"> | string
     createdAt?: DateTimeFilter<"Lesson"> | Date | string
     updatedAt?: DateTimeFilter<"Lesson"> | Date | string
@@ -9909,6 +9907,7 @@ export namespace Prisma {
   export type LessonOrderByWithAggregationInput = {
     id?: SortOrder
     date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
     classId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9923,6 +9922,7 @@ export namespace Prisma {
     NOT?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Lesson"> | string
     date?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolWithAggregatesFilter<"Lesson"> | boolean
     classId?: StringWithAggregatesFilter<"Lesson"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
@@ -10080,7 +10080,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     teacher: TeacherCreateNestedOneWithoutClassesInput
@@ -10096,7 +10095,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     teacherId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10112,7 +10110,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teacher?: TeacherUpdateOneRequiredWithoutClassesNestedInput
@@ -10128,7 +10125,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10144,7 +10140,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     teacherId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10157,7 +10152,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10169,7 +10163,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10351,6 +10344,7 @@ export namespace Prisma {
   export type LessonCreateInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutLessonInput
@@ -10360,6 +10354,7 @@ export namespace Prisma {
   export type LessonUncheckedCreateInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     classId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10369,6 +10364,7 @@ export namespace Prisma {
   export type LessonUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutLessonNestedInput
@@ -10378,6 +10374,7 @@ export namespace Prisma {
   export type LessonUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10387,6 +10384,7 @@ export namespace Prisma {
   export type LessonCreateManyInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     classId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10395,6 +10393,7 @@ export namespace Prisma {
   export type LessonUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10402,6 +10401,7 @@ export namespace Prisma {
   export type LessonUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10673,7 +10673,6 @@ export namespace Prisma {
     numberOfStudents?: SortOrder
     classBlock?: SortOrder
     classRoom?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
     teacherId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10690,7 +10689,6 @@ export namespace Prisma {
     numberOfStudents?: SortOrder
     classBlock?: SortOrder
     classRoom?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
     teacherId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10703,7 +10701,6 @@ export namespace Prisma {
     numberOfStudents?: SortOrder
     classBlock?: SortOrder
     classRoom?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
     teacherId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10846,6 +10843,7 @@ export namespace Prisma {
   export type LessonCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
     classId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10854,6 +10852,7 @@ export namespace Prisma {
   export type LessonMaxOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
     classId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10862,6 +10861,7 @@ export namespace Prisma {
   export type LessonMinOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
     classId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11497,7 +11497,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     enrollments?: EnrollmentCreateNestedManyWithoutClassInput
@@ -11512,7 +11511,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutClassInput
@@ -11556,7 +11554,6 @@ export namespace Prisma {
     numberOfStudents?: IntFilter<"Class"> | number
     classBlock?: StringNullableFilter<"Class"> | string | null
     classRoom?: StringNullableFilter<"Class"> | string | null
-    acceptPresenceByQRCode?: BoolFilter<"Class"> | boolean
     teacherId?: StringFilter<"Class"> | string
     createdAt?: DateTimeFilter<"Class"> | Date | string
     updatedAt?: DateTimeFilter<"Class"> | Date | string
@@ -11614,6 +11611,7 @@ export namespace Prisma {
   export type LessonCreateWithoutClassInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutLessonInput
@@ -11622,6 +11620,7 @@ export namespace Prisma {
   export type LessonUncheckedCreateWithoutClassInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput
@@ -11742,6 +11741,7 @@ export namespace Prisma {
     NOT?: LessonScalarWhereInput | LessonScalarWhereInput[]
     id?: StringFilter<"Lesson"> | string
     date?: DateTimeFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
     classId?: StringFilter<"Lesson"> | string
     createdAt?: DateTimeFilter<"Lesson"> | Date | string
     updatedAt?: DateTimeFilter<"Lesson"> | Date | string
@@ -11781,7 +11781,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     teacher: TeacherCreateNestedOneWithoutClassesInput
@@ -11796,7 +11795,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     teacherId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11827,7 +11825,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teacher?: TeacherUpdateOneRequiredWithoutClassesNestedInput
@@ -11842,7 +11839,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11949,7 +11945,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     teacher: TeacherCreateNestedOneWithoutClassesInput
@@ -11964,7 +11959,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     teacherId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12020,7 +12014,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teacher?: TeacherUpdateOneRequiredWithoutClassesNestedInput
@@ -12035,7 +12028,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12107,7 +12099,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     teacher: TeacherCreateNestedOneWithoutClassesInput
@@ -12122,7 +12113,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     teacherId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12169,7 +12159,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     teacher?: TeacherUpdateOneRequiredWithoutClassesNestedInput
@@ -12184,7 +12173,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12195,6 +12183,7 @@ export namespace Prisma {
   export type LessonCreateWithoutClassAttendanceRecordsInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     class: ClassCreateNestedOneWithoutLessonsInput
@@ -12203,6 +12192,7 @@ export namespace Prisma {
   export type LessonUncheckedCreateWithoutClassAttendanceRecordsInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     classId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12252,6 +12242,7 @@ export namespace Prisma {
   export type LessonUpdateWithoutClassAttendanceRecordsInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneRequiredWithoutLessonsNestedInput
@@ -12260,6 +12251,7 @@ export namespace Prisma {
   export type LessonUncheckedUpdateWithoutClassAttendanceRecordsInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12303,7 +12295,6 @@ export namespace Prisma {
     numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
-    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12315,7 +12306,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUpdateManyWithoutClassNestedInput
@@ -12330,7 +12320,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enrollments?: EnrollmentUncheckedUpdateManyWithoutClassNestedInput
@@ -12345,7 +12334,6 @@ export namespace Prisma {
     numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12359,6 +12347,7 @@ export namespace Prisma {
   export type LessonCreateManyClassInput = {
     id?: string
     date?: Date | string
+    acceptPresenceByQRCode?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12391,6 +12380,7 @@ export namespace Prisma {
   export type LessonUpdateWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutLessonNestedInput
@@ -12399,6 +12389,7 @@ export namespace Prisma {
   export type LessonUncheckedUpdateWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput
@@ -12407,6 +12398,7 @@ export namespace Prisma {
   export type LessonUncheckedUpdateManyWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

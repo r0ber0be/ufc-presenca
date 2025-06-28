@@ -93,6 +93,26 @@ export async function presencaRoutes(app: FastifyInstance) {
     return res.status(200).send(tabelaFormatada)
   })
 
+  app.get<{
+    Params: { turmaId: string; aulaId: string }
+  }>('/presencas/aula/:turmaId', async (req, res) => {
+    const { turmaId } = req.params
+
+    const lesson = await prisma.lesson.findFirst({
+      where: {
+        acceptPresenceByQRCode: { equals: true },
+        classId: turmaId, // se existir relação entre lesson e class
+      },
+    })
+
+    if (!lesson) {
+      return res.status(404).send({ message: 'Aula não encontrada.' })
+    }
+
+    console.log(lesson)
+    return res.status(200).send(lesson)
+  })
+
   app.post<{
     Body: Presencas[]
   }>('/presencas/alunos/atualizar', async (req, res) => {
@@ -115,5 +135,30 @@ export async function presencaRoutes(app: FastifyInstance) {
     })
 
     return res.status(200).send('Dados atualizados!')
+  })
+
+  app.patch<{
+    Params: { aulaId: string }
+    Body: { acceptPresenceByQRCode: boolean }
+  }>('/presencas/:aulaId/atualizar', async (req, res) => {
+    const { aulaId } = req.params
+    const { acceptPresenceByQRCode } = req.body
+
+    const updatedLesson = await prisma.lesson.update({
+      where: {
+        id: aulaId,
+      },
+      data: {
+        acceptPresenceByQRCode,
+      },
+      select: {
+        id: true,
+        classId: true,
+        acceptPresenceByQRCode: true,
+        date: true,
+      },
+    })
+
+    return res.status(200).send(updatedLesson)
   })
 }

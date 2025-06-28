@@ -9,7 +9,8 @@
     "test:setup": "dotenv -e .env.test -- prisma db push",
     "test:full": "npm run test:setup && npm run test",
     "lint": "eslint src --ext .ts --fix",
-    "lintest": "eslint tests --ext .ts --fix"
+    "lintest": "eslint tests --ext .ts --fix",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
