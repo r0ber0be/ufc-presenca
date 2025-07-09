@@ -61,11 +61,10 @@ model ClassAttendanceRecord {
   id                String          @id @default(uuid())
   present           Boolean         @default(false)
   studentId         String       
-  lessonId          String       
-  attendanceTokenId String       
-  deviceId          String       
-  latitude          Float       
-  longitude         Float       
+  lessonId          String        
+  deviceId          String?       
+  latitude          Float?       
+  longitude         Float?       
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
        

@@ -17,23 +17,76 @@ model Teacher {
   isSynced  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  classes   Class[]
+
+  classes Class[]
+
+  @@index([uid])
 }
 
 model Class {
-  id               String       @id @default(uuid())
-  code             String       @unique
-  name             String
-  numberOfStudents Int
-  classBlock       String?
-  classRoom        String?
-  teacherId        String
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  teacher          Teacher      @relation(fields: [teacherId], references: [id], onDelete: Cascade)
-  enrollments      Enrollment[]
-  lessons          Lesson[]
-  schedules        Schedule[]
+  id         String   @id @default(uuid())
+  code       String   @unique
+  name       String
+  classBlock String?
+  classRoom  String?
+  teacherId  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  teacher     Teacher      @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  enrollments Enrollment[]
+  lessons     Lesson[]
+  schedules   Schedule[]
+
+  @@index([teacherId])
+}
+
+model Lesson {
+  id                     String   @id @default(uuid())
+  date                   DateTime @default(now())
+  acceptPresenceByQRCode Boolean  @default(false)
+  classId                String
+  latitude               Float?
+  longitude              Float?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  class                  Class                   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  classAttendanceRecords ClassAttendanceRecord[]
+  attendanceToken        AttendanceToken?
+
+  @@index([classId])
+}
+
+model ClassAttendanceRecord {
+  id        String   @id @default(uuid())
+  present   Boolean  @default(false)
+  studentId String
+  lessonId  String
+  deviceId  String?
+  latitude  Float?
+  longitude Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lesson  Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, lessonId])
+  @@index([studentId])
+  @@index([lessonId])
+}
+
+model AttendanceToken {
+  id                String   @id @default(uuid())
+  token             String   @unique
+  expiresAt         DateTime
+  currentUsageCount Int      @default(0)
+  used              Boolean  @default(false)
+  lessonId          String   @unique
+  createdAt         DateTime @default(now())
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 }
 
 model Schedule {
@@ -42,18 +95,23 @@ model Schedule {
   startTime String
   endTime   String
   classId   String
-  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  class Class @relation(fields: [classId], references: [id], onDelete: Cascade)
 }
 
 model Student {
-  id                     String                  @id @default(uuid())
-  enrollmentId           String                  @unique
-  name                   String
-  email                  String?                 @unique
-  createdAt              DateTime                @default(now())
-  updatedAt              DateTime                @updatedAt
+  id                 String   @id @default(uuid())
+  registrationNumber String   @unique
+  name               String
+  email              String?  @unique
+  deviceId           String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
   classAttendanceRecords ClassAttendanceRecord[]
   enrollments            Enrollment[]
+
+  @@index([registrationNumber])
 }
 
 model Enrollment {
@@ -61,34 +119,11 @@ model Enrollment {
   studentId String
   classId   String
   createdAt DateTime @default(now())
-  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
-  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  class   Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@unique([studentId, classId])
-}
-
-model Lesson {
-  id                     String                  @id @default(uuid())
-  date                   DateTime                @default(now())
-  acceptPresenceByQRCode Boolean                 @default(false)
-  classId                String
-  createdAt              DateTime                @default(now())
-  updatedAt              DateTime                @updatedAt
-  classAttendanceRecords ClassAttendanceRecord[]
-  class                  Class                   @relation(fields: [classId], references: [id], onDelete: Cascade)
-}
-
-model ClassAttendanceRecord {
-  id        String   @id @default(uuid())
-  present   Boolean  @default(false)
-  studentId String
-  lessonId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-
-  @@unique([studentId, lessonId])
 }
 
 enum WeekDay {

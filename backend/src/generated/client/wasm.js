@@ -132,12 +132,44 @@ exports.Prisma.ClassScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
-  numberOfStudents: 'numberOfStudents',
   classBlock: 'classBlock',
   classRoom: 'classRoom',
   teacherId: 'teacherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LessonScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  acceptPresenceByQRCode: 'acceptPresenceByQRCode',
+  classId: 'classId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClassAttendanceRecordScalarFieldEnum = {
+  id: 'id',
+  present: 'present',
+  studentId: 'studentId',
+  lessonId: 'lessonId',
+  deviceId: 'deviceId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AttendanceTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  currentUsageCount: 'currentUsageCount',
+  used: 'used',
+  lessonId: 'lessonId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.ScheduleScalarFieldEnum = {
@@ -150,9 +182,10 @@ exports.Prisma.ScheduleScalarFieldEnum = {
 
 exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
-  enrollmentId: 'enrollmentId',
+  registrationNumber: 'registrationNumber',
   name: 'name',
   email: 'email',
+  deviceId: 'deviceId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -162,24 +195,6 @@ exports.Prisma.EnrollmentScalarFieldEnum = {
   studentId: 'studentId',
   classId: 'classId',
   createdAt: 'createdAt'
-};
-
-exports.Prisma.LessonScalarFieldEnum = {
-  id: 'id',
-  date: 'date',
-  acceptPresenceByQRCode: 'acceptPresenceByQRCode',
-  classId: 'classId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.ClassAttendanceRecordScalarFieldEnum = {
-  id: 'id',
-  present: 'present',
-  studentId: 'studentId',
-  lessonId: 'lessonId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -209,11 +224,12 @@ exports.WeekDay = exports.$Enums.WeekDay = {
 exports.Prisma.ModelName = {
   Teacher: 'Teacher',
   Class: 'Class',
+  Lesson: 'Lesson',
+  ClassAttendanceRecord: 'ClassAttendanceRecord',
+  AttendanceToken: 'AttendanceToken',
   Schedule: 'Schedule',
   Student: 'Student',
-  Enrollment: 'Enrollment',
-  Lesson: 'Lesson',
-  ClassAttendanceRecord: 'ClassAttendanceRecord'
+  Enrollment: 'Enrollment'
 };
 
 /**

@@ -36,7 +36,9 @@ export default function GoogleAuthTemplate(props:{ title: string, googleButtonTe
     <>
       <Button 
 				id='google-auth-button'
-				variant='outline'
+				variant='solid'
+				padding={6}
+				margin={2}
 				colorScheme='gray'
         isLoading={isGoogleSubmmiting}
 				leftIcon={<FcGoogle/>} 
@@ -44,10 +46,17 @@ export default function GoogleAuthTemplate(props:{ title: string, googleButtonTe
 					{props.googleButtonText}
 			</Button>
 
-			<Box fontSize='medium'>
-				{props.questionText}
-				<Link href={{ pathname: props.route }} passHref legacyBehavior rel="preload">
-					<Button colorScheme='blue' variant='link' fontSize='medium'>
+			<Box fontSize='medium' textColor='HighlightText'>
+				{props.questionText} {` `}
+				<Link href={{ pathname: props.route }} passHref legacyBehavior>
+					<Button
+						color='blue.300'
+						variant='link' fontSize='medium'
+						fontWeight="bold"
+						textDecoration="underline"
+						_hover={{ color: 'blue.700' }}
+						_focus={{ boxShadow: 'none' }}
+					>
 						{props.actionText}
 					</Button>
 				</Link>

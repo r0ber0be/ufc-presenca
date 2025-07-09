@@ -57,7 +57,7 @@ export async function presencaRoutes(app: FastifyInstance) {
       select: {
         id: true,
         name: true,
-        enrollmentId: true,
+        registrationNumber: true,
         classAttendanceRecords: {
           where: {
             lesson: {
@@ -84,7 +84,7 @@ export async function presencaRoutes(app: FastifyInstance) {
 
       return {
         id: aluno.id,
-        enrollmentId: aluno.enrollmentId,
+        registrationNumber: aluno.registrationNumber,
         name: aluno.name,
         presences: presenceMap,
       }

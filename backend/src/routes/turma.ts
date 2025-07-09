@@ -1,7 +1,9 @@
 import { FastifyInstance } from 'fastify'
 import { prisma } from '../lib/prisma'
+import { generateToken } from '../utils/QRCodeToken'
 
 export async function turmaRoutes(app: FastifyInstance) {
+  // Buscar turmas de um professor (classes)
   app.get('/turmas', async (req, res) => {
     try {
       const { sub } = await req.jwtVerify<{ sub: string }>()
@@ -14,7 +16,6 @@ export async function turmaRoutes(app: FastifyInstance) {
               id: true,
               name: true,
               code: true,
-              numberOfStudents: true,
               classBlock: true,
               classRoom: true,
               schedules: {
@@ -51,11 +52,17 @@ export async function turmaRoutes(app: FastifyInstance) {
     }
   })
 
-  // Nova aula
+  // Criar nova aula (lesson)
   app.post<{
     Params: { turmaId: string }
+    Body: { latitude: number; longitude: number }
   }>('/:turmaId/aula', async (req, res) => {
     const { turmaId } = req.params
+    const { latitude, longitude } = req.body
+
+    if (latitude == null || longitude == null) {
+      return res.status(400).send({ message: 'Localização não enviada.' })
+    }
 
     try {
       const turma = await prisma.class.findUnique({
@@ -66,12 +73,23 @@ export async function turmaRoutes(app: FastifyInstance) {
         return res.status(404).send({ message: 'Turma não encontrada.' })
       }
 
+      const token = generateToken()
+      console.log('Token gerado', token)
+
       await prisma.$transaction(async (db) => {
         const lesson = await db.lesson.create({
           data: {
             classId: turmaId,
             acceptPresenceByQRCode: true,
             date: new Date(),
+            latitude,
+            longitude,
+            attendanceToken: {
+              create: {
+                token,
+                expiresAt: new Date(Date.now() + 1000 * 60 * 120),
+              },
+            },
           },
         })
 
@@ -83,8 +101,6 @@ export async function turmaRoutes(app: FastifyInstance) {
             studentId: true,
           },
         })
-
-        console.log('alunos da turma:', alunosMatriculados)
 
         await db.classAttendanceRecord.createMany({
           data: alunosMatriculados.map((aluno) => ({

@@ -24,6 +24,21 @@ export type Teacher = $Result.DefaultSelection<Prisma.$TeacherPayload>
  */
 export type Class = $Result.DefaultSelection<Prisma.$ClassPayload>
 /**
+ * Model Lesson
+ * 
+ */
+export type Lesson = $Result.DefaultSelection<Prisma.$LessonPayload>
+/**
+ * Model ClassAttendanceRecord
+ * 
+ */
+export type ClassAttendanceRecord = $Result.DefaultSelection<Prisma.$ClassAttendanceRecordPayload>
+/**
+ * Model AttendanceToken
+ * 
+ */
+export type AttendanceToken = $Result.DefaultSelection<Prisma.$AttendanceTokenPayload>
+/**
  * Model Schedule
  * 
  */
@@ -38,16 +53,6 @@ export type Student = $Result.DefaultSelection<Prisma.$StudentPayload>
  * 
  */
 export type Enrollment = $Result.DefaultSelection<Prisma.$EnrollmentPayload>
-/**
- * Model Lesson
- * 
- */
-export type Lesson = $Result.DefaultSelection<Prisma.$LessonPayload>
-/**
- * Model ClassAttendanceRecord
- * 
- */
-export type ClassAttendanceRecord = $Result.DefaultSelection<Prisma.$ClassAttendanceRecordPayload>
 
 /**
  * Enums
@@ -217,6 +222,36 @@ export class PrismaClient<
   get class(): Prisma.ClassDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.lesson`: Exposes CRUD operations for the **Lesson** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lessons
+    * const lessons = await prisma.lesson.findMany()
+    * ```
+    */
+  get lesson(): Prisma.LessonDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.classAttendanceRecord`: Exposes CRUD operations for the **ClassAttendanceRecord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClassAttendanceRecords
+    * const classAttendanceRecords = await prisma.classAttendanceRecord.findMany()
+    * ```
+    */
+  get classAttendanceRecord(): Prisma.ClassAttendanceRecordDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.attendanceToken`: Exposes CRUD operations for the **AttendanceToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AttendanceTokens
+    * const attendanceTokens = await prisma.attendanceToken.findMany()
+    * ```
+    */
+  get attendanceToken(): Prisma.AttendanceTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.schedule`: Exposes CRUD operations for the **Schedule** model.
     * Example usage:
     * ```ts
@@ -245,26 +280,6 @@ export class PrismaClient<
     * ```
     */
   get enrollment(): Prisma.EnrollmentDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.lesson`: Exposes CRUD operations for the **Lesson** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Lessons
-    * const lessons = await prisma.lesson.findMany()
-    * ```
-    */
-  get lesson(): Prisma.LessonDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.classAttendanceRecord`: Exposes CRUD operations for the **ClassAttendanceRecord** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ClassAttendanceRecords
-    * const classAttendanceRecords = await prisma.classAttendanceRecord.findMany()
-    * ```
-    */
-  get classAttendanceRecord(): Prisma.ClassAttendanceRecordDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -707,11 +722,12 @@ export namespace Prisma {
   export const ModelName: {
     Teacher: 'Teacher',
     Class: 'Class',
+    Lesson: 'Lesson',
+    ClassAttendanceRecord: 'ClassAttendanceRecord',
+    AttendanceToken: 'AttendanceToken',
     Schedule: 'Schedule',
     Student: 'Student',
-    Enrollment: 'Enrollment',
-    Lesson: 'Lesson',
-    ClassAttendanceRecord: 'ClassAttendanceRecord'
+    Enrollment: 'Enrollment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -730,7 +746,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "teacher" | "class" | "schedule" | "student" | "enrollment" | "lesson" | "classAttendanceRecord"
+      modelProps: "teacher" | "class" | "lesson" | "classAttendanceRecord" | "attendanceToken" | "schedule" | "student" | "enrollment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -879,6 +895,228 @@ export namespace Prisma {
           count: {
             args: Prisma.ClassCountArgs<ExtArgs>
             result: $Utils.Optional<ClassCountAggregateOutputType> | number
+          }
+        }
+      }
+      Lesson: {
+        payload: Prisma.$LessonPayload<ExtArgs>
+        fields: Prisma.LessonFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LessonFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LessonFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          findFirst: {
+            args: Prisma.LessonFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LessonFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          findMany: {
+            args: Prisma.LessonFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
+          }
+          create: {
+            args: Prisma.LessonCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          createMany: {
+            args: Prisma.LessonCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LessonCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
+          }
+          delete: {
+            args: Prisma.LessonDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          update: {
+            args: Prisma.LessonUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          deleteMany: {
+            args: Prisma.LessonDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LessonUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LessonUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
+          }
+          upsert: {
+            args: Prisma.LessonUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          aggregate: {
+            args: Prisma.LessonAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLesson>
+          }
+          groupBy: {
+            args: Prisma.LessonGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LessonGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LessonCountArgs<ExtArgs>
+            result: $Utils.Optional<LessonCountAggregateOutputType> | number
+          }
+        }
+      }
+      ClassAttendanceRecord: {
+        payload: Prisma.$ClassAttendanceRecordPayload<ExtArgs>
+        fields: Prisma.ClassAttendanceRecordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClassAttendanceRecordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClassAttendanceRecordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
+          }
+          findFirst: {
+            args: Prisma.ClassAttendanceRecordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClassAttendanceRecordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
+          }
+          findMany: {
+            args: Prisma.ClassAttendanceRecordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>[]
+          }
+          create: {
+            args: Prisma.ClassAttendanceRecordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
+          }
+          createMany: {
+            args: Prisma.ClassAttendanceRecordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClassAttendanceRecordCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>[]
+          }
+          delete: {
+            args: Prisma.ClassAttendanceRecordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
+          }
+          update: {
+            args: Prisma.ClassAttendanceRecordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClassAttendanceRecordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClassAttendanceRecordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ClassAttendanceRecordUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>[]
+          }
+          upsert: {
+            args: Prisma.ClassAttendanceRecordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
+          }
+          aggregate: {
+            args: Prisma.ClassAttendanceRecordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClassAttendanceRecord>
+          }
+          groupBy: {
+            args: Prisma.ClassAttendanceRecordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClassAttendanceRecordGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClassAttendanceRecordCountArgs<ExtArgs>
+            result: $Utils.Optional<ClassAttendanceRecordCountAggregateOutputType> | number
+          }
+        }
+      }
+      AttendanceToken: {
+        payload: Prisma.$AttendanceTokenPayload<ExtArgs>
+        fields: Prisma.AttendanceTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AttendanceTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AttendanceTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.AttendanceTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AttendanceTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>
+          }
+          findMany: {
+            args: Prisma.AttendanceTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>[]
+          }
+          create: {
+            args: Prisma.AttendanceTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>
+          }
+          createMany: {
+            args: Prisma.AttendanceTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AttendanceTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.AttendanceTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>
+          }
+          update: {
+            args: Prisma.AttendanceTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.AttendanceTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AttendanceTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AttendanceTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.AttendanceTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendanceTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.AttendanceTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAttendanceToken>
+          }
+          groupBy: {
+            args: Prisma.AttendanceTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AttendanceTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AttendanceTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<AttendanceTokenCountAggregateOutputType> | number
           }
         }
       }
@@ -1104,154 +1342,6 @@ export namespace Prisma {
           }
         }
       }
-      Lesson: {
-        payload: Prisma.$LessonPayload<ExtArgs>
-        fields: Prisma.LessonFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.LessonFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.LessonFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
-          }
-          findFirst: {
-            args: Prisma.LessonFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.LessonFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
-          }
-          findMany: {
-            args: Prisma.LessonFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
-          }
-          create: {
-            args: Prisma.LessonCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
-          }
-          createMany: {
-            args: Prisma.LessonCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.LessonCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
-          }
-          delete: {
-            args: Prisma.LessonDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
-          }
-          update: {
-            args: Prisma.LessonUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
-          }
-          deleteMany: {
-            args: Prisma.LessonDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.LessonUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.LessonUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
-          }
-          upsert: {
-            args: Prisma.LessonUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
-          }
-          aggregate: {
-            args: Prisma.LessonAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateLesson>
-          }
-          groupBy: {
-            args: Prisma.LessonGroupByArgs<ExtArgs>
-            result: $Utils.Optional<LessonGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.LessonCountArgs<ExtArgs>
-            result: $Utils.Optional<LessonCountAggregateOutputType> | number
-          }
-        }
-      }
-      ClassAttendanceRecord: {
-        payload: Prisma.$ClassAttendanceRecordPayload<ExtArgs>
-        fields: Prisma.ClassAttendanceRecordFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ClassAttendanceRecordFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ClassAttendanceRecordFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
-          }
-          findFirst: {
-            args: Prisma.ClassAttendanceRecordFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ClassAttendanceRecordFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
-          }
-          findMany: {
-            args: Prisma.ClassAttendanceRecordFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>[]
-          }
-          create: {
-            args: Prisma.ClassAttendanceRecordCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
-          }
-          createMany: {
-            args: Prisma.ClassAttendanceRecordCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ClassAttendanceRecordCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>[]
-          }
-          delete: {
-            args: Prisma.ClassAttendanceRecordDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
-          }
-          update: {
-            args: Prisma.ClassAttendanceRecordUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
-          }
-          deleteMany: {
-            args: Prisma.ClassAttendanceRecordDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ClassAttendanceRecordUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ClassAttendanceRecordUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>[]
-          }
-          upsert: {
-            args: Prisma.ClassAttendanceRecordUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClassAttendanceRecordPayload>
-          }
-          aggregate: {
-            args: Prisma.ClassAttendanceRecordAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateClassAttendanceRecord>
-          }
-          groupBy: {
-            args: Prisma.ClassAttendanceRecordGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ClassAttendanceRecordGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ClassAttendanceRecordCountArgs<ExtArgs>
-            result: $Utils.Optional<ClassAttendanceRecordCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1338,11 +1428,12 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     teacher?: TeacherOmit
     class?: ClassOmit
+    lesson?: LessonOmit
+    classAttendanceRecord?: ClassAttendanceRecordOmit
+    attendanceToken?: AttendanceTokenOmit
     schedule?: ScheduleOmit
     student?: StudentOmit
     enrollment?: EnrollmentOmit
-    lesson?: LessonOmit
-    classAttendanceRecord?: ClassAttendanceRecordOmit
   }
 
   /* Types for Logging */
@@ -1513,6 +1604,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type LessonCountOutputType
+   */
+
+  export type LessonCountOutputType = {
+    classAttendanceRecords: number
+  }
+
+  export type LessonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    classAttendanceRecords?: boolean | LessonCountOutputTypeCountClassAttendanceRecordsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LessonCountOutputType without action
+   */
+  export type LessonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LessonCountOutputType
+     */
+    select?: LessonCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LessonCountOutputType without action
+   */
+  export type LessonCountOutputTypeCountClassAttendanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassAttendanceRecordWhereInput
+  }
+
+
+  /**
    * Count Type StudentCountOutputType
    */
 
@@ -1549,37 +1671,6 @@ export namespace Prisma {
    */
   export type StudentCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnrollmentWhereInput
-  }
-
-
-  /**
-   * Count Type LessonCountOutputType
-   */
-
-  export type LessonCountOutputType = {
-    classAttendanceRecords: number
-  }
-
-  export type LessonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    classAttendanceRecords?: boolean | LessonCountOutputTypeCountClassAttendanceRecordsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * LessonCountOutputType without action
-   */
-  export type LessonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LessonCountOutputType
-     */
-    select?: LessonCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * LessonCountOutputType without action
-   */
-  export type LessonCountOutputTypeCountClassAttendanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClassAttendanceRecordWhereInput
   }
 
 
@@ -2702,25 +2793,14 @@ export namespace Prisma {
 
   export type AggregateClass = {
     _count: ClassCountAggregateOutputType | null
-    _avg: ClassAvgAggregateOutputType | null
-    _sum: ClassSumAggregateOutputType | null
     _min: ClassMinAggregateOutputType | null
     _max: ClassMaxAggregateOutputType | null
-  }
-
-  export type ClassAvgAggregateOutputType = {
-    numberOfStudents: number | null
-  }
-
-  export type ClassSumAggregateOutputType = {
-    numberOfStudents: number | null
   }
 
   export type ClassMinAggregateOutputType = {
     id: string | null
     code: string | null
     name: string | null
-    numberOfStudents: number | null
     classBlock: string | null
     classRoom: string | null
     teacherId: string | null
@@ -2732,7 +2812,6 @@ export namespace Prisma {
     id: string | null
     code: string | null
     name: string | null
-    numberOfStudents: number | null
     classBlock: string | null
     classRoom: string | null
     teacherId: string | null
@@ -2744,7 +2823,6 @@ export namespace Prisma {
     id: number
     code: number
     name: number
-    numberOfStudents: number
     classBlock: number
     classRoom: number
     teacherId: number
@@ -2754,19 +2832,10 @@ export namespace Prisma {
   }
 
 
-  export type ClassAvgAggregateInputType = {
-    numberOfStudents?: true
-  }
-
-  export type ClassSumAggregateInputType = {
-    numberOfStudents?: true
-  }
-
   export type ClassMinAggregateInputType = {
     id?: true
     code?: true
     name?: true
-    numberOfStudents?: true
     classBlock?: true
     classRoom?: true
     teacherId?: true
@@ -2778,7 +2847,6 @@ export namespace Prisma {
     id?: true
     code?: true
     name?: true
-    numberOfStudents?: true
     classBlock?: true
     classRoom?: true
     teacherId?: true
@@ -2790,7 +2858,6 @@ export namespace Prisma {
     id?: true
     code?: true
     name?: true
-    numberOfStudents?: true
     classBlock?: true
     classRoom?: true
     teacherId?: true
@@ -2837,18 +2904,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ClassAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ClassSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClassMinAggregateInputType
@@ -2879,8 +2934,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ClassCountAggregateInputType | true
-    _avg?: ClassAvgAggregateInputType
-    _sum?: ClassSumAggregateInputType
     _min?: ClassMinAggregateInputType
     _max?: ClassMaxAggregateInputType
   }
@@ -2889,15 +2942,12 @@ export namespace Prisma {
     id: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock: string | null
     classRoom: string | null
     teacherId: string
     createdAt: Date
     updatedAt: Date
     _count: ClassCountAggregateOutputType | null
-    _avg: ClassAvgAggregateOutputType | null
-    _sum: ClassSumAggregateOutputType | null
     _min: ClassMinAggregateOutputType | null
     _max: ClassMaxAggregateOutputType | null
   }
@@ -2920,7 +2970,6 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     name?: boolean
-    numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
     teacherId?: boolean
@@ -2937,7 +2986,6 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     name?: boolean
-    numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
     teacherId?: boolean
@@ -2950,7 +2998,6 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     name?: boolean
-    numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
     teacherId?: boolean
@@ -2963,7 +3010,6 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     name?: boolean
-    numberOfStudents?: boolean
     classBlock?: boolean
     classRoom?: boolean
     teacherId?: boolean
@@ -2971,7 +3017,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "numberOfStudents" | "classBlock" | "classRoom" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
+  export type ClassOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "classBlock" | "classRoom" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["class"]>
   export type ClassInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     teacher?: boolean | TeacherDefaultArgs<ExtArgs>
     enrollments?: boolean | Class$enrollmentsArgs<ExtArgs>
@@ -2998,7 +3044,6 @@ export namespace Prisma {
       id: string
       code: string
       name: string
-      numberOfStudents: number
       classBlock: string | null
       classRoom: string | null
       teacherId: string
@@ -3434,7 +3479,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Class", 'String'>
     readonly code: FieldRef<"Class", 'String'>
     readonly name: FieldRef<"Class", 'String'>
-    readonly numberOfStudents: FieldRef<"Class", 'Int'>
     readonly classBlock: FieldRef<"Class", 'String'>
     readonly classRoom: FieldRef<"Class", 'String'>
     readonly teacherId: FieldRef<"Class", 'String'>
@@ -3923,6 +3967,3468 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ClassInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Lesson
+   */
+
+  export type AggregateLesson = {
+    _count: LessonCountAggregateOutputType | null
+    _avg: LessonAvgAggregateOutputType | null
+    _sum: LessonSumAggregateOutputType | null
+    _min: LessonMinAggregateOutputType | null
+    _max: LessonMaxAggregateOutputType | null
+  }
+
+  export type LessonAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type LessonSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type LessonMinAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    acceptPresenceByQRCode: boolean | null
+    classId: string | null
+    latitude: number | null
+    longitude: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LessonMaxAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    acceptPresenceByQRCode: boolean | null
+    classId: string | null
+    latitude: number | null
+    longitude: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LessonCountAggregateOutputType = {
+    id: number
+    date: number
+    acceptPresenceByQRCode: number
+    classId: number
+    latitude: number
+    longitude: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LessonAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type LessonSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type LessonMinAggregateInputType = {
+    id?: true
+    date?: true
+    acceptPresenceByQRCode?: true
+    classId?: true
+    latitude?: true
+    longitude?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LessonMaxAggregateInputType = {
+    id?: true
+    date?: true
+    acceptPresenceByQRCode?: true
+    classId?: true
+    latitude?: true
+    longitude?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LessonCountAggregateInputType = {
+    id?: true
+    date?: true
+    acceptPresenceByQRCode?: true
+    classId?: true
+    latitude?: true
+    longitude?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LessonAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lesson to aggregate.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lessons
+    **/
+    _count?: true | LessonCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LessonAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LessonSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LessonMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LessonMaxAggregateInputType
+  }
+
+  export type GetLessonAggregateType<T extends LessonAggregateArgs> = {
+        [P in keyof T & keyof AggregateLesson]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLesson[P]>
+      : GetScalarType<T[P], AggregateLesson[P]>
+  }
+
+
+
+
+  export type LessonGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LessonWhereInput
+    orderBy?: LessonOrderByWithAggregationInput | LessonOrderByWithAggregationInput[]
+    by: LessonScalarFieldEnum[] | LessonScalarFieldEnum
+    having?: LessonScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LessonCountAggregateInputType | true
+    _avg?: LessonAvgAggregateInputType
+    _sum?: LessonSumAggregateInputType
+    _min?: LessonMinAggregateInputType
+    _max?: LessonMaxAggregateInputType
+  }
+
+  export type LessonGroupByOutputType = {
+    id: string
+    date: Date
+    acceptPresenceByQRCode: boolean
+    classId: string
+    latitude: number | null
+    longitude: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: LessonCountAggregateOutputType | null
+    _avg: LessonAvgAggregateOutputType | null
+    _sum: LessonSumAggregateOutputType | null
+    _min: LessonMinAggregateOutputType | null
+    _max: LessonMaxAggregateOutputType | null
+  }
+
+  type GetLessonGroupByPayload<T extends LessonGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LessonGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LessonGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LessonGroupByOutputType[P]>
+            : GetScalarType<T[P], LessonGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LessonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    acceptPresenceByQRCode?: boolean
+    classId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    classAttendanceRecords?: boolean | Lesson$classAttendanceRecordsArgs<ExtArgs>
+    attendanceToken?: boolean | Lesson$attendanceTokenArgs<ExtArgs>
+    _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lesson"]>
+
+  export type LessonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    acceptPresenceByQRCode?: boolean
+    classId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lesson"]>
+
+  export type LessonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    acceptPresenceByQRCode?: boolean
+    classId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lesson"]>
+
+  export type LessonSelectScalar = {
+    id?: boolean
+    date?: boolean
+    acceptPresenceByQRCode?: boolean
+    classId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "acceptPresenceByQRCode" | "classId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
+  export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+    classAttendanceRecords?: boolean | Lesson$classAttendanceRecordsArgs<ExtArgs>
+    attendanceToken?: boolean | Lesson$attendanceTokenArgs<ExtArgs>
+    _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LessonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+  }
+  export type LessonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    class?: boolean | ClassDefaultArgs<ExtArgs>
+  }
+
+  export type $LessonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Lesson"
+    objects: {
+      class: Prisma.$ClassPayload<ExtArgs>
+      classAttendanceRecords: Prisma.$ClassAttendanceRecordPayload<ExtArgs>[]
+      attendanceToken: Prisma.$AttendanceTokenPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: Date
+      acceptPresenceByQRCode: boolean
+      classId: string
+      latitude: number | null
+      longitude: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["lesson"]>
+    composites: {}
+  }
+
+  type LessonGetPayload<S extends boolean | null | undefined | LessonDefaultArgs> = $Result.GetResult<Prisma.$LessonPayload, S>
+
+  type LessonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LessonFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LessonCountAggregateInputType | true
+    }
+
+  export interface LessonDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Lesson'], meta: { name: 'Lesson' } }
+    /**
+     * Find zero or one Lesson that matches the filter.
+     * @param {LessonFindUniqueArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LessonFindUniqueArgs>(args: SelectSubset<T, LessonFindUniqueArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Lesson that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LessonFindUniqueOrThrowArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LessonFindUniqueOrThrowArgs>(args: SelectSubset<T, LessonFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lesson that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonFindFirstArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LessonFindFirstArgs>(args?: SelectSubset<T, LessonFindFirstArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lesson that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonFindFirstOrThrowArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LessonFindFirstOrThrowArgs>(args?: SelectSubset<T, LessonFindFirstOrThrowArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lessons that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lessons
+     * const lessons = await prisma.lesson.findMany()
+     * 
+     * // Get first 10 Lessons
+     * const lessons = await prisma.lesson.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lessonWithIdOnly = await prisma.lesson.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LessonFindManyArgs>(args?: SelectSubset<T, LessonFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Lesson.
+     * @param {LessonCreateArgs} args - Arguments to create a Lesson.
+     * @example
+     * // Create one Lesson
+     * const Lesson = await prisma.lesson.create({
+     *   data: {
+     *     // ... data to create a Lesson
+     *   }
+     * })
+     * 
+     */
+    create<T extends LessonCreateArgs>(args: SelectSubset<T, LessonCreateArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lessons.
+     * @param {LessonCreateManyArgs} args - Arguments to create many Lessons.
+     * @example
+     * // Create many Lessons
+     * const lesson = await prisma.lesson.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LessonCreateManyArgs>(args?: SelectSubset<T, LessonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Lessons and returns the data saved in the database.
+     * @param {LessonCreateManyAndReturnArgs} args - Arguments to create many Lessons.
+     * @example
+     * // Create many Lessons
+     * const lesson = await prisma.lesson.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Lessons and only return the `id`
+     * const lessonWithIdOnly = await prisma.lesson.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LessonCreateManyAndReturnArgs>(args?: SelectSubset<T, LessonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Lesson.
+     * @param {LessonDeleteArgs} args - Arguments to delete one Lesson.
+     * @example
+     * // Delete one Lesson
+     * const Lesson = await prisma.lesson.delete({
+     *   where: {
+     *     // ... filter to delete one Lesson
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LessonDeleteArgs>(args: SelectSubset<T, LessonDeleteArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Lesson.
+     * @param {LessonUpdateArgs} args - Arguments to update one Lesson.
+     * @example
+     * // Update one Lesson
+     * const lesson = await prisma.lesson.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LessonUpdateArgs>(args: SelectSubset<T, LessonUpdateArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lessons.
+     * @param {LessonDeleteManyArgs} args - Arguments to filter Lessons to delete.
+     * @example
+     * // Delete a few Lessons
+     * const { count } = await prisma.lesson.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LessonDeleteManyArgs>(args?: SelectSubset<T, LessonDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lessons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lessons
+     * const lesson = await prisma.lesson.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LessonUpdateManyArgs>(args: SelectSubset<T, LessonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lessons and returns the data updated in the database.
+     * @param {LessonUpdateManyAndReturnArgs} args - Arguments to update many Lessons.
+     * @example
+     * // Update many Lessons
+     * const lesson = await prisma.lesson.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Lessons and only return the `id`
+     * const lessonWithIdOnly = await prisma.lesson.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LessonUpdateManyAndReturnArgs>(args: SelectSubset<T, LessonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Lesson.
+     * @param {LessonUpsertArgs} args - Arguments to update or create a Lesson.
+     * @example
+     * // Update or create a Lesson
+     * const lesson = await prisma.lesson.upsert({
+     *   create: {
+     *     // ... data to create a Lesson
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Lesson we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LessonUpsertArgs>(args: SelectSubset<T, LessonUpsertArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lessons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonCountArgs} args - Arguments to filter Lessons to count.
+     * @example
+     * // Count the number of Lessons
+     * const count = await prisma.lesson.count({
+     *   where: {
+     *     // ... the filter for the Lessons we want to count
+     *   }
+     * })
+    **/
+    count<T extends LessonCountArgs>(
+      args?: Subset<T, LessonCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LessonCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Lesson.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LessonAggregateArgs>(args: Subset<T, LessonAggregateArgs>): Prisma.PrismaPromise<GetLessonAggregateType<T>>
+
+    /**
+     * Group by Lesson.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LessonGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LessonGroupByArgs['orderBy'] }
+        : { orderBy?: LessonGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LessonGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLessonGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Lesson model
+   */
+  readonly fields: LessonFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Lesson.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LessonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    class<T extends ClassDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClassDefaultArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    classAttendanceRecords<T extends Lesson$classAttendanceRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Lesson$classAttendanceRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attendanceToken<T extends Lesson$attendanceTokenArgs<ExtArgs> = {}>(args?: Subset<T, Lesson$attendanceTokenArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Lesson model
+   */
+  interface LessonFieldRefs {
+    readonly id: FieldRef<"Lesson", 'String'>
+    readonly date: FieldRef<"Lesson", 'DateTime'>
+    readonly acceptPresenceByQRCode: FieldRef<"Lesson", 'Boolean'>
+    readonly classId: FieldRef<"Lesson", 'String'>
+    readonly latitude: FieldRef<"Lesson", 'Float'>
+    readonly longitude: FieldRef<"Lesson", 'Float'>
+    readonly createdAt: FieldRef<"Lesson", 'DateTime'>
+    readonly updatedAt: FieldRef<"Lesson", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Lesson findUnique
+   */
+  export type LessonFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson findUniqueOrThrow
+   */
+  export type LessonFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson findFirst
+   */
+  export type LessonFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lessons.
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lessons.
+     */
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson findFirstOrThrow
+   */
+  export type LessonFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lessons.
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lessons.
+     */
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson findMany
+   */
+  export type LessonFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lessons to fetch.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lessons.
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson create
+   */
+  export type LessonCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Lesson.
+     */
+    data: XOR<LessonCreateInput, LessonUncheckedCreateInput>
+  }
+
+  /**
+   * Lesson createMany
+   */
+  export type LessonCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Lessons.
+     */
+    data: LessonCreateManyInput | LessonCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Lesson createManyAndReturn
+   */
+  export type LessonCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * The data used to create many Lessons.
+     */
+    data: LessonCreateManyInput | LessonCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lesson update
+   */
+  export type LessonUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Lesson.
+     */
+    data: XOR<LessonUpdateInput, LessonUncheckedUpdateInput>
+    /**
+     * Choose, which Lesson to update.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson updateMany
+   */
+  export type LessonUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Lessons.
+     */
+    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyInput>
+    /**
+     * Filter which Lessons to update
+     */
+    where?: LessonWhereInput
+    /**
+     * Limit how many Lessons to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lesson updateManyAndReturn
+   */
+  export type LessonUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * The data used to update Lessons.
+     */
+    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyInput>
+    /**
+     * Filter which Lessons to update
+     */
+    where?: LessonWhereInput
+    /**
+     * Limit how many Lessons to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lesson upsert
+   */
+  export type LessonUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Lesson to update in case it exists.
+     */
+    where: LessonWhereUniqueInput
+    /**
+     * In case the Lesson found by the `where` argument doesn't exist, create a new Lesson with this data.
+     */
+    create: XOR<LessonCreateInput, LessonUncheckedCreateInput>
+    /**
+     * In case the Lesson was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LessonUpdateInput, LessonUncheckedUpdateInput>
+  }
+
+  /**
+   * Lesson delete
+   */
+  export type LessonDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter which Lesson to delete.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson deleteMany
+   */
+  export type LessonDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lessons to delete
+     */
+    where?: LessonWhereInput
+    /**
+     * Limit how many Lessons to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lesson.classAttendanceRecords
+   */
+  export type Lesson$classAttendanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    where?: ClassAttendanceRecordWhereInput
+    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
+    cursor?: ClassAttendanceRecordWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson.attendanceToken
+   */
+  export type Lesson$attendanceTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    where?: AttendanceTokenWhereInput
+  }
+
+  /**
+   * Lesson without action
+   */
+  export type LessonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ClassAttendanceRecord
+   */
+
+  export type AggregateClassAttendanceRecord = {
+    _count: ClassAttendanceRecordCountAggregateOutputType | null
+    _avg: ClassAttendanceRecordAvgAggregateOutputType | null
+    _sum: ClassAttendanceRecordSumAggregateOutputType | null
+    _min: ClassAttendanceRecordMinAggregateOutputType | null
+    _max: ClassAttendanceRecordMaxAggregateOutputType | null
+  }
+
+  export type ClassAttendanceRecordAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type ClassAttendanceRecordSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type ClassAttendanceRecordMinAggregateOutputType = {
+    id: string | null
+    present: boolean | null
+    studentId: string | null
+    lessonId: string | null
+    deviceId: string | null
+    latitude: number | null
+    longitude: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassAttendanceRecordMaxAggregateOutputType = {
+    id: string | null
+    present: boolean | null
+    studentId: string | null
+    lessonId: string | null
+    deviceId: string | null
+    latitude: number | null
+    longitude: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClassAttendanceRecordCountAggregateOutputType = {
+    id: number
+    present: number
+    studentId: number
+    lessonId: number
+    deviceId: number
+    latitude: number
+    longitude: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ClassAttendanceRecordAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type ClassAttendanceRecordSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type ClassAttendanceRecordMinAggregateInputType = {
+    id?: true
+    present?: true
+    studentId?: true
+    lessonId?: true
+    deviceId?: true
+    latitude?: true
+    longitude?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassAttendanceRecordMaxAggregateInputType = {
+    id?: true
+    present?: true
+    studentId?: true
+    lessonId?: true
+    deviceId?: true
+    latitude?: true
+    longitude?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClassAttendanceRecordCountAggregateInputType = {
+    id?: true
+    present?: true
+    studentId?: true
+    lessonId?: true
+    deviceId?: true
+    latitude?: true
+    longitude?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ClassAttendanceRecordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClassAttendanceRecord to aggregate.
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassAttendanceRecords to fetch.
+     */
+    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClassAttendanceRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassAttendanceRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassAttendanceRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClassAttendanceRecords
+    **/
+    _count?: true | ClassAttendanceRecordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClassAttendanceRecordAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClassAttendanceRecordSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClassAttendanceRecordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClassAttendanceRecordMaxAggregateInputType
+  }
+
+  export type GetClassAttendanceRecordAggregateType<T extends ClassAttendanceRecordAggregateArgs> = {
+        [P in keyof T & keyof AggregateClassAttendanceRecord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClassAttendanceRecord[P]>
+      : GetScalarType<T[P], AggregateClassAttendanceRecord[P]>
+  }
+
+
+
+
+  export type ClassAttendanceRecordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClassAttendanceRecordWhereInput
+    orderBy?: ClassAttendanceRecordOrderByWithAggregationInput | ClassAttendanceRecordOrderByWithAggregationInput[]
+    by: ClassAttendanceRecordScalarFieldEnum[] | ClassAttendanceRecordScalarFieldEnum
+    having?: ClassAttendanceRecordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClassAttendanceRecordCountAggregateInputType | true
+    _avg?: ClassAttendanceRecordAvgAggregateInputType
+    _sum?: ClassAttendanceRecordSumAggregateInputType
+    _min?: ClassAttendanceRecordMinAggregateInputType
+    _max?: ClassAttendanceRecordMaxAggregateInputType
+  }
+
+  export type ClassAttendanceRecordGroupByOutputType = {
+    id: string
+    present: boolean
+    studentId: string
+    lessonId: string
+    deviceId: string | null
+    latitude: number | null
+    longitude: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ClassAttendanceRecordCountAggregateOutputType | null
+    _avg: ClassAttendanceRecordAvgAggregateOutputType | null
+    _sum: ClassAttendanceRecordSumAggregateOutputType | null
+    _min: ClassAttendanceRecordMinAggregateOutputType | null
+    _max: ClassAttendanceRecordMaxAggregateOutputType | null
+  }
+
+  type GetClassAttendanceRecordGroupByPayload<T extends ClassAttendanceRecordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClassAttendanceRecordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClassAttendanceRecordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClassAttendanceRecordGroupByOutputType[P]>
+            : GetScalarType<T[P], ClassAttendanceRecordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClassAttendanceRecordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    present?: boolean
+    studentId?: boolean
+    lessonId?: boolean
+    deviceId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classAttendanceRecord"]>
+
+  export type ClassAttendanceRecordSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    present?: boolean
+    studentId?: boolean
+    lessonId?: boolean
+    deviceId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classAttendanceRecord"]>
+
+  export type ClassAttendanceRecordSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    present?: boolean
+    studentId?: boolean
+    lessonId?: boolean
+    deviceId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["classAttendanceRecord"]>
+
+  export type ClassAttendanceRecordSelectScalar = {
+    id?: boolean
+    present?: boolean
+    studentId?: boolean
+    lessonId?: boolean
+    deviceId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ClassAttendanceRecordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "present" | "studentId" | "lessonId" | "deviceId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["classAttendanceRecord"]>
+  export type ClassAttendanceRecordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+  }
+  export type ClassAttendanceRecordIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+  }
+  export type ClassAttendanceRecordIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+  }
+
+  export type $ClassAttendanceRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClassAttendanceRecord"
+    objects: {
+      lesson: Prisma.$LessonPayload<ExtArgs>
+      student: Prisma.$StudentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      present: boolean
+      studentId: string
+      lessonId: string
+      deviceId: string | null
+      latitude: number | null
+      longitude: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["classAttendanceRecord"]>
+    composites: {}
+  }
+
+  type ClassAttendanceRecordGetPayload<S extends boolean | null | undefined | ClassAttendanceRecordDefaultArgs> = $Result.GetResult<Prisma.$ClassAttendanceRecordPayload, S>
+
+  type ClassAttendanceRecordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClassAttendanceRecordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClassAttendanceRecordCountAggregateInputType | true
+    }
+
+  export interface ClassAttendanceRecordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClassAttendanceRecord'], meta: { name: 'ClassAttendanceRecord' } }
+    /**
+     * Find zero or one ClassAttendanceRecord that matches the filter.
+     * @param {ClassAttendanceRecordFindUniqueArgs} args - Arguments to find a ClassAttendanceRecord
+     * @example
+     * // Get one ClassAttendanceRecord
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClassAttendanceRecordFindUniqueArgs>(args: SelectSubset<T, ClassAttendanceRecordFindUniqueArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ClassAttendanceRecord that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClassAttendanceRecordFindUniqueOrThrowArgs} args - Arguments to find a ClassAttendanceRecord
+     * @example
+     * // Get one ClassAttendanceRecord
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClassAttendanceRecordFindUniqueOrThrowArgs>(args: SelectSubset<T, ClassAttendanceRecordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClassAttendanceRecord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordFindFirstArgs} args - Arguments to find a ClassAttendanceRecord
+     * @example
+     * // Get one ClassAttendanceRecord
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClassAttendanceRecordFindFirstArgs>(args?: SelectSubset<T, ClassAttendanceRecordFindFirstArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClassAttendanceRecord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordFindFirstOrThrowArgs} args - Arguments to find a ClassAttendanceRecord
+     * @example
+     * // Get one ClassAttendanceRecord
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClassAttendanceRecordFindFirstOrThrowArgs>(args?: SelectSubset<T, ClassAttendanceRecordFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ClassAttendanceRecords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClassAttendanceRecords
+     * const classAttendanceRecords = await prisma.classAttendanceRecord.findMany()
+     * 
+     * // Get first 10 ClassAttendanceRecords
+     * const classAttendanceRecords = await prisma.classAttendanceRecord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const classAttendanceRecordWithIdOnly = await prisma.classAttendanceRecord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClassAttendanceRecordFindManyArgs>(args?: SelectSubset<T, ClassAttendanceRecordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ClassAttendanceRecord.
+     * @param {ClassAttendanceRecordCreateArgs} args - Arguments to create a ClassAttendanceRecord.
+     * @example
+     * // Create one ClassAttendanceRecord
+     * const ClassAttendanceRecord = await prisma.classAttendanceRecord.create({
+     *   data: {
+     *     // ... data to create a ClassAttendanceRecord
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClassAttendanceRecordCreateArgs>(args: SelectSubset<T, ClassAttendanceRecordCreateArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ClassAttendanceRecords.
+     * @param {ClassAttendanceRecordCreateManyArgs} args - Arguments to create many ClassAttendanceRecords.
+     * @example
+     * // Create many ClassAttendanceRecords
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClassAttendanceRecordCreateManyArgs>(args?: SelectSubset<T, ClassAttendanceRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClassAttendanceRecords and returns the data saved in the database.
+     * @param {ClassAttendanceRecordCreateManyAndReturnArgs} args - Arguments to create many ClassAttendanceRecords.
+     * @example
+     * // Create many ClassAttendanceRecords
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClassAttendanceRecords and only return the `id`
+     * const classAttendanceRecordWithIdOnly = await prisma.classAttendanceRecord.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClassAttendanceRecordCreateManyAndReturnArgs>(args?: SelectSubset<T, ClassAttendanceRecordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ClassAttendanceRecord.
+     * @param {ClassAttendanceRecordDeleteArgs} args - Arguments to delete one ClassAttendanceRecord.
+     * @example
+     * // Delete one ClassAttendanceRecord
+     * const ClassAttendanceRecord = await prisma.classAttendanceRecord.delete({
+     *   where: {
+     *     // ... filter to delete one ClassAttendanceRecord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClassAttendanceRecordDeleteArgs>(args: SelectSubset<T, ClassAttendanceRecordDeleteArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ClassAttendanceRecord.
+     * @param {ClassAttendanceRecordUpdateArgs} args - Arguments to update one ClassAttendanceRecord.
+     * @example
+     * // Update one ClassAttendanceRecord
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClassAttendanceRecordUpdateArgs>(args: SelectSubset<T, ClassAttendanceRecordUpdateArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ClassAttendanceRecords.
+     * @param {ClassAttendanceRecordDeleteManyArgs} args - Arguments to filter ClassAttendanceRecords to delete.
+     * @example
+     * // Delete a few ClassAttendanceRecords
+     * const { count } = await prisma.classAttendanceRecord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClassAttendanceRecordDeleteManyArgs>(args?: SelectSubset<T, ClassAttendanceRecordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClassAttendanceRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClassAttendanceRecords
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClassAttendanceRecordUpdateManyArgs>(args: SelectSubset<T, ClassAttendanceRecordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClassAttendanceRecords and returns the data updated in the database.
+     * @param {ClassAttendanceRecordUpdateManyAndReturnArgs} args - Arguments to update many ClassAttendanceRecords.
+     * @example
+     * // Update many ClassAttendanceRecords
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ClassAttendanceRecords and only return the `id`
+     * const classAttendanceRecordWithIdOnly = await prisma.classAttendanceRecord.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ClassAttendanceRecordUpdateManyAndReturnArgs>(args: SelectSubset<T, ClassAttendanceRecordUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ClassAttendanceRecord.
+     * @param {ClassAttendanceRecordUpsertArgs} args - Arguments to update or create a ClassAttendanceRecord.
+     * @example
+     * // Update or create a ClassAttendanceRecord
+     * const classAttendanceRecord = await prisma.classAttendanceRecord.upsert({
+     *   create: {
+     *     // ... data to create a ClassAttendanceRecord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClassAttendanceRecord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClassAttendanceRecordUpsertArgs>(args: SelectSubset<T, ClassAttendanceRecordUpsertArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ClassAttendanceRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordCountArgs} args - Arguments to filter ClassAttendanceRecords to count.
+     * @example
+     * // Count the number of ClassAttendanceRecords
+     * const count = await prisma.classAttendanceRecord.count({
+     *   where: {
+     *     // ... the filter for the ClassAttendanceRecords we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClassAttendanceRecordCountArgs>(
+      args?: Subset<T, ClassAttendanceRecordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClassAttendanceRecordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClassAttendanceRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClassAttendanceRecordAggregateArgs>(args: Subset<T, ClassAttendanceRecordAggregateArgs>): Prisma.PrismaPromise<GetClassAttendanceRecordAggregateType<T>>
+
+    /**
+     * Group by ClassAttendanceRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClassAttendanceRecordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClassAttendanceRecordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClassAttendanceRecordGroupByArgs['orderBy'] }
+        : { orderBy?: ClassAttendanceRecordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClassAttendanceRecordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClassAttendanceRecordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClassAttendanceRecord model
+   */
+  readonly fields: ClassAttendanceRecordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClassAttendanceRecord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClassAttendanceRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lesson<T extends LessonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LessonDefaultArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClassAttendanceRecord model
+   */
+  interface ClassAttendanceRecordFieldRefs {
+    readonly id: FieldRef<"ClassAttendanceRecord", 'String'>
+    readonly present: FieldRef<"ClassAttendanceRecord", 'Boolean'>
+    readonly studentId: FieldRef<"ClassAttendanceRecord", 'String'>
+    readonly lessonId: FieldRef<"ClassAttendanceRecord", 'String'>
+    readonly deviceId: FieldRef<"ClassAttendanceRecord", 'String'>
+    readonly latitude: FieldRef<"ClassAttendanceRecord", 'Float'>
+    readonly longitude: FieldRef<"ClassAttendanceRecord", 'Float'>
+    readonly createdAt: FieldRef<"ClassAttendanceRecord", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClassAttendanceRecord", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClassAttendanceRecord findUnique
+   */
+  export type ClassAttendanceRecordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassAttendanceRecord to fetch.
+     */
+    where: ClassAttendanceRecordWhereUniqueInput
+  }
+
+  /**
+   * ClassAttendanceRecord findUniqueOrThrow
+   */
+  export type ClassAttendanceRecordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassAttendanceRecord to fetch.
+     */
+    where: ClassAttendanceRecordWhereUniqueInput
+  }
+
+  /**
+   * ClassAttendanceRecord findFirst
+   */
+  export type ClassAttendanceRecordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassAttendanceRecord to fetch.
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassAttendanceRecords to fetch.
+     */
+    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClassAttendanceRecords.
+     */
+    cursor?: ClassAttendanceRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassAttendanceRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassAttendanceRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClassAttendanceRecords.
+     */
+    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
+  }
+
+  /**
+   * ClassAttendanceRecord findFirstOrThrow
+   */
+  export type ClassAttendanceRecordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassAttendanceRecord to fetch.
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassAttendanceRecords to fetch.
+     */
+    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClassAttendanceRecords.
+     */
+    cursor?: ClassAttendanceRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassAttendanceRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassAttendanceRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClassAttendanceRecords.
+     */
+    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
+  }
+
+  /**
+   * ClassAttendanceRecord findMany
+   */
+  export type ClassAttendanceRecordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which ClassAttendanceRecords to fetch.
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClassAttendanceRecords to fetch.
+     */
+    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClassAttendanceRecords.
+     */
+    cursor?: ClassAttendanceRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClassAttendanceRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClassAttendanceRecords.
+     */
+    skip?: number
+    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
+  }
+
+  /**
+   * ClassAttendanceRecord create
+   */
+  export type ClassAttendanceRecordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ClassAttendanceRecord.
+     */
+    data: XOR<ClassAttendanceRecordCreateInput, ClassAttendanceRecordUncheckedCreateInput>
+  }
+
+  /**
+   * ClassAttendanceRecord createMany
+   */
+  export type ClassAttendanceRecordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClassAttendanceRecords.
+     */
+    data: ClassAttendanceRecordCreateManyInput | ClassAttendanceRecordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ClassAttendanceRecord createManyAndReturn
+   */
+  export type ClassAttendanceRecordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * The data used to create many ClassAttendanceRecords.
+     */
+    data: ClassAttendanceRecordCreateManyInput | ClassAttendanceRecordCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClassAttendanceRecord update
+   */
+  export type ClassAttendanceRecordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ClassAttendanceRecord.
+     */
+    data: XOR<ClassAttendanceRecordUpdateInput, ClassAttendanceRecordUncheckedUpdateInput>
+    /**
+     * Choose, which ClassAttendanceRecord to update.
+     */
+    where: ClassAttendanceRecordWhereUniqueInput
+  }
+
+  /**
+   * ClassAttendanceRecord updateMany
+   */
+  export type ClassAttendanceRecordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClassAttendanceRecords.
+     */
+    data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which ClassAttendanceRecords to update
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * Limit how many ClassAttendanceRecords to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClassAttendanceRecord updateManyAndReturn
+   */
+  export type ClassAttendanceRecordUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * The data used to update ClassAttendanceRecords.
+     */
+    data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which ClassAttendanceRecords to update
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * Limit how many ClassAttendanceRecords to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClassAttendanceRecord upsert
+   */
+  export type ClassAttendanceRecordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ClassAttendanceRecord to update in case it exists.
+     */
+    where: ClassAttendanceRecordWhereUniqueInput
+    /**
+     * In case the ClassAttendanceRecord found by the `where` argument doesn't exist, create a new ClassAttendanceRecord with this data.
+     */
+    create: XOR<ClassAttendanceRecordCreateInput, ClassAttendanceRecordUncheckedCreateInput>
+    /**
+     * In case the ClassAttendanceRecord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClassAttendanceRecordUpdateInput, ClassAttendanceRecordUncheckedUpdateInput>
+  }
+
+  /**
+   * ClassAttendanceRecord delete
+   */
+  export type ClassAttendanceRecordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+    /**
+     * Filter which ClassAttendanceRecord to delete.
+     */
+    where: ClassAttendanceRecordWhereUniqueInput
+  }
+
+  /**
+   * ClassAttendanceRecord deleteMany
+   */
+  export type ClassAttendanceRecordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClassAttendanceRecords to delete
+     */
+    where?: ClassAttendanceRecordWhereInput
+    /**
+     * Limit how many ClassAttendanceRecords to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClassAttendanceRecord without action
+   */
+  export type ClassAttendanceRecordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClassAttendanceRecord
+     */
+    select?: ClassAttendanceRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClassAttendanceRecord
+     */
+    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassAttendanceRecordInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AttendanceToken
+   */
+
+  export type AggregateAttendanceToken = {
+    _count: AttendanceTokenCountAggregateOutputType | null
+    _avg: AttendanceTokenAvgAggregateOutputType | null
+    _sum: AttendanceTokenSumAggregateOutputType | null
+    _min: AttendanceTokenMinAggregateOutputType | null
+    _max: AttendanceTokenMaxAggregateOutputType | null
+  }
+
+  export type AttendanceTokenAvgAggregateOutputType = {
+    currentUsageCount: number | null
+  }
+
+  export type AttendanceTokenSumAggregateOutputType = {
+    currentUsageCount: number | null
+  }
+
+  export type AttendanceTokenMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    expiresAt: Date | null
+    currentUsageCount: number | null
+    used: boolean | null
+    lessonId: string | null
+    createdAt: Date | null
+  }
+
+  export type AttendanceTokenMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    expiresAt: Date | null
+    currentUsageCount: number | null
+    used: boolean | null
+    lessonId: string | null
+    createdAt: Date | null
+  }
+
+  export type AttendanceTokenCountAggregateOutputType = {
+    id: number
+    token: number
+    expiresAt: number
+    currentUsageCount: number
+    used: number
+    lessonId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AttendanceTokenAvgAggregateInputType = {
+    currentUsageCount?: true
+  }
+
+  export type AttendanceTokenSumAggregateInputType = {
+    currentUsageCount?: true
+  }
+
+  export type AttendanceTokenMinAggregateInputType = {
+    id?: true
+    token?: true
+    expiresAt?: true
+    currentUsageCount?: true
+    used?: true
+    lessonId?: true
+    createdAt?: true
+  }
+
+  export type AttendanceTokenMaxAggregateInputType = {
+    id?: true
+    token?: true
+    expiresAt?: true
+    currentUsageCount?: true
+    used?: true
+    lessonId?: true
+    createdAt?: true
+  }
+
+  export type AttendanceTokenCountAggregateInputType = {
+    id?: true
+    token?: true
+    expiresAt?: true
+    currentUsageCount?: true
+    used?: true
+    lessonId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AttendanceTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AttendanceToken to aggregate.
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AttendanceTokens to fetch.
+     */
+    orderBy?: AttendanceTokenOrderByWithRelationInput | AttendanceTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AttendanceTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AttendanceTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AttendanceTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AttendanceTokens
+    **/
+    _count?: true | AttendanceTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AttendanceTokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AttendanceTokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AttendanceTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AttendanceTokenMaxAggregateInputType
+  }
+
+  export type GetAttendanceTokenAggregateType<T extends AttendanceTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateAttendanceToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAttendanceToken[P]>
+      : GetScalarType<T[P], AggregateAttendanceToken[P]>
+  }
+
+
+
+
+  export type AttendanceTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceTokenWhereInput
+    orderBy?: AttendanceTokenOrderByWithAggregationInput | AttendanceTokenOrderByWithAggregationInput[]
+    by: AttendanceTokenScalarFieldEnum[] | AttendanceTokenScalarFieldEnum
+    having?: AttendanceTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AttendanceTokenCountAggregateInputType | true
+    _avg?: AttendanceTokenAvgAggregateInputType
+    _sum?: AttendanceTokenSumAggregateInputType
+    _min?: AttendanceTokenMinAggregateInputType
+    _max?: AttendanceTokenMaxAggregateInputType
+  }
+
+  export type AttendanceTokenGroupByOutputType = {
+    id: string
+    token: string
+    expiresAt: Date
+    currentUsageCount: number
+    used: boolean
+    lessonId: string
+    createdAt: Date
+    _count: AttendanceTokenCountAggregateOutputType | null
+    _avg: AttendanceTokenAvgAggregateOutputType | null
+    _sum: AttendanceTokenSumAggregateOutputType | null
+    _min: AttendanceTokenMinAggregateOutputType | null
+    _max: AttendanceTokenMaxAggregateOutputType | null
+  }
+
+  type GetAttendanceTokenGroupByPayload<T extends AttendanceTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AttendanceTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AttendanceTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AttendanceTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], AttendanceTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AttendanceTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    currentUsageCount?: boolean
+    used?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendanceToken"]>
+
+  export type AttendanceTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    currentUsageCount?: boolean
+    used?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendanceToken"]>
+
+  export type AttendanceTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    currentUsageCount?: boolean
+    used?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendanceToken"]>
+
+  export type AttendanceTokenSelectScalar = {
+    id?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    currentUsageCount?: boolean
+    used?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+  }
+
+  export type AttendanceTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "expiresAt" | "currentUsageCount" | "used" | "lessonId" | "createdAt", ExtArgs["result"]["attendanceToken"]>
+  export type AttendanceTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }
+  export type AttendanceTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }
+  export type AttendanceTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }
+
+  export type $AttendanceTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AttendanceToken"
+    objects: {
+      lesson: Prisma.$LessonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      token: string
+      expiresAt: Date
+      currentUsageCount: number
+      used: boolean
+      lessonId: string
+      createdAt: Date
+    }, ExtArgs["result"]["attendanceToken"]>
+    composites: {}
+  }
+
+  type AttendanceTokenGetPayload<S extends boolean | null | undefined | AttendanceTokenDefaultArgs> = $Result.GetResult<Prisma.$AttendanceTokenPayload, S>
+
+  type AttendanceTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AttendanceTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AttendanceTokenCountAggregateInputType | true
+    }
+
+  export interface AttendanceTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AttendanceToken'], meta: { name: 'AttendanceToken' } }
+    /**
+     * Find zero or one AttendanceToken that matches the filter.
+     * @param {AttendanceTokenFindUniqueArgs} args - Arguments to find a AttendanceToken
+     * @example
+     * // Get one AttendanceToken
+     * const attendanceToken = await prisma.attendanceToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AttendanceTokenFindUniqueArgs>(args: SelectSubset<T, AttendanceTokenFindUniqueArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AttendanceToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AttendanceTokenFindUniqueOrThrowArgs} args - Arguments to find a AttendanceToken
+     * @example
+     * // Get one AttendanceToken
+     * const attendanceToken = await prisma.attendanceToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AttendanceTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, AttendanceTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AttendanceToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenFindFirstArgs} args - Arguments to find a AttendanceToken
+     * @example
+     * // Get one AttendanceToken
+     * const attendanceToken = await prisma.attendanceToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AttendanceTokenFindFirstArgs>(args?: SelectSubset<T, AttendanceTokenFindFirstArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AttendanceToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenFindFirstOrThrowArgs} args - Arguments to find a AttendanceToken
+     * @example
+     * // Get one AttendanceToken
+     * const attendanceToken = await prisma.attendanceToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AttendanceTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, AttendanceTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AttendanceTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AttendanceTokens
+     * const attendanceTokens = await prisma.attendanceToken.findMany()
+     * 
+     * // Get first 10 AttendanceTokens
+     * const attendanceTokens = await prisma.attendanceToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const attendanceTokenWithIdOnly = await prisma.attendanceToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AttendanceTokenFindManyArgs>(args?: SelectSubset<T, AttendanceTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AttendanceToken.
+     * @param {AttendanceTokenCreateArgs} args - Arguments to create a AttendanceToken.
+     * @example
+     * // Create one AttendanceToken
+     * const AttendanceToken = await prisma.attendanceToken.create({
+     *   data: {
+     *     // ... data to create a AttendanceToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends AttendanceTokenCreateArgs>(args: SelectSubset<T, AttendanceTokenCreateArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AttendanceTokens.
+     * @param {AttendanceTokenCreateManyArgs} args - Arguments to create many AttendanceTokens.
+     * @example
+     * // Create many AttendanceTokens
+     * const attendanceToken = await prisma.attendanceToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AttendanceTokenCreateManyArgs>(args?: SelectSubset<T, AttendanceTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AttendanceTokens and returns the data saved in the database.
+     * @param {AttendanceTokenCreateManyAndReturnArgs} args - Arguments to create many AttendanceTokens.
+     * @example
+     * // Create many AttendanceTokens
+     * const attendanceToken = await prisma.attendanceToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AttendanceTokens and only return the `id`
+     * const attendanceTokenWithIdOnly = await prisma.attendanceToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AttendanceTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, AttendanceTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AttendanceToken.
+     * @param {AttendanceTokenDeleteArgs} args - Arguments to delete one AttendanceToken.
+     * @example
+     * // Delete one AttendanceToken
+     * const AttendanceToken = await prisma.attendanceToken.delete({
+     *   where: {
+     *     // ... filter to delete one AttendanceToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AttendanceTokenDeleteArgs>(args: SelectSubset<T, AttendanceTokenDeleteArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AttendanceToken.
+     * @param {AttendanceTokenUpdateArgs} args - Arguments to update one AttendanceToken.
+     * @example
+     * // Update one AttendanceToken
+     * const attendanceToken = await prisma.attendanceToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AttendanceTokenUpdateArgs>(args: SelectSubset<T, AttendanceTokenUpdateArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AttendanceTokens.
+     * @param {AttendanceTokenDeleteManyArgs} args - Arguments to filter AttendanceTokens to delete.
+     * @example
+     * // Delete a few AttendanceTokens
+     * const { count } = await prisma.attendanceToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AttendanceTokenDeleteManyArgs>(args?: SelectSubset<T, AttendanceTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AttendanceTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AttendanceTokens
+     * const attendanceToken = await prisma.attendanceToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AttendanceTokenUpdateManyArgs>(args: SelectSubset<T, AttendanceTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AttendanceTokens and returns the data updated in the database.
+     * @param {AttendanceTokenUpdateManyAndReturnArgs} args - Arguments to update many AttendanceTokens.
+     * @example
+     * // Update many AttendanceTokens
+     * const attendanceToken = await prisma.attendanceToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AttendanceTokens and only return the `id`
+     * const attendanceTokenWithIdOnly = await prisma.attendanceToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AttendanceTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, AttendanceTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AttendanceToken.
+     * @param {AttendanceTokenUpsertArgs} args - Arguments to update or create a AttendanceToken.
+     * @example
+     * // Update or create a AttendanceToken
+     * const attendanceToken = await prisma.attendanceToken.upsert({
+     *   create: {
+     *     // ... data to create a AttendanceToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AttendanceToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AttendanceTokenUpsertArgs>(args: SelectSubset<T, AttendanceTokenUpsertArgs<ExtArgs>>): Prisma__AttendanceTokenClient<$Result.GetResult<Prisma.$AttendanceTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AttendanceTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenCountArgs} args - Arguments to filter AttendanceTokens to count.
+     * @example
+     * // Count the number of AttendanceTokens
+     * const count = await prisma.attendanceToken.count({
+     *   where: {
+     *     // ... the filter for the AttendanceTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends AttendanceTokenCountArgs>(
+      args?: Subset<T, AttendanceTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AttendanceTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AttendanceToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AttendanceTokenAggregateArgs>(args: Subset<T, AttendanceTokenAggregateArgs>): Prisma.PrismaPromise<GetAttendanceTokenAggregateType<T>>
+
+    /**
+     * Group by AttendanceToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AttendanceTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AttendanceTokenGroupByArgs['orderBy'] }
+        : { orderBy?: AttendanceTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AttendanceTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAttendanceTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AttendanceToken model
+   */
+  readonly fields: AttendanceTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AttendanceToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AttendanceTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lesson<T extends LessonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LessonDefaultArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AttendanceToken model
+   */
+  interface AttendanceTokenFieldRefs {
+    readonly id: FieldRef<"AttendanceToken", 'String'>
+    readonly token: FieldRef<"AttendanceToken", 'String'>
+    readonly expiresAt: FieldRef<"AttendanceToken", 'DateTime'>
+    readonly currentUsageCount: FieldRef<"AttendanceToken", 'Int'>
+    readonly used: FieldRef<"AttendanceToken", 'Boolean'>
+    readonly lessonId: FieldRef<"AttendanceToken", 'String'>
+    readonly createdAt: FieldRef<"AttendanceToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AttendanceToken findUnique
+   */
+  export type AttendanceTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which AttendanceToken to fetch.
+     */
+    where: AttendanceTokenWhereUniqueInput
+  }
+
+  /**
+   * AttendanceToken findUniqueOrThrow
+   */
+  export type AttendanceTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which AttendanceToken to fetch.
+     */
+    where: AttendanceTokenWhereUniqueInput
+  }
+
+  /**
+   * AttendanceToken findFirst
+   */
+  export type AttendanceTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which AttendanceToken to fetch.
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AttendanceTokens to fetch.
+     */
+    orderBy?: AttendanceTokenOrderByWithRelationInput | AttendanceTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AttendanceTokens.
+     */
+    cursor?: AttendanceTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AttendanceTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AttendanceTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AttendanceTokens.
+     */
+    distinct?: AttendanceTokenScalarFieldEnum | AttendanceTokenScalarFieldEnum[]
+  }
+
+  /**
+   * AttendanceToken findFirstOrThrow
+   */
+  export type AttendanceTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which AttendanceToken to fetch.
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AttendanceTokens to fetch.
+     */
+    orderBy?: AttendanceTokenOrderByWithRelationInput | AttendanceTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AttendanceTokens.
+     */
+    cursor?: AttendanceTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AttendanceTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AttendanceTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AttendanceTokens.
+     */
+    distinct?: AttendanceTokenScalarFieldEnum | AttendanceTokenScalarFieldEnum[]
+  }
+
+  /**
+   * AttendanceToken findMany
+   */
+  export type AttendanceTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which AttendanceTokens to fetch.
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AttendanceTokens to fetch.
+     */
+    orderBy?: AttendanceTokenOrderByWithRelationInput | AttendanceTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AttendanceTokens.
+     */
+    cursor?: AttendanceTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AttendanceTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AttendanceTokens.
+     */
+    skip?: number
+    distinct?: AttendanceTokenScalarFieldEnum | AttendanceTokenScalarFieldEnum[]
+  }
+
+  /**
+   * AttendanceToken create
+   */
+  export type AttendanceTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AttendanceToken.
+     */
+    data: XOR<AttendanceTokenCreateInput, AttendanceTokenUncheckedCreateInput>
+  }
+
+  /**
+   * AttendanceToken createMany
+   */
+  export type AttendanceTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AttendanceTokens.
+     */
+    data: AttendanceTokenCreateManyInput | AttendanceTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AttendanceToken createManyAndReturn
+   */
+  export type AttendanceTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many AttendanceTokens.
+     */
+    data: AttendanceTokenCreateManyInput | AttendanceTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AttendanceToken update
+   */
+  export type AttendanceTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AttendanceToken.
+     */
+    data: XOR<AttendanceTokenUpdateInput, AttendanceTokenUncheckedUpdateInput>
+    /**
+     * Choose, which AttendanceToken to update.
+     */
+    where: AttendanceTokenWhereUniqueInput
+  }
+
+  /**
+   * AttendanceToken updateMany
+   */
+  export type AttendanceTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AttendanceTokens.
+     */
+    data: XOR<AttendanceTokenUpdateManyMutationInput, AttendanceTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which AttendanceTokens to update
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * Limit how many AttendanceTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AttendanceToken updateManyAndReturn
+   */
+  export type AttendanceTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update AttendanceTokens.
+     */
+    data: XOR<AttendanceTokenUpdateManyMutationInput, AttendanceTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which AttendanceTokens to update
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * Limit how many AttendanceTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AttendanceToken upsert
+   */
+  export type AttendanceTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AttendanceToken to update in case it exists.
+     */
+    where: AttendanceTokenWhereUniqueInput
+    /**
+     * In case the AttendanceToken found by the `where` argument doesn't exist, create a new AttendanceToken with this data.
+     */
+    create: XOR<AttendanceTokenCreateInput, AttendanceTokenUncheckedCreateInput>
+    /**
+     * In case the AttendanceToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AttendanceTokenUpdateInput, AttendanceTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * AttendanceToken delete
+   */
+  export type AttendanceTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
+    /**
+     * Filter which AttendanceToken to delete.
+     */
+    where: AttendanceTokenWhereUniqueInput
+  }
+
+  /**
+   * AttendanceToken deleteMany
+   */
+  export type AttendanceTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AttendanceTokens to delete
+     */
+    where?: AttendanceTokenWhereInput
+    /**
+     * Limit how many AttendanceTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AttendanceToken without action
+   */
+  export type AttendanceTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AttendanceToken
+     */
+    select?: AttendanceTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AttendanceToken
+     */
+    omit?: AttendanceTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceTokenInclude<ExtArgs> | null
   }
 
 
@@ -4996,27 +8502,30 @@ export namespace Prisma {
 
   export type StudentMinAggregateOutputType = {
     id: string | null
-    enrollmentId: string | null
+    registrationNumber: string | null
     name: string | null
     email: string | null
+    deviceId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type StudentMaxAggregateOutputType = {
     id: string | null
-    enrollmentId: string | null
+    registrationNumber: string | null
     name: string | null
     email: string | null
+    deviceId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type StudentCountAggregateOutputType = {
     id: number
-    enrollmentId: number
+    registrationNumber: number
     name: number
     email: number
+    deviceId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5025,27 +8534,30 @@ export namespace Prisma {
 
   export type StudentMinAggregateInputType = {
     id?: true
-    enrollmentId?: true
+    registrationNumber?: true
     name?: true
     email?: true
+    deviceId?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type StudentMaxAggregateInputType = {
     id?: true
-    enrollmentId?: true
+    registrationNumber?: true
     name?: true
     email?: true
+    deviceId?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type StudentCountAggregateInputType = {
     id?: true
-    enrollmentId?: true
+    registrationNumber?: true
     name?: true
     email?: true
+    deviceId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5125,9 +8637,10 @@ export namespace Prisma {
 
   export type StudentGroupByOutputType = {
     id: string
-    enrollmentId: string
+    registrationNumber: string
     name: string
     email: string | null
+    deviceId: string
     createdAt: Date
     updatedAt: Date
     _count: StudentCountAggregateOutputType | null
@@ -5151,9 +8664,10 @@ export namespace Prisma {
 
   export type StudentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    enrollmentId?: boolean
+    registrationNumber?: boolean
     name?: boolean
     email?: boolean
+    deviceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     classAttendanceRecords?: boolean | Student$classAttendanceRecordsArgs<ExtArgs>
@@ -5163,32 +8677,35 @@ export namespace Prisma {
 
   export type StudentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    enrollmentId?: boolean
+    registrationNumber?: boolean
     name?: boolean
     email?: boolean
+    deviceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    enrollmentId?: boolean
+    registrationNumber?: boolean
     name?: boolean
     email?: boolean
+    deviceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectScalar = {
     id?: boolean
-    enrollmentId?: boolean
+    registrationNumber?: boolean
     name?: boolean
     email?: boolean
+    deviceId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "enrollmentId" | "name" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
+  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "registrationNumber" | "name" | "email" | "deviceId" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
   export type StudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     classAttendanceRecords?: boolean | Student$classAttendanceRecordsArgs<ExtArgs>
     enrollments?: boolean | Student$enrollmentsArgs<ExtArgs>
@@ -5205,9 +8722,10 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      enrollmentId: string
+      registrationNumber: string
       name: string
       email: string | null
+      deviceId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["student"]>
@@ -5636,9 +9154,10 @@ export namespace Prisma {
    */
   interface StudentFieldRefs {
     readonly id: FieldRef<"Student", 'String'>
-    readonly enrollmentId: FieldRef<"Student", 'String'>
+    readonly registrationNumber: FieldRef<"Student", 'String'>
     readonly name: FieldRef<"Student", 'String'>
     readonly email: FieldRef<"Student", 'String'>
+    readonly deviceId: FieldRef<"Student", 'String'>
     readonly createdAt: FieldRef<"Student", 'DateTime'>
     readonly updatedAt: FieldRef<"Student", 'DateTime'>
   }
@@ -7149,2186 +10668,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Lesson
-   */
-
-  export type AggregateLesson = {
-    _count: LessonCountAggregateOutputType | null
-    _min: LessonMinAggregateOutputType | null
-    _max: LessonMaxAggregateOutputType | null
-  }
-
-  export type LessonMinAggregateOutputType = {
-    id: string | null
-    date: Date | null
-    acceptPresenceByQRCode: boolean | null
-    classId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type LessonMaxAggregateOutputType = {
-    id: string | null
-    date: Date | null
-    acceptPresenceByQRCode: boolean | null
-    classId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type LessonCountAggregateOutputType = {
-    id: number
-    date: number
-    acceptPresenceByQRCode: number
-    classId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type LessonMinAggregateInputType = {
-    id?: true
-    date?: true
-    acceptPresenceByQRCode?: true
-    classId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type LessonMaxAggregateInputType = {
-    id?: true
-    date?: true
-    acceptPresenceByQRCode?: true
-    classId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type LessonCountAggregateInputType = {
-    id?: true
-    date?: true
-    acceptPresenceByQRCode?: true
-    classId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type LessonAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Lesson to aggregate.
-     */
-    where?: LessonWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Lessons to fetch.
-     */
-    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: LessonWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Lessons from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Lessons.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Lessons
-    **/
-    _count?: true | LessonCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: LessonMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: LessonMaxAggregateInputType
-  }
-
-  export type GetLessonAggregateType<T extends LessonAggregateArgs> = {
-        [P in keyof T & keyof AggregateLesson]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateLesson[P]>
-      : GetScalarType<T[P], AggregateLesson[P]>
-  }
-
-
-
-
-  export type LessonGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LessonWhereInput
-    orderBy?: LessonOrderByWithAggregationInput | LessonOrderByWithAggregationInput[]
-    by: LessonScalarFieldEnum[] | LessonScalarFieldEnum
-    having?: LessonScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: LessonCountAggregateInputType | true
-    _min?: LessonMinAggregateInputType
-    _max?: LessonMaxAggregateInputType
-  }
-
-  export type LessonGroupByOutputType = {
-    id: string
-    date: Date
-    acceptPresenceByQRCode: boolean
-    classId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: LessonCountAggregateOutputType | null
-    _min: LessonMinAggregateOutputType | null
-    _max: LessonMaxAggregateOutputType | null
-  }
-
-  type GetLessonGroupByPayload<T extends LessonGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<LessonGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof LessonGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], LessonGroupByOutputType[P]>
-            : GetScalarType<T[P], LessonGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type LessonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    date?: boolean
-    acceptPresenceByQRCode?: boolean
-    classId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    classAttendanceRecords?: boolean | Lesson$classAttendanceRecordsArgs<ExtArgs>
-    class?: boolean | ClassDefaultArgs<ExtArgs>
-    _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["lesson"]>
-
-  export type LessonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    date?: boolean
-    acceptPresenceByQRCode?: boolean
-    classId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    class?: boolean | ClassDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["lesson"]>
-
-  export type LessonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    date?: boolean
-    acceptPresenceByQRCode?: boolean
-    classId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    class?: boolean | ClassDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["lesson"]>
-
-  export type LessonSelectScalar = {
-    id?: boolean
-    date?: boolean
-    acceptPresenceByQRCode?: boolean
-    classId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "acceptPresenceByQRCode" | "classId" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
-  export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    classAttendanceRecords?: boolean | Lesson$classAttendanceRecordsArgs<ExtArgs>
-    class?: boolean | ClassDefaultArgs<ExtArgs>
-    _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type LessonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    class?: boolean | ClassDefaultArgs<ExtArgs>
-  }
-  export type LessonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    class?: boolean | ClassDefaultArgs<ExtArgs>
-  }
-
-  export type $LessonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Lesson"
-    objects: {
-      classAttendanceRecords: Prisma.$ClassAttendanceRecordPayload<ExtArgs>[]
-      class: Prisma.$ClassPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      date: Date
-      acceptPresenceByQRCode: boolean
-      classId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["lesson"]>
-    composites: {}
-  }
-
-  type LessonGetPayload<S extends boolean | null | undefined | LessonDefaultArgs> = $Result.GetResult<Prisma.$LessonPayload, S>
-
-  type LessonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<LessonFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: LessonCountAggregateInputType | true
-    }
-
-  export interface LessonDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Lesson'], meta: { name: 'Lesson' } }
-    /**
-     * Find zero or one Lesson that matches the filter.
-     * @param {LessonFindUniqueArgs} args - Arguments to find a Lesson
-     * @example
-     * // Get one Lesson
-     * const lesson = await prisma.lesson.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends LessonFindUniqueArgs>(args: SelectSubset<T, LessonFindUniqueArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Lesson that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {LessonFindUniqueOrThrowArgs} args - Arguments to find a Lesson
-     * @example
-     * // Get one Lesson
-     * const lesson = await prisma.lesson.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends LessonFindUniqueOrThrowArgs>(args: SelectSubset<T, LessonFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Lesson that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonFindFirstArgs} args - Arguments to find a Lesson
-     * @example
-     * // Get one Lesson
-     * const lesson = await prisma.lesson.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends LessonFindFirstArgs>(args?: SelectSubset<T, LessonFindFirstArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Lesson that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonFindFirstOrThrowArgs} args - Arguments to find a Lesson
-     * @example
-     * // Get one Lesson
-     * const lesson = await prisma.lesson.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends LessonFindFirstOrThrowArgs>(args?: SelectSubset<T, LessonFindFirstOrThrowArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Lessons that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Lessons
-     * const lessons = await prisma.lesson.findMany()
-     * 
-     * // Get first 10 Lessons
-     * const lessons = await prisma.lesson.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const lessonWithIdOnly = await prisma.lesson.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends LessonFindManyArgs>(args?: SelectSubset<T, LessonFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Lesson.
-     * @param {LessonCreateArgs} args - Arguments to create a Lesson.
-     * @example
-     * // Create one Lesson
-     * const Lesson = await prisma.lesson.create({
-     *   data: {
-     *     // ... data to create a Lesson
-     *   }
-     * })
-     * 
-     */
-    create<T extends LessonCreateArgs>(args: SelectSubset<T, LessonCreateArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Lessons.
-     * @param {LessonCreateManyArgs} args - Arguments to create many Lessons.
-     * @example
-     * // Create many Lessons
-     * const lesson = await prisma.lesson.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends LessonCreateManyArgs>(args?: SelectSubset<T, LessonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Lessons and returns the data saved in the database.
-     * @param {LessonCreateManyAndReturnArgs} args - Arguments to create many Lessons.
-     * @example
-     * // Create many Lessons
-     * const lesson = await prisma.lesson.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Lessons and only return the `id`
-     * const lessonWithIdOnly = await prisma.lesson.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends LessonCreateManyAndReturnArgs>(args?: SelectSubset<T, LessonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Lesson.
-     * @param {LessonDeleteArgs} args - Arguments to delete one Lesson.
-     * @example
-     * // Delete one Lesson
-     * const Lesson = await prisma.lesson.delete({
-     *   where: {
-     *     // ... filter to delete one Lesson
-     *   }
-     * })
-     * 
-     */
-    delete<T extends LessonDeleteArgs>(args: SelectSubset<T, LessonDeleteArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Lesson.
-     * @param {LessonUpdateArgs} args - Arguments to update one Lesson.
-     * @example
-     * // Update one Lesson
-     * const lesson = await prisma.lesson.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends LessonUpdateArgs>(args: SelectSubset<T, LessonUpdateArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Lessons.
-     * @param {LessonDeleteManyArgs} args - Arguments to filter Lessons to delete.
-     * @example
-     * // Delete a few Lessons
-     * const { count } = await prisma.lesson.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends LessonDeleteManyArgs>(args?: SelectSubset<T, LessonDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Lessons.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Lessons
-     * const lesson = await prisma.lesson.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends LessonUpdateManyArgs>(args: SelectSubset<T, LessonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Lessons and returns the data updated in the database.
-     * @param {LessonUpdateManyAndReturnArgs} args - Arguments to update many Lessons.
-     * @example
-     * // Update many Lessons
-     * const lesson = await prisma.lesson.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Lessons and only return the `id`
-     * const lessonWithIdOnly = await prisma.lesson.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends LessonUpdateManyAndReturnArgs>(args: SelectSubset<T, LessonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Lesson.
-     * @param {LessonUpsertArgs} args - Arguments to update or create a Lesson.
-     * @example
-     * // Update or create a Lesson
-     * const lesson = await prisma.lesson.upsert({
-     *   create: {
-     *     // ... data to create a Lesson
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Lesson we want to update
-     *   }
-     * })
-     */
-    upsert<T extends LessonUpsertArgs>(args: SelectSubset<T, LessonUpsertArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Lessons.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonCountArgs} args - Arguments to filter Lessons to count.
-     * @example
-     * // Count the number of Lessons
-     * const count = await prisma.lesson.count({
-     *   where: {
-     *     // ... the filter for the Lessons we want to count
-     *   }
-     * })
-    **/
-    count<T extends LessonCountArgs>(
-      args?: Subset<T, LessonCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], LessonCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Lesson.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends LessonAggregateArgs>(args: Subset<T, LessonAggregateArgs>): Prisma.PrismaPromise<GetLessonAggregateType<T>>
-
-    /**
-     * Group by Lesson.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LessonGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends LessonGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: LessonGroupByArgs['orderBy'] }
-        : { orderBy?: LessonGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, LessonGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLessonGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Lesson model
-   */
-  readonly fields: LessonFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Lesson.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__LessonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    classAttendanceRecords<T extends Lesson$classAttendanceRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Lesson$classAttendanceRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    class<T extends ClassDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClassDefaultArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Lesson model
-   */
-  interface LessonFieldRefs {
-    readonly id: FieldRef<"Lesson", 'String'>
-    readonly date: FieldRef<"Lesson", 'DateTime'>
-    readonly acceptPresenceByQRCode: FieldRef<"Lesson", 'Boolean'>
-    readonly classId: FieldRef<"Lesson", 'String'>
-    readonly createdAt: FieldRef<"Lesson", 'DateTime'>
-    readonly updatedAt: FieldRef<"Lesson", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Lesson findUnique
-   */
-  export type LessonFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * Filter, which Lesson to fetch.
-     */
-    where: LessonWhereUniqueInput
-  }
-
-  /**
-   * Lesson findUniqueOrThrow
-   */
-  export type LessonFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * Filter, which Lesson to fetch.
-     */
-    where: LessonWhereUniqueInput
-  }
-
-  /**
-   * Lesson findFirst
-   */
-  export type LessonFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * Filter, which Lesson to fetch.
-     */
-    where?: LessonWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Lessons to fetch.
-     */
-    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Lessons.
-     */
-    cursor?: LessonWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Lessons from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Lessons.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Lessons.
-     */
-    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
-  }
-
-  /**
-   * Lesson findFirstOrThrow
-   */
-  export type LessonFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * Filter, which Lesson to fetch.
-     */
-    where?: LessonWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Lessons to fetch.
-     */
-    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Lessons.
-     */
-    cursor?: LessonWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Lessons from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Lessons.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Lessons.
-     */
-    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
-  }
-
-  /**
-   * Lesson findMany
-   */
-  export type LessonFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * Filter, which Lessons to fetch.
-     */
-    where?: LessonWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Lessons to fetch.
-     */
-    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Lessons.
-     */
-    cursor?: LessonWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Lessons from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Lessons.
-     */
-    skip?: number
-    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
-  }
-
-  /**
-   * Lesson create
-   */
-  export type LessonCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Lesson.
-     */
-    data: XOR<LessonCreateInput, LessonUncheckedCreateInput>
-  }
-
-  /**
-   * Lesson createMany
-   */
-  export type LessonCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Lessons.
-     */
-    data: LessonCreateManyInput | LessonCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Lesson createManyAndReturn
-   */
-  export type LessonCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * The data used to create many Lessons.
-     */
-    data: LessonCreateManyInput | LessonCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Lesson update
-   */
-  export type LessonUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Lesson.
-     */
-    data: XOR<LessonUpdateInput, LessonUncheckedUpdateInput>
-    /**
-     * Choose, which Lesson to update.
-     */
-    where: LessonWhereUniqueInput
-  }
-
-  /**
-   * Lesson updateMany
-   */
-  export type LessonUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Lessons.
-     */
-    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyInput>
-    /**
-     * Filter which Lessons to update
-     */
-    where?: LessonWhereInput
-    /**
-     * Limit how many Lessons to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Lesson updateManyAndReturn
-   */
-  export type LessonUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * The data used to update Lessons.
-     */
-    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyInput>
-    /**
-     * Filter which Lessons to update
-     */
-    where?: LessonWhereInput
-    /**
-     * Limit how many Lessons to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Lesson upsert
-   */
-  export type LessonUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Lesson to update in case it exists.
-     */
-    where: LessonWhereUniqueInput
-    /**
-     * In case the Lesson found by the `where` argument doesn't exist, create a new Lesson with this data.
-     */
-    create: XOR<LessonCreateInput, LessonUncheckedCreateInput>
-    /**
-     * In case the Lesson was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<LessonUpdateInput, LessonUncheckedUpdateInput>
-  }
-
-  /**
-   * Lesson delete
-   */
-  export type LessonDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-    /**
-     * Filter which Lesson to delete.
-     */
-    where: LessonWhereUniqueInput
-  }
-
-  /**
-   * Lesson deleteMany
-   */
-  export type LessonDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Lessons to delete
-     */
-    where?: LessonWhereInput
-    /**
-     * Limit how many Lessons to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Lesson.classAttendanceRecords
-   */
-  export type Lesson$classAttendanceRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    where?: ClassAttendanceRecordWhereInput
-    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
-    cursor?: ClassAttendanceRecordWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
-  }
-
-  /**
-   * Lesson without action
-   */
-  export type LessonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lesson
-     */
-    select?: LessonSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lesson
-     */
-    omit?: LessonOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LessonInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model ClassAttendanceRecord
-   */
-
-  export type AggregateClassAttendanceRecord = {
-    _count: ClassAttendanceRecordCountAggregateOutputType | null
-    _min: ClassAttendanceRecordMinAggregateOutputType | null
-    _max: ClassAttendanceRecordMaxAggregateOutputType | null
-  }
-
-  export type ClassAttendanceRecordMinAggregateOutputType = {
-    id: string | null
-    present: boolean | null
-    studentId: string | null
-    lessonId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ClassAttendanceRecordMaxAggregateOutputType = {
-    id: string | null
-    present: boolean | null
-    studentId: string | null
-    lessonId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ClassAttendanceRecordCountAggregateOutputType = {
-    id: number
-    present: number
-    studentId: number
-    lessonId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type ClassAttendanceRecordMinAggregateInputType = {
-    id?: true
-    present?: true
-    studentId?: true
-    lessonId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ClassAttendanceRecordMaxAggregateInputType = {
-    id?: true
-    present?: true
-    studentId?: true
-    lessonId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ClassAttendanceRecordCountAggregateInputType = {
-    id?: true
-    present?: true
-    studentId?: true
-    lessonId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type ClassAttendanceRecordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ClassAttendanceRecord to aggregate.
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ClassAttendanceRecords to fetch.
-     */
-    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ClassAttendanceRecordWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ClassAttendanceRecords from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ClassAttendanceRecords.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ClassAttendanceRecords
-    **/
-    _count?: true | ClassAttendanceRecordCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ClassAttendanceRecordMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ClassAttendanceRecordMaxAggregateInputType
-  }
-
-  export type GetClassAttendanceRecordAggregateType<T extends ClassAttendanceRecordAggregateArgs> = {
-        [P in keyof T & keyof AggregateClassAttendanceRecord]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateClassAttendanceRecord[P]>
-      : GetScalarType<T[P], AggregateClassAttendanceRecord[P]>
-  }
-
-
-
-
-  export type ClassAttendanceRecordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClassAttendanceRecordWhereInput
-    orderBy?: ClassAttendanceRecordOrderByWithAggregationInput | ClassAttendanceRecordOrderByWithAggregationInput[]
-    by: ClassAttendanceRecordScalarFieldEnum[] | ClassAttendanceRecordScalarFieldEnum
-    having?: ClassAttendanceRecordScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ClassAttendanceRecordCountAggregateInputType | true
-    _min?: ClassAttendanceRecordMinAggregateInputType
-    _max?: ClassAttendanceRecordMaxAggregateInputType
-  }
-
-  export type ClassAttendanceRecordGroupByOutputType = {
-    id: string
-    present: boolean
-    studentId: string
-    lessonId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: ClassAttendanceRecordCountAggregateOutputType | null
-    _min: ClassAttendanceRecordMinAggregateOutputType | null
-    _max: ClassAttendanceRecordMaxAggregateOutputType | null
-  }
-
-  type GetClassAttendanceRecordGroupByPayload<T extends ClassAttendanceRecordGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ClassAttendanceRecordGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ClassAttendanceRecordGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ClassAttendanceRecordGroupByOutputType[P]>
-            : GetScalarType<T[P], ClassAttendanceRecordGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ClassAttendanceRecordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    present?: boolean
-    studentId?: boolean
-    lessonId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    lesson?: boolean | LessonDefaultArgs<ExtArgs>
-    student?: boolean | StudentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["classAttendanceRecord"]>
-
-  export type ClassAttendanceRecordSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    present?: boolean
-    studentId?: boolean
-    lessonId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    lesson?: boolean | LessonDefaultArgs<ExtArgs>
-    student?: boolean | StudentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["classAttendanceRecord"]>
-
-  export type ClassAttendanceRecordSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    present?: boolean
-    studentId?: boolean
-    lessonId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    lesson?: boolean | LessonDefaultArgs<ExtArgs>
-    student?: boolean | StudentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["classAttendanceRecord"]>
-
-  export type ClassAttendanceRecordSelectScalar = {
-    id?: boolean
-    present?: boolean
-    studentId?: boolean
-    lessonId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type ClassAttendanceRecordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "present" | "studentId" | "lessonId" | "createdAt" | "updatedAt", ExtArgs["result"]["classAttendanceRecord"]>
-  export type ClassAttendanceRecordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lesson?: boolean | LessonDefaultArgs<ExtArgs>
-    student?: boolean | StudentDefaultArgs<ExtArgs>
-  }
-  export type ClassAttendanceRecordIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lesson?: boolean | LessonDefaultArgs<ExtArgs>
-    student?: boolean | StudentDefaultArgs<ExtArgs>
-  }
-  export type ClassAttendanceRecordIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lesson?: boolean | LessonDefaultArgs<ExtArgs>
-    student?: boolean | StudentDefaultArgs<ExtArgs>
-  }
-
-  export type $ClassAttendanceRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ClassAttendanceRecord"
-    objects: {
-      lesson: Prisma.$LessonPayload<ExtArgs>
-      student: Prisma.$StudentPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      present: boolean
-      studentId: string
-      lessonId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["classAttendanceRecord"]>
-    composites: {}
-  }
-
-  type ClassAttendanceRecordGetPayload<S extends boolean | null | undefined | ClassAttendanceRecordDefaultArgs> = $Result.GetResult<Prisma.$ClassAttendanceRecordPayload, S>
-
-  type ClassAttendanceRecordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ClassAttendanceRecordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ClassAttendanceRecordCountAggregateInputType | true
-    }
-
-  export interface ClassAttendanceRecordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClassAttendanceRecord'], meta: { name: 'ClassAttendanceRecord' } }
-    /**
-     * Find zero or one ClassAttendanceRecord that matches the filter.
-     * @param {ClassAttendanceRecordFindUniqueArgs} args - Arguments to find a ClassAttendanceRecord
-     * @example
-     * // Get one ClassAttendanceRecord
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ClassAttendanceRecordFindUniqueArgs>(args: SelectSubset<T, ClassAttendanceRecordFindUniqueArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ClassAttendanceRecord that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ClassAttendanceRecordFindUniqueOrThrowArgs} args - Arguments to find a ClassAttendanceRecord
-     * @example
-     * // Get one ClassAttendanceRecord
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ClassAttendanceRecordFindUniqueOrThrowArgs>(args: SelectSubset<T, ClassAttendanceRecordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ClassAttendanceRecord that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordFindFirstArgs} args - Arguments to find a ClassAttendanceRecord
-     * @example
-     * // Get one ClassAttendanceRecord
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ClassAttendanceRecordFindFirstArgs>(args?: SelectSubset<T, ClassAttendanceRecordFindFirstArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ClassAttendanceRecord that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordFindFirstOrThrowArgs} args - Arguments to find a ClassAttendanceRecord
-     * @example
-     * // Get one ClassAttendanceRecord
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ClassAttendanceRecordFindFirstOrThrowArgs>(args?: SelectSubset<T, ClassAttendanceRecordFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ClassAttendanceRecords that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ClassAttendanceRecords
-     * const classAttendanceRecords = await prisma.classAttendanceRecord.findMany()
-     * 
-     * // Get first 10 ClassAttendanceRecords
-     * const classAttendanceRecords = await prisma.classAttendanceRecord.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const classAttendanceRecordWithIdOnly = await prisma.classAttendanceRecord.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ClassAttendanceRecordFindManyArgs>(args?: SelectSubset<T, ClassAttendanceRecordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ClassAttendanceRecord.
-     * @param {ClassAttendanceRecordCreateArgs} args - Arguments to create a ClassAttendanceRecord.
-     * @example
-     * // Create one ClassAttendanceRecord
-     * const ClassAttendanceRecord = await prisma.classAttendanceRecord.create({
-     *   data: {
-     *     // ... data to create a ClassAttendanceRecord
-     *   }
-     * })
-     * 
-     */
-    create<T extends ClassAttendanceRecordCreateArgs>(args: SelectSubset<T, ClassAttendanceRecordCreateArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ClassAttendanceRecords.
-     * @param {ClassAttendanceRecordCreateManyArgs} args - Arguments to create many ClassAttendanceRecords.
-     * @example
-     * // Create many ClassAttendanceRecords
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ClassAttendanceRecordCreateManyArgs>(args?: SelectSubset<T, ClassAttendanceRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ClassAttendanceRecords and returns the data saved in the database.
-     * @param {ClassAttendanceRecordCreateManyAndReturnArgs} args - Arguments to create many ClassAttendanceRecords.
-     * @example
-     * // Create many ClassAttendanceRecords
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ClassAttendanceRecords and only return the `id`
-     * const classAttendanceRecordWithIdOnly = await prisma.classAttendanceRecord.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ClassAttendanceRecordCreateManyAndReturnArgs>(args?: SelectSubset<T, ClassAttendanceRecordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ClassAttendanceRecord.
-     * @param {ClassAttendanceRecordDeleteArgs} args - Arguments to delete one ClassAttendanceRecord.
-     * @example
-     * // Delete one ClassAttendanceRecord
-     * const ClassAttendanceRecord = await prisma.classAttendanceRecord.delete({
-     *   where: {
-     *     // ... filter to delete one ClassAttendanceRecord
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ClassAttendanceRecordDeleteArgs>(args: SelectSubset<T, ClassAttendanceRecordDeleteArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ClassAttendanceRecord.
-     * @param {ClassAttendanceRecordUpdateArgs} args - Arguments to update one ClassAttendanceRecord.
-     * @example
-     * // Update one ClassAttendanceRecord
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ClassAttendanceRecordUpdateArgs>(args: SelectSubset<T, ClassAttendanceRecordUpdateArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ClassAttendanceRecords.
-     * @param {ClassAttendanceRecordDeleteManyArgs} args - Arguments to filter ClassAttendanceRecords to delete.
-     * @example
-     * // Delete a few ClassAttendanceRecords
-     * const { count } = await prisma.classAttendanceRecord.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ClassAttendanceRecordDeleteManyArgs>(args?: SelectSubset<T, ClassAttendanceRecordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ClassAttendanceRecords.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ClassAttendanceRecords
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ClassAttendanceRecordUpdateManyArgs>(args: SelectSubset<T, ClassAttendanceRecordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ClassAttendanceRecords and returns the data updated in the database.
-     * @param {ClassAttendanceRecordUpdateManyAndReturnArgs} args - Arguments to update many ClassAttendanceRecords.
-     * @example
-     * // Update many ClassAttendanceRecords
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ClassAttendanceRecords and only return the `id`
-     * const classAttendanceRecordWithIdOnly = await prisma.classAttendanceRecord.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ClassAttendanceRecordUpdateManyAndReturnArgs>(args: SelectSubset<T, ClassAttendanceRecordUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ClassAttendanceRecord.
-     * @param {ClassAttendanceRecordUpsertArgs} args - Arguments to update or create a ClassAttendanceRecord.
-     * @example
-     * // Update or create a ClassAttendanceRecord
-     * const classAttendanceRecord = await prisma.classAttendanceRecord.upsert({
-     *   create: {
-     *     // ... data to create a ClassAttendanceRecord
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ClassAttendanceRecord we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ClassAttendanceRecordUpsertArgs>(args: SelectSubset<T, ClassAttendanceRecordUpsertArgs<ExtArgs>>): Prisma__ClassAttendanceRecordClient<$Result.GetResult<Prisma.$ClassAttendanceRecordPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ClassAttendanceRecords.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordCountArgs} args - Arguments to filter ClassAttendanceRecords to count.
-     * @example
-     * // Count the number of ClassAttendanceRecords
-     * const count = await prisma.classAttendanceRecord.count({
-     *   where: {
-     *     // ... the filter for the ClassAttendanceRecords we want to count
-     *   }
-     * })
-    **/
-    count<T extends ClassAttendanceRecordCountArgs>(
-      args?: Subset<T, ClassAttendanceRecordCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ClassAttendanceRecordCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ClassAttendanceRecord.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ClassAttendanceRecordAggregateArgs>(args: Subset<T, ClassAttendanceRecordAggregateArgs>): Prisma.PrismaPromise<GetClassAttendanceRecordAggregateType<T>>
-
-    /**
-     * Group by ClassAttendanceRecord.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClassAttendanceRecordGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ClassAttendanceRecordGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ClassAttendanceRecordGroupByArgs['orderBy'] }
-        : { orderBy?: ClassAttendanceRecordGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ClassAttendanceRecordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClassAttendanceRecordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ClassAttendanceRecord model
-   */
-  readonly fields: ClassAttendanceRecordFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ClassAttendanceRecord.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ClassAttendanceRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    lesson<T extends LessonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LessonDefaultArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ClassAttendanceRecord model
-   */
-  interface ClassAttendanceRecordFieldRefs {
-    readonly id: FieldRef<"ClassAttendanceRecord", 'String'>
-    readonly present: FieldRef<"ClassAttendanceRecord", 'Boolean'>
-    readonly studentId: FieldRef<"ClassAttendanceRecord", 'String'>
-    readonly lessonId: FieldRef<"ClassAttendanceRecord", 'String'>
-    readonly createdAt: FieldRef<"ClassAttendanceRecord", 'DateTime'>
-    readonly updatedAt: FieldRef<"ClassAttendanceRecord", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ClassAttendanceRecord findUnique
-   */
-  export type ClassAttendanceRecordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * Filter, which ClassAttendanceRecord to fetch.
-     */
-    where: ClassAttendanceRecordWhereUniqueInput
-  }
-
-  /**
-   * ClassAttendanceRecord findUniqueOrThrow
-   */
-  export type ClassAttendanceRecordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * Filter, which ClassAttendanceRecord to fetch.
-     */
-    where: ClassAttendanceRecordWhereUniqueInput
-  }
-
-  /**
-   * ClassAttendanceRecord findFirst
-   */
-  export type ClassAttendanceRecordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * Filter, which ClassAttendanceRecord to fetch.
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ClassAttendanceRecords to fetch.
-     */
-    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ClassAttendanceRecords.
-     */
-    cursor?: ClassAttendanceRecordWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ClassAttendanceRecords from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ClassAttendanceRecords.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ClassAttendanceRecords.
-     */
-    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
-  }
-
-  /**
-   * ClassAttendanceRecord findFirstOrThrow
-   */
-  export type ClassAttendanceRecordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * Filter, which ClassAttendanceRecord to fetch.
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ClassAttendanceRecords to fetch.
-     */
-    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ClassAttendanceRecords.
-     */
-    cursor?: ClassAttendanceRecordWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ClassAttendanceRecords from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ClassAttendanceRecords.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ClassAttendanceRecords.
-     */
-    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
-  }
-
-  /**
-   * ClassAttendanceRecord findMany
-   */
-  export type ClassAttendanceRecordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * Filter, which ClassAttendanceRecords to fetch.
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ClassAttendanceRecords to fetch.
-     */
-    orderBy?: ClassAttendanceRecordOrderByWithRelationInput | ClassAttendanceRecordOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ClassAttendanceRecords.
-     */
-    cursor?: ClassAttendanceRecordWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ClassAttendanceRecords from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ClassAttendanceRecords.
-     */
-    skip?: number
-    distinct?: ClassAttendanceRecordScalarFieldEnum | ClassAttendanceRecordScalarFieldEnum[]
-  }
-
-  /**
-   * ClassAttendanceRecord create
-   */
-  export type ClassAttendanceRecordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ClassAttendanceRecord.
-     */
-    data: XOR<ClassAttendanceRecordCreateInput, ClassAttendanceRecordUncheckedCreateInput>
-  }
-
-  /**
-   * ClassAttendanceRecord createMany
-   */
-  export type ClassAttendanceRecordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ClassAttendanceRecords.
-     */
-    data: ClassAttendanceRecordCreateManyInput | ClassAttendanceRecordCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ClassAttendanceRecord createManyAndReturn
-   */
-  export type ClassAttendanceRecordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * The data used to create many ClassAttendanceRecords.
-     */
-    data: ClassAttendanceRecordCreateManyInput | ClassAttendanceRecordCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ClassAttendanceRecord update
-   */
-  export type ClassAttendanceRecordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ClassAttendanceRecord.
-     */
-    data: XOR<ClassAttendanceRecordUpdateInput, ClassAttendanceRecordUncheckedUpdateInput>
-    /**
-     * Choose, which ClassAttendanceRecord to update.
-     */
-    where: ClassAttendanceRecordWhereUniqueInput
-  }
-
-  /**
-   * ClassAttendanceRecord updateMany
-   */
-  export type ClassAttendanceRecordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ClassAttendanceRecords.
-     */
-    data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyInput>
-    /**
-     * Filter which ClassAttendanceRecords to update
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * Limit how many ClassAttendanceRecords to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ClassAttendanceRecord updateManyAndReturn
-   */
-  export type ClassAttendanceRecordUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * The data used to update ClassAttendanceRecords.
-     */
-    data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyInput>
-    /**
-     * Filter which ClassAttendanceRecords to update
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * Limit how many ClassAttendanceRecords to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ClassAttendanceRecord upsert
-   */
-  export type ClassAttendanceRecordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ClassAttendanceRecord to update in case it exists.
-     */
-    where: ClassAttendanceRecordWhereUniqueInput
-    /**
-     * In case the ClassAttendanceRecord found by the `where` argument doesn't exist, create a new ClassAttendanceRecord with this data.
-     */
-    create: XOR<ClassAttendanceRecordCreateInput, ClassAttendanceRecordUncheckedCreateInput>
-    /**
-     * In case the ClassAttendanceRecord was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ClassAttendanceRecordUpdateInput, ClassAttendanceRecordUncheckedUpdateInput>
-  }
-
-  /**
-   * ClassAttendanceRecord delete
-   */
-  export type ClassAttendanceRecordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-    /**
-     * Filter which ClassAttendanceRecord to delete.
-     */
-    where: ClassAttendanceRecordWhereUniqueInput
-  }
-
-  /**
-   * ClassAttendanceRecord deleteMany
-   */
-  export type ClassAttendanceRecordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ClassAttendanceRecords to delete
-     */
-    where?: ClassAttendanceRecordWhereInput
-    /**
-     * Limit how many ClassAttendanceRecords to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ClassAttendanceRecord without action
-   */
-  export type ClassAttendanceRecordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ClassAttendanceRecord
-     */
-    select?: ClassAttendanceRecordSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ClassAttendanceRecord
-     */
-    omit?: ClassAttendanceRecordOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClassAttendanceRecordInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -9360,7 +10699,6 @@ export namespace Prisma {
     id: 'id',
     code: 'code',
     name: 'name',
-    numberOfStudents: 'numberOfStudents',
     classBlock: 'classBlock',
     classRoom: 'classRoom',
     teacherId: 'teacherId',
@@ -9369,6 +10707,48 @@ export namespace Prisma {
   };
 
   export type ClassScalarFieldEnum = (typeof ClassScalarFieldEnum)[keyof typeof ClassScalarFieldEnum]
+
+
+  export const LessonScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    acceptPresenceByQRCode: 'acceptPresenceByQRCode',
+    classId: 'classId',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+  export const ClassAttendanceRecordScalarFieldEnum: {
+    id: 'id',
+    present: 'present',
+    studentId: 'studentId',
+    lessonId: 'lessonId',
+    deviceId: 'deviceId',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ClassAttendanceRecordScalarFieldEnum = (typeof ClassAttendanceRecordScalarFieldEnum)[keyof typeof ClassAttendanceRecordScalarFieldEnum]
+
+
+  export const AttendanceTokenScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    expiresAt: 'expiresAt',
+    currentUsageCount: 'currentUsageCount',
+    used: 'used',
+    lessonId: 'lessonId',
+    createdAt: 'createdAt'
+  };
+
+  export type AttendanceTokenScalarFieldEnum = (typeof AttendanceTokenScalarFieldEnum)[keyof typeof AttendanceTokenScalarFieldEnum]
 
 
   export const ScheduleScalarFieldEnum: {
@@ -9384,9 +10764,10 @@ export namespace Prisma {
 
   export const StudentScalarFieldEnum: {
     id: 'id',
-    enrollmentId: 'enrollmentId',
+    registrationNumber: 'registrationNumber',
     name: 'name',
     email: 'email',
+    deviceId: 'deviceId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -9402,30 +10783,6 @@ export namespace Prisma {
   };
 
   export type EnrollmentScalarFieldEnum = (typeof EnrollmentScalarFieldEnum)[keyof typeof EnrollmentScalarFieldEnum]
-
-
-  export const LessonScalarFieldEnum: {
-    id: 'id',
-    date: 'date',
-    acceptPresenceByQRCode: 'acceptPresenceByQRCode',
-    classId: 'classId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
-
-
-  export const ClassAttendanceRecordScalarFieldEnum: {
-    id: 'id',
-    present: 'present',
-    studentId: 'studentId',
-    lessonId: 'lessonId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type ClassAttendanceRecordScalarFieldEnum = (typeof ClassAttendanceRecordScalarFieldEnum)[keyof typeof ClassAttendanceRecordScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9493,6 +10850,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -9517,20 +10888,6 @@ export namespace Prisma {
    * Reference to a field of type 'WeekDay[]'
    */
   export type ListEnumWeekDayFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeekDay[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -9614,7 +10971,6 @@ export namespace Prisma {
     id?: StringFilter<"Class"> | string
     code?: StringFilter<"Class"> | string
     name?: StringFilter<"Class"> | string
-    numberOfStudents?: IntFilter<"Class"> | number
     classBlock?: StringNullableFilter<"Class"> | string | null
     classRoom?: StringNullableFilter<"Class"> | string | null
     teacherId?: StringFilter<"Class"> | string
@@ -9630,7 +10986,6 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    numberOfStudents?: SortOrder
     classBlock?: SortOrderInput | SortOrder
     classRoom?: SortOrderInput | SortOrder
     teacherId?: SortOrder
@@ -9649,7 +11004,6 @@ export namespace Prisma {
     OR?: ClassWhereInput[]
     NOT?: ClassWhereInput | ClassWhereInput[]
     name?: StringFilter<"Class"> | string
-    numberOfStudents?: IntFilter<"Class"> | number
     classBlock?: StringNullableFilter<"Class"> | string | null
     classRoom?: StringNullableFilter<"Class"> | string | null
     teacherId?: StringFilter<"Class"> | string
@@ -9665,17 +11019,14 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    numberOfStudents?: SortOrder
     classBlock?: SortOrderInput | SortOrder
     classRoom?: SortOrderInput | SortOrder
     teacherId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ClassCountOrderByAggregateInput
-    _avg?: ClassAvgOrderByAggregateInput
     _max?: ClassMaxOrderByAggregateInput
     _min?: ClassMinOrderByAggregateInput
-    _sum?: ClassSumOrderByAggregateInput
   }
 
   export type ClassScalarWhereWithAggregatesInput = {
@@ -9685,12 +11036,237 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Class"> | string
     code?: StringWithAggregatesFilter<"Class"> | string
     name?: StringWithAggregatesFilter<"Class"> | string
-    numberOfStudents?: IntWithAggregatesFilter<"Class"> | number
     classBlock?: StringNullableWithAggregatesFilter<"Class"> | string | null
     classRoom?: StringNullableWithAggregatesFilter<"Class"> | string | null
     teacherId?: StringWithAggregatesFilter<"Class"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Class"> | Date | string
+  }
+
+  export type LessonWhereInput = {
+    AND?: LessonWhereInput | LessonWhereInput[]
+    OR?: LessonWhereInput[]
+    NOT?: LessonWhereInput | LessonWhereInput[]
+    id?: StringFilter<"Lesson"> | string
+    date?: DateTimeFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
+    classId?: StringFilter<"Lesson"> | string
+    latitude?: FloatNullableFilter<"Lesson"> | number | null
+    longitude?: FloatNullableFilter<"Lesson"> | number | null
+    createdAt?: DateTimeFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
+    class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
+    classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
+    attendanceToken?: XOR<AttendanceTokenNullableScalarRelationFilter, AttendanceTokenWhereInput> | null
+  }
+
+  export type LessonOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
+    classId?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    class?: ClassOrderByWithRelationInput
+    classAttendanceRecords?: ClassAttendanceRecordOrderByRelationAggregateInput
+    attendanceToken?: AttendanceTokenOrderByWithRelationInput
+  }
+
+  export type LessonWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LessonWhereInput | LessonWhereInput[]
+    OR?: LessonWhereInput[]
+    NOT?: LessonWhereInput | LessonWhereInput[]
+    date?: DateTimeFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
+    classId?: StringFilter<"Lesson"> | string
+    latitude?: FloatNullableFilter<"Lesson"> | number | null
+    longitude?: FloatNullableFilter<"Lesson"> | number | null
+    createdAt?: DateTimeFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
+    class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
+    classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
+    attendanceToken?: XOR<AttendanceTokenNullableScalarRelationFilter, AttendanceTokenWhereInput> | null
+  }, "id">
+
+  export type LessonOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
+    classId?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LessonCountOrderByAggregateInput
+    _avg?: LessonAvgOrderByAggregateInput
+    _max?: LessonMaxOrderByAggregateInput
+    _min?: LessonMinOrderByAggregateInput
+    _sum?: LessonSumOrderByAggregateInput
+  }
+
+  export type LessonScalarWhereWithAggregatesInput = {
+    AND?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
+    OR?: LessonScalarWhereWithAggregatesInput[]
+    NOT?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Lesson"> | string
+    date?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
+    acceptPresenceByQRCode?: BoolWithAggregatesFilter<"Lesson"> | boolean
+    classId?: StringWithAggregatesFilter<"Lesson"> | string
+    latitude?: FloatNullableWithAggregatesFilter<"Lesson"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Lesson"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
+  }
+
+  export type ClassAttendanceRecordWhereInput = {
+    AND?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
+    OR?: ClassAttendanceRecordWhereInput[]
+    NOT?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
+    id?: StringFilter<"ClassAttendanceRecord"> | string
+    present?: BoolFilter<"ClassAttendanceRecord"> | boolean
+    studentId?: StringFilter<"ClassAttendanceRecord"> | string
+    lessonId?: StringFilter<"ClassAttendanceRecord"> | string
+    deviceId?: StringNullableFilter<"ClassAttendanceRecord"> | string | null
+    latitude?: FloatNullableFilter<"ClassAttendanceRecord"> | number | null
+    longitude?: FloatNullableFilter<"ClassAttendanceRecord"> | number | null
+    createdAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
+    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
+    student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
+  }
+
+  export type ClassAttendanceRecordOrderByWithRelationInput = {
+    id?: SortOrder
+    present?: SortOrder
+    studentId?: SortOrder
+    lessonId?: SortOrder
+    deviceId?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lesson?: LessonOrderByWithRelationInput
+    student?: StudentOrderByWithRelationInput
+  }
+
+  export type ClassAttendanceRecordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    studentId_lessonId?: ClassAttendanceRecordStudentIdLessonIdCompoundUniqueInput
+    AND?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
+    OR?: ClassAttendanceRecordWhereInput[]
+    NOT?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
+    present?: BoolFilter<"ClassAttendanceRecord"> | boolean
+    studentId?: StringFilter<"ClassAttendanceRecord"> | string
+    lessonId?: StringFilter<"ClassAttendanceRecord"> | string
+    deviceId?: StringNullableFilter<"ClassAttendanceRecord"> | string | null
+    latitude?: FloatNullableFilter<"ClassAttendanceRecord"> | number | null
+    longitude?: FloatNullableFilter<"ClassAttendanceRecord"> | number | null
+    createdAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
+    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
+    student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
+  }, "id" | "studentId_lessonId">
+
+  export type ClassAttendanceRecordOrderByWithAggregationInput = {
+    id?: SortOrder
+    present?: SortOrder
+    studentId?: SortOrder
+    lessonId?: SortOrder
+    deviceId?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ClassAttendanceRecordCountOrderByAggregateInput
+    _avg?: ClassAttendanceRecordAvgOrderByAggregateInput
+    _max?: ClassAttendanceRecordMaxOrderByAggregateInput
+    _min?: ClassAttendanceRecordMinOrderByAggregateInput
+    _sum?: ClassAttendanceRecordSumOrderByAggregateInput
+  }
+
+  export type ClassAttendanceRecordScalarWhereWithAggregatesInput = {
+    AND?: ClassAttendanceRecordScalarWhereWithAggregatesInput | ClassAttendanceRecordScalarWhereWithAggregatesInput[]
+    OR?: ClassAttendanceRecordScalarWhereWithAggregatesInput[]
+    NOT?: ClassAttendanceRecordScalarWhereWithAggregatesInput | ClassAttendanceRecordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClassAttendanceRecord"> | string
+    present?: BoolWithAggregatesFilter<"ClassAttendanceRecord"> | boolean
+    studentId?: StringWithAggregatesFilter<"ClassAttendanceRecord"> | string
+    lessonId?: StringWithAggregatesFilter<"ClassAttendanceRecord"> | string
+    deviceId?: StringNullableWithAggregatesFilter<"ClassAttendanceRecord"> | string | null
+    latitude?: FloatNullableWithAggregatesFilter<"ClassAttendanceRecord"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"ClassAttendanceRecord"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"ClassAttendanceRecord"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClassAttendanceRecord"> | Date | string
+  }
+
+  export type AttendanceTokenWhereInput = {
+    AND?: AttendanceTokenWhereInput | AttendanceTokenWhereInput[]
+    OR?: AttendanceTokenWhereInput[]
+    NOT?: AttendanceTokenWhereInput | AttendanceTokenWhereInput[]
+    id?: StringFilter<"AttendanceToken"> | string
+    token?: StringFilter<"AttendanceToken"> | string
+    expiresAt?: DateTimeFilter<"AttendanceToken"> | Date | string
+    currentUsageCount?: IntFilter<"AttendanceToken"> | number
+    used?: BoolFilter<"AttendanceToken"> | boolean
+    lessonId?: StringFilter<"AttendanceToken"> | string
+    createdAt?: DateTimeFilter<"AttendanceToken"> | Date | string
+    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
+  }
+
+  export type AttendanceTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    currentUsageCount?: SortOrder
+    used?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    lesson?: LessonOrderByWithRelationInput
+  }
+
+  export type AttendanceTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    lessonId?: string
+    AND?: AttendanceTokenWhereInput | AttendanceTokenWhereInput[]
+    OR?: AttendanceTokenWhereInput[]
+    NOT?: AttendanceTokenWhereInput | AttendanceTokenWhereInput[]
+    expiresAt?: DateTimeFilter<"AttendanceToken"> | Date | string
+    currentUsageCount?: IntFilter<"AttendanceToken"> | number
+    used?: BoolFilter<"AttendanceToken"> | boolean
+    createdAt?: DateTimeFilter<"AttendanceToken"> | Date | string
+    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
+  }, "id" | "token" | "lessonId">
+
+  export type AttendanceTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    currentUsageCount?: SortOrder
+    used?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    _count?: AttendanceTokenCountOrderByAggregateInput
+    _avg?: AttendanceTokenAvgOrderByAggregateInput
+    _max?: AttendanceTokenMaxOrderByAggregateInput
+    _min?: AttendanceTokenMinOrderByAggregateInput
+    _sum?: AttendanceTokenSumOrderByAggregateInput
+  }
+
+  export type AttendanceTokenScalarWhereWithAggregatesInput = {
+    AND?: AttendanceTokenScalarWhereWithAggregatesInput | AttendanceTokenScalarWhereWithAggregatesInput[]
+    OR?: AttendanceTokenScalarWhereWithAggregatesInput[]
+    NOT?: AttendanceTokenScalarWhereWithAggregatesInput | AttendanceTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AttendanceToken"> | string
+    token?: StringWithAggregatesFilter<"AttendanceToken"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"AttendanceToken"> | Date | string
+    currentUsageCount?: IntWithAggregatesFilter<"AttendanceToken"> | number
+    used?: BoolWithAggregatesFilter<"AttendanceToken"> | boolean
+    lessonId?: StringWithAggregatesFilter<"AttendanceToken"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AttendanceToken"> | Date | string
   }
 
   export type ScheduleWhereInput = {
@@ -9753,9 +11329,10 @@ export namespace Prisma {
     OR?: StudentWhereInput[]
     NOT?: StudentWhereInput | StudentWhereInput[]
     id?: StringFilter<"Student"> | string
-    enrollmentId?: StringFilter<"Student"> | string
+    registrationNumber?: StringFilter<"Student"> | string
     name?: StringFilter<"Student"> | string
     email?: StringNullableFilter<"Student"> | string | null
+    deviceId?: StringFilter<"Student"> | string
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
     classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
@@ -9764,9 +11341,10 @@ export namespace Prisma {
 
   export type StudentOrderByWithRelationInput = {
     id?: SortOrder
-    enrollmentId?: SortOrder
+    registrationNumber?: SortOrder
     name?: SortOrder
     email?: SortOrderInput | SortOrder
+    deviceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     classAttendanceRecords?: ClassAttendanceRecordOrderByRelationAggregateInput
@@ -9775,23 +11353,25 @@ export namespace Prisma {
 
   export type StudentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    enrollmentId?: string
+    registrationNumber?: string
     email?: string
     AND?: StudentWhereInput | StudentWhereInput[]
     OR?: StudentWhereInput[]
     NOT?: StudentWhereInput | StudentWhereInput[]
     name?: StringFilter<"Student"> | string
+    deviceId?: StringFilter<"Student"> | string
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
     classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
     enrollments?: EnrollmentListRelationFilter
-  }, "id" | "enrollmentId" | "email">
+  }, "id" | "registrationNumber" | "email">
 
   export type StudentOrderByWithAggregationInput = {
     id?: SortOrder
-    enrollmentId?: SortOrder
+    registrationNumber?: SortOrder
     name?: SortOrder
     email?: SortOrderInput | SortOrder
+    deviceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: StudentCountOrderByAggregateInput
@@ -9804,9 +11384,10 @@ export namespace Prisma {
     OR?: StudentScalarWhereWithAggregatesInput[]
     NOT?: StudentScalarWhereWithAggregatesInput | StudentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Student"> | string
-    enrollmentId?: StringWithAggregatesFilter<"Student"> | string
+    registrationNumber?: StringWithAggregatesFilter<"Student"> | string
     name?: StringWithAggregatesFilter<"Student"> | string
     email?: StringNullableWithAggregatesFilter<"Student"> | string | null
+    deviceId?: StringWithAggregatesFilter<"Student"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Student"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Student"> | Date | string
   }
@@ -9863,133 +11444,6 @@ export namespace Prisma {
     studentId?: StringWithAggregatesFilter<"Enrollment"> | string
     classId?: StringWithAggregatesFilter<"Enrollment"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Enrollment"> | Date | string
-  }
-
-  export type LessonWhereInput = {
-    AND?: LessonWhereInput | LessonWhereInput[]
-    OR?: LessonWhereInput[]
-    NOT?: LessonWhereInput | LessonWhereInput[]
-    id?: StringFilter<"Lesson"> | string
-    date?: DateTimeFilter<"Lesson"> | Date | string
-    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
-    classId?: StringFilter<"Lesson"> | string
-    createdAt?: DateTimeFilter<"Lesson"> | Date | string
-    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
-    classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
-    class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
-  }
-
-  export type LessonOrderByWithRelationInput = {
-    id?: SortOrder
-    date?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
-    classId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    classAttendanceRecords?: ClassAttendanceRecordOrderByRelationAggregateInput
-    class?: ClassOrderByWithRelationInput
-  }
-
-  export type LessonWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: LessonWhereInput | LessonWhereInput[]
-    OR?: LessonWhereInput[]
-    NOT?: LessonWhereInput | LessonWhereInput[]
-    date?: DateTimeFilter<"Lesson"> | Date | string
-    acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
-    classId?: StringFilter<"Lesson"> | string
-    createdAt?: DateTimeFilter<"Lesson"> | Date | string
-    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
-    classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
-    class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
-  }, "id">
-
-  export type LessonOrderByWithAggregationInput = {
-    id?: SortOrder
-    date?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
-    classId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: LessonCountOrderByAggregateInput
-    _max?: LessonMaxOrderByAggregateInput
-    _min?: LessonMinOrderByAggregateInput
-  }
-
-  export type LessonScalarWhereWithAggregatesInput = {
-    AND?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
-    OR?: LessonScalarWhereWithAggregatesInput[]
-    NOT?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Lesson"> | string
-    date?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
-    acceptPresenceByQRCode?: BoolWithAggregatesFilter<"Lesson"> | boolean
-    classId?: StringWithAggregatesFilter<"Lesson"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
-  }
-
-  export type ClassAttendanceRecordWhereInput = {
-    AND?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
-    OR?: ClassAttendanceRecordWhereInput[]
-    NOT?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
-    id?: StringFilter<"ClassAttendanceRecord"> | string
-    present?: BoolFilter<"ClassAttendanceRecord"> | boolean
-    studentId?: StringFilter<"ClassAttendanceRecord"> | string
-    lessonId?: StringFilter<"ClassAttendanceRecord"> | string
-    createdAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
-    updatedAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
-    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
-    student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
-  }
-
-  export type ClassAttendanceRecordOrderByWithRelationInput = {
-    id?: SortOrder
-    present?: SortOrder
-    studentId?: SortOrder
-    lessonId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    lesson?: LessonOrderByWithRelationInput
-    student?: StudentOrderByWithRelationInput
-  }
-
-  export type ClassAttendanceRecordWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    studentId_lessonId?: ClassAttendanceRecordStudentIdLessonIdCompoundUniqueInput
-    AND?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
-    OR?: ClassAttendanceRecordWhereInput[]
-    NOT?: ClassAttendanceRecordWhereInput | ClassAttendanceRecordWhereInput[]
-    present?: BoolFilter<"ClassAttendanceRecord"> | boolean
-    studentId?: StringFilter<"ClassAttendanceRecord"> | string
-    lessonId?: StringFilter<"ClassAttendanceRecord"> | string
-    createdAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
-    updatedAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
-    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
-    student?: XOR<StudentScalarRelationFilter, StudentWhereInput>
-  }, "id" | "studentId_lessonId">
-
-  export type ClassAttendanceRecordOrderByWithAggregationInput = {
-    id?: SortOrder
-    present?: SortOrder
-    studentId?: SortOrder
-    lessonId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: ClassAttendanceRecordCountOrderByAggregateInput
-    _max?: ClassAttendanceRecordMaxOrderByAggregateInput
-    _min?: ClassAttendanceRecordMinOrderByAggregateInput
-  }
-
-  export type ClassAttendanceRecordScalarWhereWithAggregatesInput = {
-    AND?: ClassAttendanceRecordScalarWhereWithAggregatesInput | ClassAttendanceRecordScalarWhereWithAggregatesInput[]
-    OR?: ClassAttendanceRecordScalarWhereWithAggregatesInput[]
-    NOT?: ClassAttendanceRecordScalarWhereWithAggregatesInput | ClassAttendanceRecordScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ClassAttendanceRecord"> | string
-    present?: BoolWithAggregatesFilter<"ClassAttendanceRecord"> | boolean
-    studentId?: StringWithAggregatesFilter<"ClassAttendanceRecord"> | string
-    lessonId?: StringWithAggregatesFilter<"ClassAttendanceRecord"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"ClassAttendanceRecord"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"ClassAttendanceRecord"> | Date | string
   }
 
   export type TeacherCreateInput = {
@@ -10077,7 +11531,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     createdAt?: Date | string
@@ -10092,7 +11545,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     teacherId: string
@@ -10107,7 +11559,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10122,7 +11573,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     teacherId?: StringFieldUpdateOperationsInput | string
@@ -10137,7 +11587,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     teacherId: string
@@ -10149,7 +11598,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10160,12 +11608,246 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     teacherId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LessonCreateInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutLessonsInput
+    classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutLessonInput
+    attendanceToken?: AttendanceTokenCreateNestedOneWithoutLessonInput
+  }
+
+  export type LessonUncheckedCreateInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    classId: string
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput
+    attendanceToken?: AttendanceTokenUncheckedCreateNestedOneWithoutLessonInput
+  }
+
+  export type LessonUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutLessonsNestedInput
+    classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutLessonNestedInput
+    attendanceToken?: AttendanceTokenUpdateOneWithoutLessonNestedInput
+  }
+
+  export type LessonUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    classId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput
+    attendanceToken?: AttendanceTokenUncheckedUpdateOneWithoutLessonNestedInput
+  }
+
+  export type LessonCreateManyInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    classId: string
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LessonUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LessonUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    classId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassAttendanceRecordCreateInput = {
+    id?: string
+    present?: boolean
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lesson: LessonCreateNestedOneWithoutClassAttendanceRecordsInput
+    student: StudentCreateNestedOneWithoutClassAttendanceRecordsInput
+  }
+
+  export type ClassAttendanceRecordUncheckedCreateInput = {
+    id?: string
+    present?: boolean
+    studentId: string
+    lessonId: string
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassAttendanceRecordUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lesson?: LessonUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
+    student?: StudentUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
+  }
+
+  export type ClassAttendanceRecordUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    studentId?: StringFieldUpdateOperationsInput | string
+    lessonId?: StringFieldUpdateOperationsInput | string
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassAttendanceRecordCreateManyInput = {
+    id?: string
+    present?: boolean
+    studentId: string
+    lessonId: string
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassAttendanceRecordUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassAttendanceRecordUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    studentId?: StringFieldUpdateOperationsInput | string
+    lessonId?: StringFieldUpdateOperationsInput | string
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceTokenCreateInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    currentUsageCount?: number
+    used?: boolean
+    createdAt?: Date | string
+    lesson: LessonCreateNestedOneWithoutAttendanceTokenInput
+  }
+
+  export type AttendanceTokenUncheckedCreateInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    currentUsageCount?: number
+    used?: boolean
+    lessonId: string
+    createdAt?: Date | string
+  }
+
+  export type AttendanceTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lesson?: LessonUpdateOneRequiredWithoutAttendanceTokenNestedInput
+  }
+
+  export type AttendanceTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    used?: BoolFieldUpdateOperationsInput | boolean
+    lessonId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceTokenCreateManyInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    currentUsageCount?: number
+    used?: boolean
+    lessonId: string
+    createdAt?: Date | string
+  }
+
+  export type AttendanceTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    used?: BoolFieldUpdateOperationsInput | boolean
+    lessonId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ScheduleCreateInput = {
@@ -10225,9 +11907,10 @@ export namespace Prisma {
 
   export type StudentCreateInput = {
     id?: string
-    enrollmentId: string
+    registrationNumber: string
     name: string
     email?: string | null
+    deviceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutStudentInput
@@ -10236,9 +11919,10 @@ export namespace Prisma {
 
   export type StudentUncheckedCreateInput = {
     id?: string
-    enrollmentId: string
+    registrationNumber: string
     name: string
     email?: string | null
+    deviceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutStudentInput
@@ -10247,9 +11931,10 @@ export namespace Prisma {
 
   export type StudentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutStudentNestedInput
@@ -10258,9 +11943,10 @@ export namespace Prisma {
 
   export type StudentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutStudentNestedInput
@@ -10269,27 +11955,30 @@ export namespace Prisma {
 
   export type StudentCreateManyInput = {
     id?: string
-    enrollmentId: string
+    registrationNumber: string
     name: string
     email?: string | null
+    deviceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type StudentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StudentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10339,133 +12028,6 @@ export namespace Prisma {
     studentId?: StringFieldUpdateOperationsInput | string
     classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LessonCreateInput = {
-    id?: string
-    date?: Date | string
-    acceptPresenceByQRCode?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutLessonInput
-    class: ClassCreateNestedOneWithoutLessonsInput
-  }
-
-  export type LessonUncheckedCreateInput = {
-    id?: string
-    date?: Date | string
-    acceptPresenceByQRCode?: boolean
-    classId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput
-  }
-
-  export type LessonUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutLessonNestedInput
-    class?: ClassUpdateOneRequiredWithoutLessonsNestedInput
-  }
-
-  export type LessonUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
-    classId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput
-  }
-
-  export type LessonCreateManyInput = {
-    id?: string
-    date?: Date | string
-    acceptPresenceByQRCode?: boolean
-    classId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type LessonUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LessonUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
-    classId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClassAttendanceRecordCreateInput = {
-    id?: string
-    present?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lesson: LessonCreateNestedOneWithoutClassAttendanceRecordsInput
-    student: StudentCreateNestedOneWithoutClassAttendanceRecordsInput
-  }
-
-  export type ClassAttendanceRecordUncheckedCreateInput = {
-    id?: string
-    present?: boolean
-    studentId: string
-    lessonId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ClassAttendanceRecordUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lesson?: LessonUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
-    student?: StudentUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
-  }
-
-  export type ClassAttendanceRecordUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    studentId?: StringFieldUpdateOperationsInput | string
-    lessonId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClassAttendanceRecordCreateManyInput = {
-    id?: string
-    present?: boolean
-    studentId: string
-    lessonId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ClassAttendanceRecordUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClassAttendanceRecordUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    studentId?: StringFieldUpdateOperationsInput | string
-    lessonId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10620,17 +12182,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type TeacherScalarRelationFilter = {
     is?: TeacherWhereInput
     isNot?: TeacherWhereInput
@@ -10670,7 +12221,6 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    numberOfStudents?: SortOrder
     classBlock?: SortOrder
     classRoom?: SortOrder
     teacherId?: SortOrder
@@ -10678,15 +12228,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ClassAvgOrderByAggregateInput = {
-    numberOfStudents?: SortOrder
-  }
-
   export type ClassMaxOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    numberOfStudents?: SortOrder
     classBlock?: SortOrder
     classRoom?: SortOrder
     teacherId?: SortOrder
@@ -10698,7 +12243,6 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
-    numberOfStudents?: SortOrder
     classBlock?: SortOrder
     classRoom?: SortOrder
     teacherId?: SortOrder
@@ -10706,8 +12250,204 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ClassSumOrderByAggregateInput = {
-    numberOfStudents?: SortOrder
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ClassScalarRelationFilter = {
+    is?: ClassWhereInput
+    isNot?: ClassWhereInput
+  }
+
+  export type ClassAttendanceRecordListRelationFilter = {
+    every?: ClassAttendanceRecordWhereInput
+    some?: ClassAttendanceRecordWhereInput
+    none?: ClassAttendanceRecordWhereInput
+  }
+
+  export type AttendanceTokenNullableScalarRelationFilter = {
+    is?: AttendanceTokenWhereInput | null
+    isNot?: AttendanceTokenWhereInput | null
+  }
+
+  export type ClassAttendanceRecordOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LessonCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
+    classId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LessonAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type LessonMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
+    classId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LessonMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    acceptPresenceByQRCode?: SortOrder
+    classId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LessonSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type LessonScalarRelationFilter = {
+    is?: LessonWhereInput
+    isNot?: LessonWhereInput
+  }
+
+  export type StudentScalarRelationFilter = {
+    is?: StudentWhereInput
+    isNot?: StudentWhereInput
+  }
+
+  export type ClassAttendanceRecordStudentIdLessonIdCompoundUniqueInput = {
+    studentId: string
+    lessonId: string
+  }
+
+  export type ClassAttendanceRecordCountOrderByAggregateInput = {
+    id?: SortOrder
+    present?: SortOrder
+    studentId?: SortOrder
+    lessonId?: SortOrder
+    deviceId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassAttendanceRecordAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type ClassAttendanceRecordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    present?: SortOrder
+    studentId?: SortOrder
+    lessonId?: SortOrder
+    deviceId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassAttendanceRecordMinOrderByAggregateInput = {
+    id?: SortOrder
+    present?: SortOrder
+    studentId?: SortOrder
+    lessonId?: SortOrder
+    deviceId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClassAttendanceRecordSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type AttendanceTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    currentUsageCount?: SortOrder
+    used?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AttendanceTokenAvgOrderByAggregateInput = {
+    currentUsageCount?: SortOrder
+  }
+
+  export type AttendanceTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    currentUsageCount?: SortOrder
+    used?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AttendanceTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    currentUsageCount?: SortOrder
+    used?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AttendanceTokenSumOrderByAggregateInput = {
+    currentUsageCount?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10731,11 +12471,6 @@ export namespace Prisma {
     in?: $Enums.WeekDay[] | ListEnumWeekDayFieldRefInput<$PrismaModel>
     notIn?: $Enums.WeekDay[] | ListEnumWeekDayFieldRefInput<$PrismaModel>
     not?: NestedEnumWeekDayFilter<$PrismaModel> | $Enums.WeekDay
-  }
-
-  export type ClassScalarRelationFilter = {
-    is?: ClassWhereInput
-    isNot?: ClassWhereInput
   }
 
   export type ScheduleCountOrderByAggregateInput = {
@@ -10772,46 +12507,34 @@ export namespace Prisma {
     _max?: NestedEnumWeekDayFilter<$PrismaModel>
   }
 
-  export type ClassAttendanceRecordListRelationFilter = {
-    every?: ClassAttendanceRecordWhereInput
-    some?: ClassAttendanceRecordWhereInput
-    none?: ClassAttendanceRecordWhereInput
-  }
-
-  export type ClassAttendanceRecordOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type StudentCountOrderByAggregateInput = {
     id?: SortOrder
-    enrollmentId?: SortOrder
+    registrationNumber?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    deviceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type StudentMaxOrderByAggregateInput = {
     id?: SortOrder
-    enrollmentId?: SortOrder
+    registrationNumber?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    deviceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type StudentMinOrderByAggregateInput = {
     id?: SortOrder
-    enrollmentId?: SortOrder
+    registrationNumber?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    deviceId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type StudentScalarRelationFilter = {
-    is?: StudentWhereInput
-    isNot?: StudentWhereInput
   }
 
   export type EnrollmentStudentIdClassIdCompoundUniqueInput = {
@@ -10838,70 +12561,6 @@ export namespace Prisma {
     studentId?: SortOrder
     classId?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type LessonCountOrderByAggregateInput = {
-    id?: SortOrder
-    date?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
-    classId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type LessonMaxOrderByAggregateInput = {
-    id?: SortOrder
-    date?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
-    classId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type LessonMinOrderByAggregateInput = {
-    id?: SortOrder
-    date?: SortOrder
-    acceptPresenceByQRCode?: SortOrder
-    classId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type LessonScalarRelationFilter = {
-    is?: LessonWhereInput
-    isNot?: LessonWhereInput
-  }
-
-  export type ClassAttendanceRecordStudentIdLessonIdCompoundUniqueInput = {
-    studentId: string
-    lessonId: string
-  }
-
-  export type ClassAttendanceRecordCountOrderByAggregateInput = {
-    id?: SortOrder
-    present?: SortOrder
-    studentId?: SortOrder
-    lessonId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ClassAttendanceRecordMaxOrderByAggregateInput = {
-    id?: SortOrder
-    present?: SortOrder
-    studentId?: SortOrder
-    lessonId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ClassAttendanceRecordMinOrderByAggregateInput = {
-    id?: SortOrder
-    present?: SortOrder
-    studentId?: SortOrder
-    lessonId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type ClassCreateNestedManyWithoutTeacherInput = {
@@ -11010,14 +12669,6 @@ export namespace Prisma {
     connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type TeacherUpdateOneRequiredWithoutClassesNestedInput = {
     create?: XOR<TeacherCreateWithoutClassesInput, TeacherUncheckedCreateWithoutClassesInput>
     connectOrCreate?: TeacherCreateOrConnectWithoutClassesInput
@@ -11108,6 +12759,152 @@ export namespace Prisma {
     update?: ScheduleUpdateWithWhereUniqueWithoutClassInput | ScheduleUpdateWithWhereUniqueWithoutClassInput[]
     updateMany?: ScheduleUpdateManyWithWhereWithoutClassInput | ScheduleUpdateManyWithWhereWithoutClassInput[]
     deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+  }
+
+  export type ClassCreateNestedOneWithoutLessonsInput = {
+    create?: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutLessonsInput
+    connect?: ClassWhereUniqueInput
+  }
+
+  export type ClassAttendanceRecordCreateNestedManyWithoutLessonInput = {
+    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
+    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
+    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+  }
+
+  export type AttendanceTokenCreateNestedOneWithoutLessonInput = {
+    create?: XOR<AttendanceTokenCreateWithoutLessonInput, AttendanceTokenUncheckedCreateWithoutLessonInput>
+    connectOrCreate?: AttendanceTokenCreateOrConnectWithoutLessonInput
+    connect?: AttendanceTokenWhereUniqueInput
+  }
+
+  export type ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput = {
+    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
+    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
+    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+  }
+
+  export type AttendanceTokenUncheckedCreateNestedOneWithoutLessonInput = {
+    create?: XOR<AttendanceTokenCreateWithoutLessonInput, AttendanceTokenUncheckedCreateWithoutLessonInput>
+    connectOrCreate?: AttendanceTokenCreateOrConnectWithoutLessonInput
+    connect?: AttendanceTokenWhereUniqueInput
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ClassUpdateOneRequiredWithoutLessonsNestedInput = {
+    create?: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
+    connectOrCreate?: ClassCreateOrConnectWithoutLessonsInput
+    upsert?: ClassUpsertWithoutLessonsInput
+    connect?: ClassWhereUniqueInput
+    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutLessonsInput, ClassUpdateWithoutLessonsInput>, ClassUncheckedUpdateWithoutLessonsInput>
+  }
+
+  export type ClassAttendanceRecordUpdateManyWithoutLessonNestedInput = {
+    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
+    upsert?: ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput[]
+    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
+    set?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    disconnect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    delete?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    update?: ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput[]
+    updateMany?: ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput | ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput[]
+    deleteMany?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
+  }
+
+  export type AttendanceTokenUpdateOneWithoutLessonNestedInput = {
+    create?: XOR<AttendanceTokenCreateWithoutLessonInput, AttendanceTokenUncheckedCreateWithoutLessonInput>
+    connectOrCreate?: AttendanceTokenCreateOrConnectWithoutLessonInput
+    upsert?: AttendanceTokenUpsertWithoutLessonInput
+    disconnect?: AttendanceTokenWhereInput | boolean
+    delete?: AttendanceTokenWhereInput | boolean
+    connect?: AttendanceTokenWhereUniqueInput
+    update?: XOR<XOR<AttendanceTokenUpdateToOneWithWhereWithoutLessonInput, AttendanceTokenUpdateWithoutLessonInput>, AttendanceTokenUncheckedUpdateWithoutLessonInput>
+  }
+
+  export type ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput = {
+    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
+    upsert?: ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput[]
+    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
+    set?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    disconnect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    delete?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
+    update?: ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput[]
+    updateMany?: ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput | ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput[]
+    deleteMany?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
+  }
+
+  export type AttendanceTokenUncheckedUpdateOneWithoutLessonNestedInput = {
+    create?: XOR<AttendanceTokenCreateWithoutLessonInput, AttendanceTokenUncheckedCreateWithoutLessonInput>
+    connectOrCreate?: AttendanceTokenCreateOrConnectWithoutLessonInput
+    upsert?: AttendanceTokenUpsertWithoutLessonInput
+    disconnect?: AttendanceTokenWhereInput | boolean
+    delete?: AttendanceTokenWhereInput | boolean
+    connect?: AttendanceTokenWhereUniqueInput
+    update?: XOR<XOR<AttendanceTokenUpdateToOneWithWhereWithoutLessonInput, AttendanceTokenUpdateWithoutLessonInput>, AttendanceTokenUncheckedUpdateWithoutLessonInput>
+  }
+
+  export type LessonCreateNestedOneWithoutClassAttendanceRecordsInput = {
+    create?: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
+    connectOrCreate?: LessonCreateOrConnectWithoutClassAttendanceRecordsInput
+    connect?: LessonWhereUniqueInput
+  }
+
+  export type StudentCreateNestedOneWithoutClassAttendanceRecordsInput = {
+    create?: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutClassAttendanceRecordsInput
+    connect?: StudentWhereUniqueInput
+  }
+
+  export type LessonUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput = {
+    create?: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
+    connectOrCreate?: LessonCreateOrConnectWithoutClassAttendanceRecordsInput
+    upsert?: LessonUpsertWithoutClassAttendanceRecordsInput
+    connect?: LessonWhereUniqueInput
+    update?: XOR<XOR<LessonUpdateToOneWithWhereWithoutClassAttendanceRecordsInput, LessonUpdateWithoutClassAttendanceRecordsInput>, LessonUncheckedUpdateWithoutClassAttendanceRecordsInput>
+  }
+
+  export type StudentUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput = {
+    create?: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutClassAttendanceRecordsInput
+    upsert?: StudentUpsertWithoutClassAttendanceRecordsInput
+    connect?: StudentWhereUniqueInput
+    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutClassAttendanceRecordsInput, StudentUpdateWithoutClassAttendanceRecordsInput>, StudentUncheckedUpdateWithoutClassAttendanceRecordsInput>
+  }
+
+  export type LessonCreateNestedOneWithoutAttendanceTokenInput = {
+    create?: XOR<LessonCreateWithoutAttendanceTokenInput, LessonUncheckedCreateWithoutAttendanceTokenInput>
+    connectOrCreate?: LessonCreateOrConnectWithoutAttendanceTokenInput
+    connect?: LessonWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type LessonUpdateOneRequiredWithoutAttendanceTokenNestedInput = {
+    create?: XOR<LessonCreateWithoutAttendanceTokenInput, LessonUncheckedCreateWithoutAttendanceTokenInput>
+    connectOrCreate?: LessonCreateOrConnectWithoutAttendanceTokenInput
+    upsert?: LessonUpsertWithoutAttendanceTokenInput
+    connect?: LessonWhereUniqueInput
+    update?: XOR<XOR<LessonUpdateToOneWithWhereWithoutAttendanceTokenInput, LessonUpdateWithoutAttendanceTokenInput>, LessonUncheckedUpdateWithoutAttendanceTokenInput>
   }
 
   export type ClassCreateNestedOneWithoutSchedulesInput = {
@@ -11240,90 +13037,6 @@ export namespace Prisma {
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutEnrollmentsInput, StudentUpdateWithoutEnrollmentsInput>, StudentUncheckedUpdateWithoutEnrollmentsInput>
   }
 
-  export type ClassAttendanceRecordCreateNestedManyWithoutLessonInput = {
-    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
-    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
-    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
-    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-  }
-
-  export type ClassCreateNestedOneWithoutLessonsInput = {
-    create?: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
-    connectOrCreate?: ClassCreateOrConnectWithoutLessonsInput
-    connect?: ClassWhereUniqueInput
-  }
-
-  export type ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput = {
-    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
-    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
-    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
-    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-  }
-
-  export type ClassAttendanceRecordUpdateManyWithoutLessonNestedInput = {
-    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
-    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
-    upsert?: ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput[]
-    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
-    set?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    disconnect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    delete?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    update?: ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput[]
-    updateMany?: ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput | ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput[]
-    deleteMany?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
-  }
-
-  export type ClassUpdateOneRequiredWithoutLessonsNestedInput = {
-    create?: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
-    connectOrCreate?: ClassCreateOrConnectWithoutLessonsInput
-    upsert?: ClassUpsertWithoutLessonsInput
-    connect?: ClassWhereUniqueInput
-    update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutLessonsInput, ClassUpdateWithoutLessonsInput>, ClassUncheckedUpdateWithoutLessonsInput>
-  }
-
-  export type ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput = {
-    create?: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput> | ClassAttendanceRecordCreateWithoutLessonInput[] | ClassAttendanceRecordUncheckedCreateWithoutLessonInput[]
-    connectOrCreate?: ClassAttendanceRecordCreateOrConnectWithoutLessonInput | ClassAttendanceRecordCreateOrConnectWithoutLessonInput[]
-    upsert?: ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput[]
-    createMany?: ClassAttendanceRecordCreateManyLessonInputEnvelope
-    set?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    disconnect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    delete?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    connect?: ClassAttendanceRecordWhereUniqueInput | ClassAttendanceRecordWhereUniqueInput[]
-    update?: ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput | ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput[]
-    updateMany?: ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput | ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput[]
-    deleteMany?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
-  }
-
-  export type LessonCreateNestedOneWithoutClassAttendanceRecordsInput = {
-    create?: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
-    connectOrCreate?: LessonCreateOrConnectWithoutClassAttendanceRecordsInput
-    connect?: LessonWhereUniqueInput
-  }
-
-  export type StudentCreateNestedOneWithoutClassAttendanceRecordsInput = {
-    create?: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
-    connectOrCreate?: StudentCreateOrConnectWithoutClassAttendanceRecordsInput
-    connect?: StudentWhereUniqueInput
-  }
-
-  export type LessonUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput = {
-    create?: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
-    connectOrCreate?: LessonCreateOrConnectWithoutClassAttendanceRecordsInput
-    upsert?: LessonUpsertWithoutClassAttendanceRecordsInput
-    connect?: LessonWhereUniqueInput
-    update?: XOR<XOR<LessonUpdateToOneWithWhereWithoutClassAttendanceRecordsInput, LessonUpdateWithoutClassAttendanceRecordsInput>, LessonUncheckedUpdateWithoutClassAttendanceRecordsInput>
-  }
-
-  export type StudentUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput = {
-    create?: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
-    connectOrCreate?: StudentCreateOrConnectWithoutClassAttendanceRecordsInput
-    upsert?: StudentUpsertWithoutClassAttendanceRecordsInput
-    connect?: StudentWhereUniqueInput
-    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutClassAttendanceRecordsInput, StudentUpdateWithoutClassAttendanceRecordsInput>, StudentUncheckedUpdateWithoutClassAttendanceRecordsInput>
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11446,6 +13159,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -11494,7 +13234,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     createdAt?: Date | string
@@ -11508,7 +13247,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     createdAt?: Date | string
@@ -11551,7 +13289,6 @@ export namespace Prisma {
     id?: StringFilter<"Class"> | string
     code?: StringFilter<"Class"> | string
     name?: StringFilter<"Class"> | string
-    numberOfStudents?: IntFilter<"Class"> | number
     classBlock?: StringNullableFilter<"Class"> | string | null
     classRoom?: StringNullableFilter<"Class"> | string | null
     teacherId?: StringFilter<"Class"> | string
@@ -11612,18 +13349,24 @@ export namespace Prisma {
     id?: string
     date?: Date | string
     acceptPresenceByQRCode?: boolean
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutLessonInput
+    attendanceToken?: AttendanceTokenCreateNestedOneWithoutLessonInput
   }
 
   export type LessonUncheckedCreateWithoutClassInput = {
     id?: string
     date?: Date | string
     acceptPresenceByQRCode?: boolean
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput
+    attendanceToken?: AttendanceTokenUncheckedCreateNestedOneWithoutLessonInput
   }
 
   export type LessonCreateOrConnectWithoutClassInput = {
@@ -11743,6 +13486,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Lesson"> | Date | string
     acceptPresenceByQRCode?: BoolFilter<"Lesson"> | boolean
     classId?: StringFilter<"Lesson"> | string
+    latitude?: FloatNullableFilter<"Lesson"> | number | null
+    longitude?: FloatNullableFilter<"Lesson"> | number | null
     createdAt?: DateTimeFilter<"Lesson"> | Date | string
     updatedAt?: DateTimeFilter<"Lesson"> | Date | string
   }
@@ -11774,11 +13519,381 @@ export namespace Prisma {
     classId?: StringFilter<"Schedule"> | string
   }
 
+  export type ClassCreateWithoutLessonsInput = {
+    id?: string
+    code: string
+    name: string
+    classBlock?: string | null
+    classRoom?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    teacher: TeacherCreateNestedOneWithoutClassesInput
+    enrollments?: EnrollmentCreateNestedManyWithoutClassInput
+    schedules?: ScheduleCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassUncheckedCreateWithoutLessonsInput = {
+    id?: string
+    code: string
+    name: string
+    classBlock?: string | null
+    classRoom?: string | null
+    teacherId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutClassInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutClassInput
+  }
+
+  export type ClassCreateOrConnectWithoutLessonsInput = {
+    where: ClassWhereUniqueInput
+    create: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
+  }
+
+  export type ClassAttendanceRecordCreateWithoutLessonInput = {
+    id?: string
+    present?: boolean
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student: StudentCreateNestedOneWithoutClassAttendanceRecordsInput
+  }
+
+  export type ClassAttendanceRecordUncheckedCreateWithoutLessonInput = {
+    id?: string
+    present?: boolean
+    studentId: string
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassAttendanceRecordCreateOrConnectWithoutLessonInput = {
+    where: ClassAttendanceRecordWhereUniqueInput
+    create: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput>
+  }
+
+  export type ClassAttendanceRecordCreateManyLessonInputEnvelope = {
+    data: ClassAttendanceRecordCreateManyLessonInput | ClassAttendanceRecordCreateManyLessonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AttendanceTokenCreateWithoutLessonInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    currentUsageCount?: number
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type AttendanceTokenUncheckedCreateWithoutLessonInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    currentUsageCount?: number
+    used?: boolean
+    createdAt?: Date | string
+  }
+
+  export type AttendanceTokenCreateOrConnectWithoutLessonInput = {
+    where: AttendanceTokenWhereUniqueInput
+    create: XOR<AttendanceTokenCreateWithoutLessonInput, AttendanceTokenUncheckedCreateWithoutLessonInput>
+  }
+
+  export type ClassUpsertWithoutLessonsInput = {
+    update: XOR<ClassUpdateWithoutLessonsInput, ClassUncheckedUpdateWithoutLessonsInput>
+    create: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
+    where?: ClassWhereInput
+  }
+
+  export type ClassUpdateToOneWithWhereWithoutLessonsInput = {
+    where?: ClassWhereInput
+    data: XOR<ClassUpdateWithoutLessonsInput, ClassUncheckedUpdateWithoutLessonsInput>
+  }
+
+  export type ClassUpdateWithoutLessonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    classBlock?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoom?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teacher?: TeacherUpdateOneRequiredWithoutClassesNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutClassNestedInput
+    schedules?: ScheduleUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassUncheckedUpdateWithoutLessonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    classBlock?: NullableStringFieldUpdateOperationsInput | string | null
+    classRoom?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutClassNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutClassNestedInput
+  }
+
+  export type ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput = {
+    where: ClassAttendanceRecordWhereUniqueInput
+    update: XOR<ClassAttendanceRecordUpdateWithoutLessonInput, ClassAttendanceRecordUncheckedUpdateWithoutLessonInput>
+    create: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput>
+  }
+
+  export type ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput = {
+    where: ClassAttendanceRecordWhereUniqueInput
+    data: XOR<ClassAttendanceRecordUpdateWithoutLessonInput, ClassAttendanceRecordUncheckedUpdateWithoutLessonInput>
+  }
+
+  export type ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput = {
+    where: ClassAttendanceRecordScalarWhereInput
+    data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyWithoutLessonInput>
+  }
+
+  export type ClassAttendanceRecordScalarWhereInput = {
+    AND?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
+    OR?: ClassAttendanceRecordScalarWhereInput[]
+    NOT?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
+    id?: StringFilter<"ClassAttendanceRecord"> | string
+    present?: BoolFilter<"ClassAttendanceRecord"> | boolean
+    studentId?: StringFilter<"ClassAttendanceRecord"> | string
+    lessonId?: StringFilter<"ClassAttendanceRecord"> | string
+    deviceId?: StringNullableFilter<"ClassAttendanceRecord"> | string | null
+    latitude?: FloatNullableFilter<"ClassAttendanceRecord"> | number | null
+    longitude?: FloatNullableFilter<"ClassAttendanceRecord"> | number | null
+    createdAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
+    updatedAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
+  }
+
+  export type AttendanceTokenUpsertWithoutLessonInput = {
+    update: XOR<AttendanceTokenUpdateWithoutLessonInput, AttendanceTokenUncheckedUpdateWithoutLessonInput>
+    create: XOR<AttendanceTokenCreateWithoutLessonInput, AttendanceTokenUncheckedCreateWithoutLessonInput>
+    where?: AttendanceTokenWhereInput
+  }
+
+  export type AttendanceTokenUpdateToOneWithWhereWithoutLessonInput = {
+    where?: AttendanceTokenWhereInput
+    data: XOR<AttendanceTokenUpdateWithoutLessonInput, AttendanceTokenUncheckedUpdateWithoutLessonInput>
+  }
+
+  export type AttendanceTokenUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceTokenUncheckedUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentUsageCount?: IntFieldUpdateOperationsInput | number
+    used?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LessonCreateWithoutClassAttendanceRecordsInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutLessonsInput
+    attendanceToken?: AttendanceTokenCreateNestedOneWithoutLessonInput
+  }
+
+  export type LessonUncheckedCreateWithoutClassAttendanceRecordsInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    classId: string
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    attendanceToken?: AttendanceTokenUncheckedCreateNestedOneWithoutLessonInput
+  }
+
+  export type LessonCreateOrConnectWithoutClassAttendanceRecordsInput = {
+    where: LessonWhereUniqueInput
+    create: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
+  }
+
+  export type StudentCreateWithoutClassAttendanceRecordsInput = {
+    id?: string
+    registrationNumber: string
+    name: string
+    email?: string | null
+    deviceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentUncheckedCreateWithoutClassAttendanceRecordsInput = {
+    id?: string
+    registrationNumber: string
+    name: string
+    email?: string | null
+    deviceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutClassAttendanceRecordsInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
+  }
+
+  export type LessonUpsertWithoutClassAttendanceRecordsInput = {
+    update: XOR<LessonUpdateWithoutClassAttendanceRecordsInput, LessonUncheckedUpdateWithoutClassAttendanceRecordsInput>
+    create: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
+    where?: LessonWhereInput
+  }
+
+  export type LessonUpdateToOneWithWhereWithoutClassAttendanceRecordsInput = {
+    where?: LessonWhereInput
+    data: XOR<LessonUpdateWithoutClassAttendanceRecordsInput, LessonUncheckedUpdateWithoutClassAttendanceRecordsInput>
+  }
+
+  export type LessonUpdateWithoutClassAttendanceRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutLessonsNestedInput
+    attendanceToken?: AttendanceTokenUpdateOneWithoutLessonNestedInput
+  }
+
+  export type LessonUncheckedUpdateWithoutClassAttendanceRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    classId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendanceToken?: AttendanceTokenUncheckedUpdateOneWithoutLessonNestedInput
+  }
+
+  export type StudentUpsertWithoutClassAttendanceRecordsInput = {
+    update: XOR<StudentUpdateWithoutClassAttendanceRecordsInput, StudentUncheckedUpdateWithoutClassAttendanceRecordsInput>
+    create: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
+    where?: StudentWhereInput
+  }
+
+  export type StudentUpdateToOneWithWhereWithoutClassAttendanceRecordsInput = {
+    where?: StudentWhereInput
+    data: XOR<StudentUpdateWithoutClassAttendanceRecordsInput, StudentUncheckedUpdateWithoutClassAttendanceRecordsInput>
+  }
+
+  export type StudentUpdateWithoutClassAttendanceRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutClassAttendanceRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type LessonCreateWithoutAttendanceTokenInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    class: ClassCreateNestedOneWithoutLessonsInput
+    classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutLessonInput
+  }
+
+  export type LessonUncheckedCreateWithoutAttendanceTokenInput = {
+    id?: string
+    date?: Date | string
+    acceptPresenceByQRCode?: boolean
+    classId: string
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutLessonInput
+  }
+
+  export type LessonCreateOrConnectWithoutAttendanceTokenInput = {
+    where: LessonWhereUniqueInput
+    create: XOR<LessonCreateWithoutAttendanceTokenInput, LessonUncheckedCreateWithoutAttendanceTokenInput>
+  }
+
+  export type LessonUpsertWithoutAttendanceTokenInput = {
+    update: XOR<LessonUpdateWithoutAttendanceTokenInput, LessonUncheckedUpdateWithoutAttendanceTokenInput>
+    create: XOR<LessonCreateWithoutAttendanceTokenInput, LessonUncheckedCreateWithoutAttendanceTokenInput>
+    where?: LessonWhereInput
+  }
+
+  export type LessonUpdateToOneWithWhereWithoutAttendanceTokenInput = {
+    where?: LessonWhereInput
+    data: XOR<LessonUpdateWithoutAttendanceTokenInput, LessonUncheckedUpdateWithoutAttendanceTokenInput>
+  }
+
+  export type LessonUpdateWithoutAttendanceTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    class?: ClassUpdateOneRequiredWithoutLessonsNestedInput
+    classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutLessonNestedInput
+  }
+
+  export type LessonUncheckedUpdateWithoutAttendanceTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    classId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput
+  }
+
   export type ClassCreateWithoutSchedulesInput = {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     createdAt?: Date | string
@@ -11792,7 +13907,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     teacherId: string
@@ -11822,7 +13936,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11836,7 +13949,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     teacherId?: StringFieldUpdateOperationsInput | string
@@ -11849,6 +13961,9 @@ export namespace Prisma {
   export type ClassAttendanceRecordCreateWithoutStudentInput = {
     id?: string
     present?: boolean
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     lesson: LessonCreateNestedOneWithoutClassAttendanceRecordsInput
@@ -11858,6 +13973,9 @@ export namespace Prisma {
     id?: string
     present?: boolean
     lessonId: string
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11910,18 +14028,6 @@ export namespace Prisma {
     data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyWithoutStudentInput>
   }
 
-  export type ClassAttendanceRecordScalarWhereInput = {
-    AND?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
-    OR?: ClassAttendanceRecordScalarWhereInput[]
-    NOT?: ClassAttendanceRecordScalarWhereInput | ClassAttendanceRecordScalarWhereInput[]
-    id?: StringFilter<"ClassAttendanceRecord"> | string
-    present?: BoolFilter<"ClassAttendanceRecord"> | boolean
-    studentId?: StringFilter<"ClassAttendanceRecord"> | string
-    lessonId?: StringFilter<"ClassAttendanceRecord"> | string
-    createdAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
-    updatedAt?: DateTimeFilter<"ClassAttendanceRecord"> | Date | string
-  }
-
   export type EnrollmentUpsertWithWhereUniqueWithoutStudentInput = {
     where: EnrollmentWhereUniqueInput
     update: XOR<EnrollmentUpdateWithoutStudentInput, EnrollmentUncheckedUpdateWithoutStudentInput>
@@ -11942,7 +14048,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     createdAt?: Date | string
@@ -11956,7 +14061,6 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     teacherId: string
@@ -11973,9 +14077,10 @@ export namespace Prisma {
 
   export type StudentCreateWithoutEnrollmentsInput = {
     id?: string
-    enrollmentId: string
+    registrationNumber: string
     name: string
     email?: string | null
+    deviceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordCreateNestedManyWithoutStudentInput
@@ -11983,9 +14088,10 @@ export namespace Prisma {
 
   export type StudentUncheckedCreateWithoutEnrollmentsInput = {
     id?: string
-    enrollmentId: string
+    registrationNumber: string
     name: string
     email?: string | null
+    deviceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedCreateNestedManyWithoutStudentInput
@@ -12011,7 +14117,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12025,7 +14130,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     teacherId?: StringFieldUpdateOperationsInput | string
@@ -12048,9 +14152,10 @@ export namespace Prisma {
 
   export type StudentUpdateWithoutEnrollmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutStudentNestedInput
@@ -12058,241 +14163,19 @@ export namespace Prisma {
 
   export type StudentUncheckedUpdateWithoutEnrollmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
+    registrationNumber?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutStudentNestedInput
-  }
-
-  export type ClassAttendanceRecordCreateWithoutLessonInput = {
-    id?: string
-    present?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    student: StudentCreateNestedOneWithoutClassAttendanceRecordsInput
-  }
-
-  export type ClassAttendanceRecordUncheckedCreateWithoutLessonInput = {
-    id?: string
-    present?: boolean
-    studentId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ClassAttendanceRecordCreateOrConnectWithoutLessonInput = {
-    where: ClassAttendanceRecordWhereUniqueInput
-    create: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput>
-  }
-
-  export type ClassAttendanceRecordCreateManyLessonInputEnvelope = {
-    data: ClassAttendanceRecordCreateManyLessonInput | ClassAttendanceRecordCreateManyLessonInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ClassCreateWithoutLessonsInput = {
-    id?: string
-    code: string
-    name: string
-    numberOfStudents: number
-    classBlock?: string | null
-    classRoom?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    teacher: TeacherCreateNestedOneWithoutClassesInput
-    enrollments?: EnrollmentCreateNestedManyWithoutClassInput
-    schedules?: ScheduleCreateNestedManyWithoutClassInput
-  }
-
-  export type ClassUncheckedCreateWithoutLessonsInput = {
-    id?: string
-    code: string
-    name: string
-    numberOfStudents: number
-    classBlock?: string | null
-    classRoom?: string | null
-    teacherId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutClassInput
-    schedules?: ScheduleUncheckedCreateNestedManyWithoutClassInput
-  }
-
-  export type ClassCreateOrConnectWithoutLessonsInput = {
-    where: ClassWhereUniqueInput
-    create: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
-  }
-
-  export type ClassAttendanceRecordUpsertWithWhereUniqueWithoutLessonInput = {
-    where: ClassAttendanceRecordWhereUniqueInput
-    update: XOR<ClassAttendanceRecordUpdateWithoutLessonInput, ClassAttendanceRecordUncheckedUpdateWithoutLessonInput>
-    create: XOR<ClassAttendanceRecordCreateWithoutLessonInput, ClassAttendanceRecordUncheckedCreateWithoutLessonInput>
-  }
-
-  export type ClassAttendanceRecordUpdateWithWhereUniqueWithoutLessonInput = {
-    where: ClassAttendanceRecordWhereUniqueInput
-    data: XOR<ClassAttendanceRecordUpdateWithoutLessonInput, ClassAttendanceRecordUncheckedUpdateWithoutLessonInput>
-  }
-
-  export type ClassAttendanceRecordUpdateManyWithWhereWithoutLessonInput = {
-    where: ClassAttendanceRecordScalarWhereInput
-    data: XOR<ClassAttendanceRecordUpdateManyMutationInput, ClassAttendanceRecordUncheckedUpdateManyWithoutLessonInput>
-  }
-
-  export type ClassUpsertWithoutLessonsInput = {
-    update: XOR<ClassUpdateWithoutLessonsInput, ClassUncheckedUpdateWithoutLessonsInput>
-    create: XOR<ClassCreateWithoutLessonsInput, ClassUncheckedCreateWithoutLessonsInput>
-    where?: ClassWhereInput
-  }
-
-  export type ClassUpdateToOneWithWhereWithoutLessonsInput = {
-    where?: ClassWhereInput
-    data: XOR<ClassUpdateWithoutLessonsInput, ClassUncheckedUpdateWithoutLessonsInput>
-  }
-
-  export type ClassUpdateWithoutLessonsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
-    classBlock?: NullableStringFieldUpdateOperationsInput | string | null
-    classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    teacher?: TeacherUpdateOneRequiredWithoutClassesNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutClassNestedInput
-    schedules?: ScheduleUpdateManyWithoutClassNestedInput
-  }
-
-  export type ClassUncheckedUpdateWithoutLessonsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
-    classBlock?: NullableStringFieldUpdateOperationsInput | string | null
-    classRoom?: NullableStringFieldUpdateOperationsInput | string | null
-    teacherId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutClassNestedInput
-    schedules?: ScheduleUncheckedUpdateManyWithoutClassNestedInput
-  }
-
-  export type LessonCreateWithoutClassAttendanceRecordsInput = {
-    id?: string
-    date?: Date | string
-    acceptPresenceByQRCode?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    class: ClassCreateNestedOneWithoutLessonsInput
-  }
-
-  export type LessonUncheckedCreateWithoutClassAttendanceRecordsInput = {
-    id?: string
-    date?: Date | string
-    acceptPresenceByQRCode?: boolean
-    classId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type LessonCreateOrConnectWithoutClassAttendanceRecordsInput = {
-    where: LessonWhereUniqueInput
-    create: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
-  }
-
-  export type StudentCreateWithoutClassAttendanceRecordsInput = {
-    id?: string
-    enrollmentId: string
-    name: string
-    email?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
-  }
-
-  export type StudentUncheckedCreateWithoutClassAttendanceRecordsInput = {
-    id?: string
-    enrollmentId: string
-    name: string
-    email?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutStudentInput
-  }
-
-  export type StudentCreateOrConnectWithoutClassAttendanceRecordsInput = {
-    where: StudentWhereUniqueInput
-    create: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
-  }
-
-  export type LessonUpsertWithoutClassAttendanceRecordsInput = {
-    update: XOR<LessonUpdateWithoutClassAttendanceRecordsInput, LessonUncheckedUpdateWithoutClassAttendanceRecordsInput>
-    create: XOR<LessonCreateWithoutClassAttendanceRecordsInput, LessonUncheckedCreateWithoutClassAttendanceRecordsInput>
-    where?: LessonWhereInput
-  }
-
-  export type LessonUpdateToOneWithWhereWithoutClassAttendanceRecordsInput = {
-    where?: LessonWhereInput
-    data: XOR<LessonUpdateWithoutClassAttendanceRecordsInput, LessonUncheckedUpdateWithoutClassAttendanceRecordsInput>
-  }
-
-  export type LessonUpdateWithoutClassAttendanceRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    class?: ClassUpdateOneRequiredWithoutLessonsNestedInput
-  }
-
-  export type LessonUncheckedUpdateWithoutClassAttendanceRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
-    classId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type StudentUpsertWithoutClassAttendanceRecordsInput = {
-    update: XOR<StudentUpdateWithoutClassAttendanceRecordsInput, StudentUncheckedUpdateWithoutClassAttendanceRecordsInput>
-    create: XOR<StudentCreateWithoutClassAttendanceRecordsInput, StudentUncheckedCreateWithoutClassAttendanceRecordsInput>
-    where?: StudentWhereInput
-  }
-
-  export type StudentUpdateToOneWithWhereWithoutClassAttendanceRecordsInput = {
-    where?: StudentWhereInput
-    data: XOR<StudentUpdateWithoutClassAttendanceRecordsInput, StudentUncheckedUpdateWithoutClassAttendanceRecordsInput>
-  }
-
-  export type StudentUpdateWithoutClassAttendanceRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
-  }
-
-  export type StudentUncheckedUpdateWithoutClassAttendanceRecordsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    enrollmentId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type ClassCreateManyTeacherInput = {
     id?: string
     code: string
     name: string
-    numberOfStudents: number
     classBlock?: string | null
     classRoom?: string | null
     createdAt?: Date | string
@@ -12303,7 +14186,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12317,7 +14199,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12331,7 +14212,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    numberOfStudents?: IntFieldUpdateOperationsInput | number
     classBlock?: NullableStringFieldUpdateOperationsInput | string | null
     classRoom?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12348,6 +14228,8 @@ export namespace Prisma {
     id?: string
     date?: Date | string
     acceptPresenceByQRCode?: boolean
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12381,24 +14263,32 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUpdateManyWithoutLessonNestedInput
+    attendanceToken?: AttendanceTokenUpdateOneWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     classAttendanceRecords?: ClassAttendanceRecordUncheckedUpdateManyWithoutLessonNestedInput
+    attendanceToken?: AttendanceTokenUncheckedUpdateOneWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateManyWithoutClassInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     acceptPresenceByQRCode?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12424,10 +14314,57 @@ export namespace Prisma {
     endTime?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ClassAttendanceRecordCreateManyLessonInput = {
+    id?: string
+    present?: boolean
+    studentId: string
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClassAttendanceRecordUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
+  }
+
+  export type ClassAttendanceRecordUncheckedUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    studentId?: StringFieldUpdateOperationsInput | string
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClassAttendanceRecordUncheckedUpdateManyWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    present?: BoolFieldUpdateOperationsInput | boolean
+    studentId?: StringFieldUpdateOperationsInput | string
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ClassAttendanceRecordCreateManyStudentInput = {
     id?: string
     present?: boolean
     lessonId: string
+    deviceId?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12441,6 +14378,9 @@ export namespace Prisma {
   export type ClassAttendanceRecordUpdateWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
     present?: BoolFieldUpdateOperationsInput | boolean
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lesson?: LessonUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
@@ -12450,6 +14390,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     present?: BoolFieldUpdateOperationsInput | boolean
     lessonId?: StringFieldUpdateOperationsInput | string
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12458,6 +14401,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     present?: BoolFieldUpdateOperationsInput | boolean
     lessonId?: StringFieldUpdateOperationsInput | string
+    deviceId?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12478,38 +14424,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     classId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClassAttendanceRecordCreateManyLessonInput = {
-    id?: string
-    present?: boolean
-    studentId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ClassAttendanceRecordUpdateWithoutLessonInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    student?: StudentUpdateOneRequiredWithoutClassAttendanceRecordsNestedInput
-  }
-
-  export type ClassAttendanceRecordUncheckedUpdateWithoutLessonInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    studentId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClassAttendanceRecordUncheckedUpdateManyWithoutLessonInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    present?: BoolFieldUpdateOperationsInput | boolean
-    studentId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
