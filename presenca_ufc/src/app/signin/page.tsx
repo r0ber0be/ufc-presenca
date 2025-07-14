@@ -1,54 +1,21 @@
 'use client'
 
-import dynamic from "next/dynamic"
-import FormTemplate from "@/components/form"
 import { SIGN_UP } from "@/lib/constants/routes"
-import { ERRO_FECHAR_POPUP, TENTE_NOVAMENTE } from "@/lib/constants/strings"
-import { signInWithEmailService } from "@/services/auth"
-import { FormValuesT } from "@/types/FormTypes"
-import { Box, useToast } from "@chakra-ui/react"
-import { useRouter } from "next/navigation"
-import { SubmitHandler } from "react-hook-form"
-const GoogleAuthTemplate = dynamic(() => import('@/components/googleAuth'), { ssr: true })
+import { ERRO_FECHAR_POPUP } from "@/lib/constants/strings"
+import { useEffect, useState } from "react"
+import { changeBgByTime } from "@/utils/changeBgByTime"
+import UnsignedPage from "@/components/unsignedPage"
+
+const bgImageInitial = changeBgByTime()
 
 export default function Signin() {
-	const router = useRouter()
-	const toast = useToast()
-
-  const onSubmit: SubmitHandler<FormValuesT> = async data => {
-		try {
-			const userCredential = await signInWithEmailService(data)
-			if(typeof userCredential !== 'string') {
-				router.push('/dashboard')
-			}
-		} catch (error: any) {
-			toast({
-				position: 'top-right',
-				title: error,
-				description: TENTE_NOVAMENTE,
-				status: 'warning',
-				duration: 3000
-			})
-		}
-	}
+	const [bgImage, setBgImage] = useState(bgImageInitial)
+	
+	useEffect(() => {
+		setBgImage(changeBgByTime())
+	}, [])
 
   return (
-    <Box display='grid' justifyContent='center' textAlign='center'>
-      <FormTemplate
-        onSubmit={onSubmit}
-        isSubmmiting={false}
-        buttonText='Entrar'
-        loadingText='Entrando'
-      />
-			<Box as='span' color='gray.600' fontSize='medium' fontWeight='500'>Ou</Box>
-
-			<GoogleAuthTemplate
-				title={ERRO_FECHAR_POPUP}
-				googleButtonText='Entrar com o Google'
-				questionText='Não possui uma conta?'
-				actionText='Cadastre-se'
-				route={SIGN_UP}
-			/>
-    </Box>
+		<UnsignedPage bgImage={bgImage} route={SIGN_UP} signError={ERRO_FECHAR_POPUP} googleTextButton='Entrar com o Google' question='Não possui uma conta?' action='Cadastre-se' />
   )
 }

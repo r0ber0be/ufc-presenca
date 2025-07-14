@@ -8,10 +8,10 @@ export default function Header() {
   return (
     <Box w='100%' color='white' bgGradient='linear(to-r, teal.500, green.500)'>
       <Flex h='10vh' align='center' justify='space-between' px={{ base: 4, sm: 9}}>
-        <Box>
+        <Link href='/dashboard' >
           <Heading as='h2'>UFC</Heading>
           <Text align='center' fontSize={{ base: '8px', md: 'x-small' }} >PRESENÇAS</Text>
-        </Box>
+        </Link>
         <Link href='dashboard/profile' className='flex'>
           <Text alignSelf='center' 
             fontSize={{ sm: '0.9rem', md: '1rem'}}

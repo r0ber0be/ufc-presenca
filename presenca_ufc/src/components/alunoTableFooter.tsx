@@ -1,46 +1,80 @@
 'use client'
 
-import { Button } from '@chakra-ui/react'
+import { Button, useToast } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
-import { getPresencaChanges, salvarPresencas, addChangeListener } from '@/services/presenca/presencaService'
+import {
+  getPresencaChanges,
+  salvarPresencas,
+  addChangeListener
+} from '@/services/presenca/presencaService'
 
-export function AlunoTableFooter() {
+export function AlunoTableFooter(props: { turmaId: string }) {
+  const { turmaId } = props
   const [isLoading, setIsLoading] = useState(false)
   const [changeCount, setChangeCount] = useState(0)
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const toast = useToast()
 
-  // Escuta as mudanças no serviço
+  const updateChangeCount = () => {
+    const count = getPresencaChanges().length
+    console.log('[DEBUG] Atualizando changeCount:', count)
+    setChangeCount(count)
+  }
+
   useEffect(() => {
-    setChangeCount(getPresencaChanges().length)
-    
-    // Registra o listener para atualizações futuras
+    updateChangeCount()
+
     const removeListener = addChangeListener(() => {
-      setChangeCount(getPresencaChanges().length)
-    });
-    
-    // Limpa o listener quando o componente é desmontado
-    return removeListener
+      console.log('[DEBUG] Alteração detectada no serviço')
+      updateChangeCount()
+      setHasInteracted(true) // Marca que houve interação
+    })
+
+    return () => removeListener?.()
   }, [])
 
   const handleClick = async () => {
     setIsLoading(true)
     try {
-      await salvarPresencas()
-      setChangeCount(0); // Após as mudanças bem sucedidas, reseta o count
+      await salvarPresencas(turmaId)
+      toast({
+        position: "top",
+        title: 'Presenças atualizadas!',
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+
+      // Após salvar, assume que não há mais alterações pendentes
+      setChangeCount(0)
+      setHasInteracted(false)
+    } catch {
+      toast({
+        position: "top",
+        title: 'Falha ao atualizar presenças!',
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
     } finally {
       setIsLoading(false)
     }
-  };
+  }
 
   return (
     <Button
-      marginTop='1rem'
-      loadingText='Salvando'
-      spinnerPlacement='end'
-      colorScheme='telegram'
+      display='flex'
+      justifySelf='center'
+      alignSelf='center'
+      marginTop="1rem"
+      loadingText="Salvando"
+      spinnerPlacement="end"
+      colorScheme="telegram"
       onClick={handleClick}
       isLoading={isLoading}
-      isDisabled={changeCount === 0}>
-        Salvar alterações
+      isDisabled={changeCount === 0 && !hasInteracted} // ✅ considera interação
+    >
+      Salvar alterações
     </Button>
   )
 }
