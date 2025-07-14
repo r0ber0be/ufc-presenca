@@ -16,6 +16,7 @@ interface UpdateAulaResult {
 }
 
 export async function updateAulaPresenceStatus({ aulaId, turmaId, acceptPresenceByQRCode }: UpdateAulaParams): Promise<UpdateAulaResult> {
+  console.log('updateAulaPresenceStatus', aulaId, turmaId)
   try {
     const token = await getCookies()
 
@@ -24,7 +25,7 @@ export async function updateAulaPresenceStatus({ aulaId, turmaId, acceptPresence
     }
 
     const response = await api.patch(
-      `/api/presencas/${aulaId}/atualizar`,
+      `/api/presencas/${turmaId}/${aulaId}/atualizar`,
       { acceptPresenceByQRCode },
       {
         headers: {

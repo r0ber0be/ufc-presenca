@@ -12,6 +12,7 @@ interface PresenceToggleProps {
 }
 
 export function PresenceToggle({ aulaId, turmaId, initialAcceptPresenceByQRCode }: PresenceToggleProps) {
+  console.log('PresenceToggle', aulaId, turmaId)
   const [isChecked, setIsChecked] = useState(initialAcceptPresenceByQRCode)
   const [isPending, startTransition] = useTransition()
   const toast = useToast()

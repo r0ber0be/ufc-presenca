@@ -8,7 +8,8 @@ import {
   addChangeListener
 } from '@/services/presenca/presencaService'
 
-export function AlunoTableFooter() {
+export function AlunoTableFooter(props: { turmaId: string }) {
+  const { turmaId } = props
   const [isLoading, setIsLoading] = useState(false)
   const [changeCount, setChangeCount] = useState(0)
   const [hasInteracted, setHasInteracted] = useState(false)
@@ -35,7 +36,7 @@ export function AlunoTableFooter() {
   const handleClick = async () => {
     setIsLoading(true)
     try {
-      await salvarPresencas()
+      await salvarPresencas(turmaId)
       toast({
         position: "top",
         title: 'Presenças atualizadas!',

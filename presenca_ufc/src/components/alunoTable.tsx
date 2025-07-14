@@ -2,7 +2,7 @@
 
 import { api } from '@/lib/axios/api'
 import { getCookies } from '@/utils/authUtils'
-import { Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'
+import { Flex, Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'
 import { AlunoTableFooter } from './alunoTableFooter'
 import { AlunoTableBody } from './alunoTableBody'
 //const AlunoTableBody = dynamic(() => import('@/components/alunoTableBody'), { ssr: false })
@@ -48,7 +48,11 @@ export default async function AlunoTable({ turmaId }: Turma) {
   
   const message = diasDeAula.response?.data.message
   if(message) {
-    return <p>{message}</p>
+    return (
+      <Flex flexDirection='column' h='80%' alignItems='center' justifyContent='center'>
+        <p>{ message }</p>
+      </Flex>
+    )
   }
 
   const dataDiasDeAula = diasDeAula.data!
@@ -70,7 +74,11 @@ export default async function AlunoTable({ turmaId }: Turma) {
   }
 
   if(!data || data.length === 0) {
-    return <p>Nada aqui por enquanto</p>
+    return (
+      <Flex flexDirection='column' h='80%' alignItems='center' justifyContent='center'>
+        Nada aqui por enquanto
+      </Flex>
+    )
   }
 
   const formatarData = (isoDate: string) => {
@@ -96,7 +104,7 @@ export default async function AlunoTable({ turmaId }: Turma) {
         </Table>
       </TableContainer>
 
-      <AlunoTableFooter />
+      <AlunoTableFooter turmaId={turmaId} />
     </>
   )
 }

@@ -62,9 +62,9 @@ export function getPresencaChanges() {
   return presencaChanges
 }
 
-export async function salvarPresencas() {
+export async function salvarPresencas(turmaId: string) {
   if (presencaChanges.length === 0) return false
   
-  await atualizarPresencas(presencaChanges)
+  await atualizarPresencas(presencaChanges, turmaId)
   return true
 }

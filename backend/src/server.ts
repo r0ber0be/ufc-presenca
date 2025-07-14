@@ -5,6 +5,7 @@ import fastifyJwt from '@fastify/jwt'
 import { env } from './config/env'
 import { professorRoutes } from './routes/professor'
 import { authenticatedRoutes } from './plugins/authenticatedRoutes'
+import { alunoRoutes } from './routes/aluno'
 
 const app = fastify({
   logger: {
@@ -21,7 +22,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(fastifyCors, {
-  origin: ['https://localhost:3000'],
+  origin: ['https://localhost:3000', 'exp://192.168.3.6:8081'],
   methods: ['GET', 'POST'],
 })
 
@@ -32,5 +33,6 @@ app.register(fastifyHelmet, {
 
 app.register(authenticatedRoutes)
 app.register(professorRoutes)
+app.register(alunoRoutes)
 
 export default app

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { memo } from "react";
 
 const ClassCard = memo(function MemoizeCard({ turma }:{ turma: TurmaT }) {
-  const { id, code, name, numberOfStudents, classBlock, classRoom, schedules, _count } = turma
+  const { id, code, name, classBlock, classRoom, schedules, _count } = turma
 
   return (
     <ChakraLink as={Link} href={`/dashboard/classe/${id}`}>
@@ -33,7 +33,7 @@ const ClassCard = memo(function MemoizeCard({ turma }:{ turma: TurmaT }) {
               </Text>
             </Box>
 
-            <Box minW='100px' p='10px'>
+            <Box minW='100px' p='10px' alignContent='center'>
               <Heading size='xs' textTransform='uppercase'>
                 Presentes:
               </Heading>
@@ -42,7 +42,7 @@ const ClassCard = memo(function MemoizeCard({ turma }:{ turma: TurmaT }) {
               </Text>
             </Box>
 
-            <Box minW='100px' p='10px'>
+            <Box minW='100px' p='10px' alignContent='center' textAlign='center'>
               <Heading size='xs' textTransform='uppercase'>
                 { schedules[0].weekDay } - { schedules[1]?.weekDay || '' }
               </Heading>

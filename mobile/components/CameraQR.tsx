@@ -2,6 +2,7 @@ import { usePinchZoom } from '@/hooks/usePinchZoom';
 import useResetQrLockOnFocus from '@/hooks/useResetQrLockOnFocus';
 import { useIsFocused } from '@react-navigation/native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import * as Location from 'expo-location';
 import { Stack } from 'expo-router';
 import { navigate } from 'expo-router/build/global-state/routing';
 import { useEffect, useRef, useState } from 'react';
@@ -38,36 +39,57 @@ export default function CameraQR() {
   }
 
   const handleQrScanned = async ({ data }: { data: string }) => {
-  if (!data || qrLock.current || loading) return
+    if (!data || qrLock.current || loading) return
 
-  qrLock.current = true
-  setLoading(true)
-  setResponseMessage(null)
+    qrLock.current = true
+    setLoading(true)
+    setResponseMessage(null)
 
-  try {
-    const response = await fetch('https://seu-servidor.com/api/presencas', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ codigo: data }),
-    });
+    const alunoId = '82452ca7-0e8d-48c8-98c7-8f7af409f2c2'
 
-    const result = await response.json();
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        setResponseMessage('Permissão de localização negada.')
+        return
+      }
 
-    if (response.ok) {
-      setResponseMessage('✅ Presença confirmada com sucesso!');
-      navigate('/')
-    } else {
-      setResponseMessage(result?.mensagem || '❌ Código inválido ou expirado.');
-    }} catch (error) {
-      console.error(error);
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.BestForNavigation
+      })
+      const { latitude, longitude } = location.coords
+      
+      const response = await fetch(`http://192.168.3.6:3333/api/${alunoId}/presenca/qr`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          signedData: data,
+          latitude,
+          longitude
+        }),
+      })
+
+      const result = await response.json()
+
+      console.log(result)
+      console.log(response.ok)
+
+      if (response.ok) {
+        setResponseMessage('Presença confirmada com sucesso!')
+        navigate('/')
+      } else {
+        setResponseMessage(result?.message || 'Código inválido ou expirado.')
+      }
+    } catch (error) {
+      console.error(error)
       setResponseMessage('Erro ao conectar com o servidor.')
     } finally {
       setLoading(false)
       setTimeout(() => {
-        qrLock.current = false;
-        setResponseMessage(null);
+        qrLock.current = false
+        setResponseMessage(null)
       }, 4000)
     }
   }
@@ -117,6 +139,7 @@ export default function CameraQR() {
     </SafeAreaView>
   )
 }
+
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center' },
   message: { textAlign: 'center', padding: 10 },

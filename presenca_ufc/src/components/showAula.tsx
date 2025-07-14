@@ -10,7 +10,7 @@ type Turma = {
 }
 
 export default async function QRAula({ turmaId }: Turma) {
-  console.log(turmaId)
+  console.log('QRAula', turmaId)
   const token = await getCookies()
 
   const aula = await api.get(`/api/presencas/aula/${turmaId}`, {
@@ -19,27 +19,41 @@ export default async function QRAula({ turmaId }: Turma) {
     },
   }).catch(er=> { return er })
 
+  console.log('QRAula Response', aula.data)
+  console.log('----------------------------')
+  if(aula.response?.status === 403) {
+    return (
+      <Flex flexDirection='column' h='80%' alignItems='center' justifyContent='center'>
+        <Box p='4'>
+          <p>
+            { aula.response?.data.message }
+          </p>
+        </Box>
+      </Flex>
+    )
+  }
+  
   if(!aula.data) {
     return (
       <Flex flexDirection='column' h='80%' alignItems='center' justifyContent='center'>
-        <Box p='10px'>
-          Nenhuma aula aberta encontrada!
+        <Box p='4'>
+          <p>
+            { aula.response?.data.message }
+          </p>
         </Box>
         <GenerateLesson turmaId={turmaId} />
       </Flex>
     )
   }
-  console.log(aula.data)
 
-  const { id, classId, acceptPresenceByQRCode, date } = aula.data
-  const endpointURL = `http://localhost:8080/api/register/${id}/${classId}`
+  const { id, classId, acceptPresenceByQRCode, signedToken } = aula.data
   return (
     <Flex flexDirection='column' h='90%' alignItems='center'>
       <Box maxW='432px' w='100%' maxH='450px'>
         <QRCode
           size={256}
           style={{ height: "auto", width: "100%" }}
-          value={endpointURL}
+          value={signedToken}
           viewBox={`0 0 256 256`}
         />
       </Box>
