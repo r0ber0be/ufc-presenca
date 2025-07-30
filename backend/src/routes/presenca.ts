@@ -29,6 +29,9 @@ export async function presencaRoutes(app: FastifyInstance) {
           date: true,
           classId: true,
         },
+        orderBy: {
+          createdAt: 'asc',
+        },
       })
 
       if (!diasDeAula || diasDeAula.length === 0) {
