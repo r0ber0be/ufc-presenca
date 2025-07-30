@@ -55,20 +55,24 @@ export function AlunoTableBody(props: AlunoData) {
       { data.map((aluno: { name: string, id: string, presences: Array<boolean> }, index: number) => {
         return (
           <Tr key={index}>
-            <Td>{ aluno.name }</Td>
+            <Td width='150px' fontSize='small' textAlign='left' px={2} overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>
+              { aluno.name }
+            </Td>
             { aluno.presences.map((presenca: boolean, idx: number) => {
               const { date } = dias[idx];
               // Certifique-se de obter o estado atual do checkbox do service
               const isChecked = getCheckedState(aluno.id, date, presenca);
               
-              return <Td key={idx}>
+              return <Td key={idx} textAlign='center' px={1} py={1}>
                 <label htmlFor={`presenca-${aluno.id}-${idx}`}>
                   <input
                     name='presenca'
                     type='checkbox'
+                    aria-label='Marcar presença'
                     checked={isChecked}
                     id={`presenca-${aluno.id}-${idx}`}
                     onChange={(ev) => handleChange(ev, aluno.id, idx)}
+                    style={{ cursor: 'pointer', margin: 0 }}
                   />
                 </label>
               </Td>
