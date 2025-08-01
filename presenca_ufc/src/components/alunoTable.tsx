@@ -5,7 +5,7 @@ import { getCookies } from '@/utils/authUtils'
 import { Flex, Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'
 import { AlunoTableFooter } from './alunoTableFooter'
 import { AlunoTableBody } from './alunoTableBody'
-//const AlunoTableBody = dynamic(() => import('@/components/alunoTableBody'), { ssr: false })
+import { DateCellTable } from './dateCellTable'
 
 type Turma = {
   turmaId: string
@@ -18,8 +18,6 @@ type ErrorApiResponseData = {
 type ErrorResponseStructure = {
   status: number,
   code?: string,
-  // Quando há erro, 'data' pode não existir ou ser vazia,
-  // mas o erro relevante está em 'response.data.message'
   data?: [],
   response: {
     data: ErrorApiResponseData,
@@ -81,30 +79,77 @@ export default async function AlunoTable({ turmaId }: Turma) {
     )
   }
 
-  const formatarData = (isoDate: string) => {
-    return new Intl.DateTimeFormat('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-    }).format(new Date(isoDate));
+  const agruparPorMes = (aulas: { date: string, id: string }[]) => {
+    const mesesAgrupados: { [key: string]: { date: string, id: string }[] } = {}
+    
+    aulas.forEach(aula => {
+      const data = new Date(aula.date)
+      const mesAno = data.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
+      
+      if (!mesesAgrupados[mesAno]) {
+        mesesAgrupados[mesAno] = []
+      }
+      mesesAgrupados[mesAno].push(aula)
+    })
+    
+    return mesesAgrupados
   };
+
+  const mesesAgrupados = agruparPorMes(dataDiasDeAula)
 
   return (
     <>
-      <TableContainer>
-        <Table variant='striped' colorScheme='teal' size='sm' maxW='100%'>
+      <TableContainer
+        whiteSpace='nowrap'
+        overflowX={{ base: 'auto', md: 'auto', lg: 'unset' }}
+        overflowY='auto'
+        maxH='calc(100vh - 200px)'
+        flex='1'
+        mb={4}
+      >
+        <Table
+          variant='striped'
+          colorScheme='teal'
+          size='sm'
+          width={{ base: 'auto', lg: '100%' }} 
+          layout={{ base: 'auto', lg: 'fixed' }}
+        >
           <Thead>
+            {/* Linha dos meses */}
             <Tr>
-              <Th>Aluno</Th>
-              { dataDiasDeAula.map((aula: { date: string, id: string }) => {
-                return ( <Th key={aula.id}> { formatarData(aula.date) } </Th> )
-              })}
+              <Th width='150px' fontSize='xs' textAlign='left' px={2} borderBottom='none'>
+                Aluno
+              </Th>
+              {Object.entries(mesesAgrupados).map(([mes, aulas], index) => (
+                <Th
+                  key={index}
+                  colSpan={aulas.length}
+                  fontSize='xs'
+                  textAlign={{ base: 'left', lg: 'center' }}
+                  px={1}
+                  borderBottom='none'
+                  textTransform='uppercase'
+                >
+                  {mes}
+                </Th>
+              ))}
+            </Tr>
+            {/* Linha dos dias */}
+            <Tr>
+              {/* Célula vazia para alinhar com a coluna 'Aluno' */}
+              <Th width='150px' />
+              {dataDiasDeAula.map((aula: { date: string, id: string }) => (
+                <DateCellTable date={aula.date} key={aula.id} />
+              ))}
             </Tr>
           </Thead>
           <AlunoTableBody data={data} dias={dataDiasDeAula} />
         </Table>
       </TableContainer>
 
-      <AlunoTableFooter turmaId={turmaId} />
+      <Flex justifyContent='center' py={4}>
+        <AlunoTableFooter turmaId={turmaId} />
+      </Flex>
     </>
   )
 }

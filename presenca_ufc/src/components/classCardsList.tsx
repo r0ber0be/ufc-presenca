@@ -16,13 +16,11 @@ export default async function ClassList() {
   }).catch((err) => { 
     return err
   })
-console.log(response.request)
   const status = response.request.res?.statusCode
   if(status !== 200) {
     return <EmptyPage />
   }
   
-  console.log(response.data)
   const turmas: Array<TurmaT> = response.data
 
   if(turmas.length === 0) {

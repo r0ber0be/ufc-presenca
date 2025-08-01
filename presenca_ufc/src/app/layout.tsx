@@ -27,16 +27,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-br">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="utf-8" />
+    <html lang="pt-br" suppressHydrationWarning>
+      <head content-type='utf-8'>
         <meta name="theme-color" content="#ffffff" />
         {/* Preload de recursos críticos */}
         <link rel="preconnect" href="http://localhost:3333" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
       </head>
-      <body className={`${inter.className}`} suppressHydrationWarning={true} >
+      <body className={`${inter.className}`}>
         <Provider>{children}</Provider>
       </body>
     </html>

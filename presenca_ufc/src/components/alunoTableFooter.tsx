@@ -69,7 +69,7 @@ export function AlunoTableFooter(props: { turmaId: string }) {
       marginTop="1rem"
       loadingText="Salvando"
       spinnerPlacement="end"
-      colorScheme="telegram"
+      colorScheme="blue"
       onClick={handleClick}
       isLoading={isLoading}
       isDisabled={changeCount === 0 && !hasInteracted} // ✅ considera interação
