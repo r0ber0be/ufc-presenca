@@ -3,8 +3,8 @@ import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react"
 import Image from "next/image"
 import Link from "next/link"
 
-export default function Header() {
-  const { name, picture } = getProfessor()
+export default async function Header() {
+  const { name, picture } = await getProfessor()
   return (
     <Box w='100%' color='white' bgGradient='linear(to-r, teal.500, green.500)'>
       <Flex h='10vh' align='center' justify='space-between' px={{ base: 4, sm: 9}}>

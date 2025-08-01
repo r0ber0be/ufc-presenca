@@ -5,6 +5,7 @@ import { getCookies } from '@/utils/authUtils'
 import { Flex, Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'
 import { AlunoTableFooter } from './alunoTableFooter'
 import { AlunoTableBody } from './alunoTableBody'
+import { DateCellTable } from './dateCellTable'
 
 type Turma = {
   turmaId: string
@@ -78,12 +79,6 @@ export default async function AlunoTable({ turmaId }: Turma) {
     )
   }
 
-  const formatarData = (isoDate: string) => {
-    return new Intl.DateTimeFormat('pt-BR', {
-      day: '2-digit',
-    }).format(new Date(isoDate))
-  };
-
   const agruparPorMes = (aulas: { date: string, id: string }[]) => {
     const mesesAgrupados: { [key: string]: { date: string, id: string }[] } = {}
     
@@ -144,16 +139,7 @@ export default async function AlunoTable({ turmaId }: Turma) {
               {/* Célula vazia para alinhar com a coluna 'Aluno' */}
               <Th width='150px' />
               {dataDiasDeAula.map((aula: { date: string, id: string }) => (
-                <Th
-                  key={aula.id}
-                  fontSize='10px'
-                  textAlign='center'
-                  px={1}
-                  minW='40px'
-                  maxW='60px'
-                >
-                  {formatarData(aula.date)}
-                </Th>
+                <DateCellTable date={aula.date} key={aula.id} />
               ))}
             </Tr>
           </Thead>

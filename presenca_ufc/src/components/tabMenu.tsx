@@ -1,21 +1,17 @@
 import { Tab, TabList, Tabs } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function TabMenu(params: { id: string }) {
-  const { id } = params
+export default function TabMenu(params: { id: string, index: number }) {
+  const { id, index } = params
   return (
-    <Tabs variant='line'>
+    <Tabs defaultIndex={index} variant='line'>
       <TabList mb='1em'>
-        <Link href={`/dashboard/classe/${id}`} passHref legacyBehavior>
-          <Tab as="a" flex={1} textAlign="center">
-            Presenças
-          </Tab>
-        </Link>
-        <Link href={`/dashboard/classe/${id}/lesson`} passHref legacyBehavior>
-          <Tab as="a" flex={1} textAlign="center">
-            QR Code
-          </Tab>
-        </Link>
+        <Tab as={Link} href={`/dashboard/classe/${id}`} width="50%" textAlign="center">
+          Presenças
+        </Tab>
+        <Tab as={Link} href={`/dashboard/classe/${id}/lesson`} width="50%" textAlign="center">
+          QR Code
+        </Tab>
       </TabList>
     </Tabs>
   )

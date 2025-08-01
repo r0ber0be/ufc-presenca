@@ -9,7 +9,7 @@ export async function verifyToken(idToken: string) {
   const { data } = response
   const expiresIn = 24 * 60 * 60 * 7
 
-  cookies().set({
+  ;(await cookies()).set({
     path: '/',
     name: 'token-ufc',
     value: data,
@@ -18,11 +18,11 @@ export async function verifyToken(idToken: string) {
 }
 
 export async function removeCookies() {
-  if(cookies().has('token-ufc')) {
-    cookies().delete('token-ufc')
+  if((await cookies()).has('token-ufc')) {
+    (await cookies()).delete('token-ufc')
   }
 }
 
 export async function getCookies() {
-  return cookies().get('token-ufc')?.value
+  return (await cookies()).get('token-ufc')?.value
 }

@@ -30,7 +30,7 @@ export async function presencaRoutes(app: FastifyInstance) {
           classId: true,
         },
         orderBy: {
-          createdAt: 'asc',
+          date: 'asc',
         },
       })
 
@@ -51,7 +51,7 @@ export async function presencaRoutes(app: FastifyInstance) {
     async (req, res) => {
       const { turmaId } = req.params
 
-      const tabelaPresenca = await prisma.student.findMany({
+      const alunos = await prisma.student.findMany({
         where: {
           enrollments: {
             some: {
@@ -71,6 +71,7 @@ export async function presencaRoutes(app: FastifyInstance) {
             },
             select: {
               present: true,
+              lessonId: true,
               lesson: {
                 select: {
                   date: true,
@@ -79,9 +80,12 @@ export async function presencaRoutes(app: FastifyInstance) {
             },
           },
         },
+        orderBy: {
+          createdAt: 'asc',
+        },
       })
 
-      const tabelaFormatada = tabelaPresenca.map((aluno) => {
+      const tabelaFormatada = alunos.map((aluno) => {
         const presenceMap: boolean[] = []
         aluno.classAttendanceRecords.forEach((record) => {
           presenceMap.push(record.present)
@@ -95,7 +99,24 @@ export async function presencaRoutes(app: FastifyInstance) {
         }
       })
 
-      return res.status(200).send(tabelaFormatada)
+      const alunosComPresencas = alunos.map((aluno) => {
+        const presencesMap: { [lessonId: string]: boolean } = {}
+
+        for (const record of aluno.classAttendanceRecords) {
+          presencesMap[record.lessonId] = record.present
+        }
+
+        return {
+          id: aluno.id,
+          registrationNumber: aluno.registrationNumber,
+          name: aluno.name,
+          presences: presencesMap,
+        }
+      })
+
+      console.log(alunosComPresencas)
+
+      return res.status(200).send(alunosComPresencas)
     },
   )
 
