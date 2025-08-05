@@ -2,8 +2,131 @@ import { FastifyInstance } from 'fastify'
 import { verifySignedToken } from '../utils/QRCodeToken'
 import { prisma } from '../lib/prisma'
 import { geolocationVerifier } from '../utils/geolocationVerifier'
+import { studentSigaaLogin } from '../lib/sigaa/alunoScraper'
 
 export async function alunoRoutes(app: FastifyInstance) {
+  // Login do aluno
+  app.post<{
+    Body: { login: string; password: string }
+    Headers: { deviceId: string }
+  }>('/api/testeloginalunosigaa', async (req, res) => {
+    const { login, password } = req.body
+    const deviceId = req.headers.deviceid
+
+    console.log(deviceId)
+
+    if (!login || !password) {
+      return res.status(400).send('Dados de acesso incorretos ou inválidos.')
+    }
+
+    if (!deviceId) {
+      return res
+        .status(400)
+        .send({ message: 'Falha ao receber dados do dispositivo.' })
+    }
+
+    try {
+      const { name, registrationNumber } = await studentSigaaLogin(
+        login,
+        password,
+      )
+
+      const student = await prisma.student.findUnique({
+        where: {
+          registrationNumber_deviceId: {
+            registrationNumber,
+            deviceId,
+          },
+        },
+      })
+
+      if (!student) {
+        return res.status(404).send({
+          message: `O aluno ${name} ainda não foi cadastrado. Cadastre-se para continuar.`,
+        })
+      }
+
+      const token = app.jwt.sign(
+        {
+          id: student.id,
+          name: student.name,
+          registrationNumber: student.registrationNumber,
+          role: 'student',
+        },
+        {
+          sub: student.id,
+          expiresIn: '7 days',
+        },
+      )
+
+      return res.status(200).send(token)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message })
+      }
+    }
+  })
+
+  app.post<{
+    Body: { login: string; password: string }
+    Headers: { deviceId: string }
+  }>('/api/aluno/cadastro', async (req, res) => {
+    const { login, password } = req.body
+    const deviceId = req.headers.deviceid
+
+    if (!deviceId) {
+      return res
+        .status(400)
+        .send({ message: 'Falha ao receber dados do dispositivo.' })
+    }
+
+    const isStudentDeviceAlreadyTaken = await prisma.student.findUnique({
+      where: {
+        deviceId,
+      },
+    })
+
+    if (isStudentDeviceAlreadyTaken) {
+      res
+        .status(409)
+        .send({ message: 'O dispositivo já está vínculado a outra conta.' })
+    }
+
+    try {
+      const { name, registrationNumber } = await studentSigaaLogin(
+        login,
+        password,
+      )
+
+      const isStudentRegistrationNumberTaken = await prisma.student.findUnique({
+        where: {
+          registrationNumber,
+        },
+      })
+
+      if (isStudentRegistrationNumberTaken) {
+        res.status(409).send({ message: 'Matrícula já vinculada a uma conta.' })
+      }
+
+      const newStudent = await prisma.student.create({
+        data: {
+          name,
+          registrationNumber,
+          deviceId,
+        },
+      })
+
+      return res.status(201).send({
+        message: `${newStudent.name} - (
+        ${newStudent.registrationNumber}) foi cadastrado com sucesso!`,
+      })
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message })
+      }
+    }
+  })
+
   // Realiza a presença do aluno
   app.post<{
     Body: { signedData: string; latitude: GLfloat; longitude: GLfloat }

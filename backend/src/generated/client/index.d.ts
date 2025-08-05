@@ -11355,16 +11355,17 @@ export namespace Prisma {
     id?: string
     registrationNumber?: string
     email?: string
+    deviceId?: string
+    registrationNumber_deviceId?: StudentRegistrationNumberDeviceIdCompoundUniqueInput
     AND?: StudentWhereInput | StudentWhereInput[]
     OR?: StudentWhereInput[]
     NOT?: StudentWhereInput | StudentWhereInput[]
     name?: StringFilter<"Student"> | string
-    deviceId?: StringFilter<"Student"> | string
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
     classAttendanceRecords?: ClassAttendanceRecordListRelationFilter
     enrollments?: EnrollmentListRelationFilter
-  }, "id" | "registrationNumber" | "email">
+  }, "id" | "registrationNumber" | "email" | "deviceId" | "registrationNumber_deviceId">
 
   export type StudentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -12505,6 +12506,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumWeekDayFilter<$PrismaModel>
     _max?: NestedEnumWeekDayFilter<$PrismaModel>
+  }
+
+  export type StudentRegistrationNumberDeviceIdCompoundUniqueInput = {
+    registrationNumber: string
+    deviceId: string
   }
 
   export type StudentCountOrderByAggregateInput = {

@@ -24,7 +24,7 @@ export async function professorRoutes(app: FastifyInstance) {
     })
 
     if (professorExists) {
-      res.status(401).send({ message: 'Usuário já cadastrado!' })
+      res.status(409).send({ message: 'Professor já cadastrado!' })
     }
 
     const newProfessor = await prisma.teacher.create({
@@ -88,6 +88,7 @@ export async function professorRoutes(app: FastifyInstance) {
         name,
         picture,
         isSynced: professor.isSynced,
+        role: 'teacher',
       },
       {
         sub: uid,

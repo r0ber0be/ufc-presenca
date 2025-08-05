@@ -104,14 +104,14 @@ model Student {
   registrationNumber String   @unique
   name               String
   email              String?  @unique
-  deviceId           String
+  deviceId           String   @unique
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
   classAttendanceRecords ClassAttendanceRecord[]
   enrollments            Enrollment[]
 
-  @@index([registrationNumber])
+  @@index([registrationNumber, deviceId])
 }
 
 model Enrollment {

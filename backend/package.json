@@ -40,6 +40,9 @@
     "firebase-admin": "^12.0.0",
     "haversine-distance": "^1.2.4",
     "node-cron": "^4.2.1",
+    "puppeteer": "^24.15.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "zod": "^3.24.4"
   }
 }
