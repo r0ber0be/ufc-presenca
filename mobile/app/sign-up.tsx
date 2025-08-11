@@ -1,36 +1,36 @@
-import { handleLogin } from '@/api/auth'
+import { handleRegistration } from '@/api/registration'
 import Form from '@/components/Form'
 import { router } from 'expo-router'
 import { useState } from 'react'
 import { Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 
-const SignIn = () => {
+const SignUp = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   async function onSubmit() {
-    if (!login.trim() || !password.trim()) {
-      Alert.alert('Campos obrigatórios', 'Preencha todos os campos para continuar.')
-      return
+      if (!login.trim() || !password.trim()) {
+        Alert.alert('Campos obrigatórios', 'Preencha todos os campos para continuar.')
+        return
+      }
+      
+      setIsLoading(true)
+      const loginTrim = login.trimEnd()
+      
+      await handleRegistration({
+        login: loginTrim,
+        password,
+        deviceId: 'dispositivo-exemplo',
+        onSuccess: () => router.replace('/sign-in'),
+      })
+      setIsLoading(false)
     }
-    
-    setIsLoading(true)
-    const loginTrim = login.trimEnd()
-    
-    await handleLogin({
-      login: loginTrim,
-      password,
-      deviceId: 'dispositivo-exemplo',
-      onSuccess: () => router.replace('/')
-    })
-    setIsLoading(false)
-  }
-  
+
   return (
     <ImageBackground
-      source={require('../assets/images/bg-night.png')}
+      source={require('../assets/images/bg-day.png')}
       style={[styles.background, { backgroundColor: '#000000' }]}
       resizeMode='cover'
     >
@@ -45,18 +45,16 @@ const SignIn = () => {
               source={require('@/assets/images/splash-icon.png')}
             />
             <View style={styles.formWrapper}>
-              <Form
+              <Form 
                 login={login}
                 password={password}
                 onLoginChange={setLogin}
                 onPasswordChange={setPassword}
                 isLoading={isLoading}
                 onSubmit={onSubmit}
-                actionText='Entrar'
+                actionText='Cadastre-se'
               />
-              <Button onPress={() => router.replace('/sign-up')}>
-                Não tem uma conta? Registre-se!
-              </Button>
+              <Button onPress={() => router.replace('/sign-in')}>Já tem uma conta? Entre!</Button>
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -100,4 +98,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SignIn
+export default SignUp

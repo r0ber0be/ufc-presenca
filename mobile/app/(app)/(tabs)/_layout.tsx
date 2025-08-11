@@ -1,10 +1,11 @@
-import { Tabs, usePathname } from 'expo-router';
-import React from 'react';
+import { Tabs, usePathname, useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
 import Header from '@/components/Header';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
+import { getToken } from '@/hooks/useAuthToken';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
@@ -12,6 +13,20 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   const pathname = usePathname()
   const shouldShowHeader = pathname != '/QRcode'
+
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    getToken().then(token => {
+      if (!token) {
+        router.replace('/sign-in')
+      }
+      setLoading(false)
+    })
+  }, [])
+
+  if(loading) return null
   
   return (
     <>
