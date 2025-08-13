@@ -1,21 +1,24 @@
 import { saveToken } from '@/hooks/useAuthToken'
+import { getDeviceId } from '@/hooks/useDeviceId'
 import { saveStudentData } from '@/hooks/useStudentData'
+import { authenticateUser } from '@/utils/authWithBiometrics'
 import { Alert } from 'react-native'
 
 type UserProps = {
   login: string
   password: string
-  deviceId: string
   onSuccess: () => void
 }
 
-export async function handleLogin({ login, password, deviceId, onSuccess }: UserProps) {
+export async function handleLogin({ login, password, onSuccess }: UserProps) {
   try {
+    await authenticateUser()
+    const deviceId = await getDeviceId()
     const response = await fetch('http://192.168.3.6:3333/api/aluno/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        deviceId, // TODO: Pesquisar como pegar essa informação 
+        deviceId,
       },
       body: JSON.stringify({ login, password }),
     })

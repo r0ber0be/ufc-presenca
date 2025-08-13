@@ -18,11 +18,9 @@ const SignIn = () => {
     
     setIsLoading(true)
     const loginTrim = login.trimEnd()
-    
     await handleLogin({
       login: loginTrim,
       password,
-      deviceId: 'dispositivo-exemplo',
       onSuccess: () => router.replace('/')
     })
     setIsLoading(false)

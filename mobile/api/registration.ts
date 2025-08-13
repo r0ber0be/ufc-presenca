@@ -1,19 +1,22 @@
+import { getOrCreateDeviceId } from "@/hooks/useDeviceId"
+import { authenticateUser } from "@/utils/authWithBiometrics"
 import { Alert } from "react-native"
 
 type UserProps = {
   login: string
   password: string
-  deviceId: string
   onSuccess: () => void
 }
 
-export async function handleRegistration({ login, password, deviceId, onSuccess }: UserProps) {
+export async function handleRegistration({ login, password, onSuccess }: UserProps) {
   try {
+    await authenticateUser()
+    const deviceId = await getOrCreateDeviceId()
     const response = await fetch('http://192.168.3.6:3333/api/aluno/cadastro', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        deviceId, // TODO: Pesquisar como pegar essa informação 
+        deviceId, 
       },
       body: JSON.stringify({ login, password }),
     })

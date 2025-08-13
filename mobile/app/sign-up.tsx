@@ -18,11 +18,10 @@ const SignUp = () => {
       
       setIsLoading(true)
       const loginTrim = login.trimEnd()
-      
+
       await handleRegistration({
         login: loginTrim,
         password,
-        deviceId: 'dispositivo-exemplo',
         onSuccess: () => router.replace('/sign-in'),
       })
       setIsLoading(false)

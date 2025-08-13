@@ -49,6 +49,12 @@ export async function alunoRoutes(app: FastifyInstance) {
         })
       }
 
+      if (student.deviceId !== deviceId) {
+        return res
+          .status(403)
+          .send({ message: 'Esta conta está vinculada a outro dispositivo.' })
+      }
+
       const token = app.jwt.sign(
         {
           id: student.id,
@@ -68,6 +74,7 @@ export async function alunoRoutes(app: FastifyInstance) {
         console.log(error)
         return res.status(400).send({ message: error.message })
       }
+      return res.status(500).send({ message: 'Erro interno do servidor' })
     }
   })
 
@@ -77,6 +84,10 @@ export async function alunoRoutes(app: FastifyInstance) {
   }>('/api/aluno/cadastro', async (req, res) => {
     const { login, password } = req.body
     const deviceId = req.headers.deviceid
+
+    if (!login || !password) {
+      return res.status(400).send({ message: 'Dados inválidos.' })
+    }
 
     if (!deviceId) {
       return res
@@ -131,6 +142,7 @@ export async function alunoRoutes(app: FastifyInstance) {
       if (error instanceof Error) {
         return res.status(400).send({ message: error.message })
       }
+      return res.status(500).send({ message: 'Erro interno do servidor' })
     }
   })
 
@@ -138,14 +150,22 @@ export async function alunoRoutes(app: FastifyInstance) {
   app.post<{
     Body: { signedData: string; latitude: GLfloat; longitude: GLfloat }
     Params: { studentId: string }
+    Headers: { deviceId: string }
   }>(
-    '/api/:alunoId/presenca/qr',
+    '/api/:studentId/presenca/qr',
     { preHandler: [authPreHandler, verifyStudentIsRegisteredInClass] },
     async (req, res) => {
       const { latitude, longitude } = req.body
       console.log('latlong', latitude, longitude)
       const { lessonId, token } = req
       const { studentId } = req.params
+      const deviceId = req.headers.deviceid
+
+      if (!deviceId) {
+        return res
+          .status(400)
+          .send({ message: 'Falha ao receber dados do dispositivo.' })
+      }
 
       if (!latitude || !longitude) {
         return res

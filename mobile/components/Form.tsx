@@ -38,6 +38,7 @@ const Form = ({
         secureTextEntry
         onChangeText={onPasswordChange}
         disabled={isLoading}
+        right={<TextInput.Icon icon='eye' />}
       />
       <Button
         mode='contained'

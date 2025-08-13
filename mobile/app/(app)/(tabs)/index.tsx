@@ -46,7 +46,6 @@ export default function HomeScreen() {
       }
     }
     loadClasses()
-    console.log(classes)
   }, [])
 
   if(error) {

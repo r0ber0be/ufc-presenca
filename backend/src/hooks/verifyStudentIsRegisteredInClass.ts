@@ -8,10 +8,17 @@ export default async function verifyStudentIsRegisteredInClass(
 ) {
   const { signedData } = req.body as { signedData: string }
   const { studentId } = req.params as { studentId: string }
+  const studentSub = req.user.sub
+
+  console.log(req.params)
+
+  if (studentId !== studentSub) {
+    return res.status(401).send({ message: 'Informações conflitantes.' })
+  }
 
   const { isValid, lessonId, token } = verifySignedToken(signedData)
 
-  if (!isValid || !studentId || !lessonId) {
+  if (!isValid || !studentSub || !lessonId) {
     return res.status(401).send({ message: 'Dados inválidos.' })
   }
 
@@ -21,7 +28,7 @@ export default async function verifyStudentIsRegisteredInClass(
       class: {
         enrollments: {
           some: {
-            studentId,
+            studentId: studentSub,
           },
         },
       },

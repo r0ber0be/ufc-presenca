@@ -51,6 +51,12 @@
           "imageWidth": 200
         }
       ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+        }
+      ],
       [ "expo-location" ]
     ],
     "experiments": {

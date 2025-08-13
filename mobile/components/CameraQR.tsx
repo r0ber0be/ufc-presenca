@@ -1,4 +1,5 @@
 import { getToken } from '@/hooks/useAuthToken';
+import { getDeviceId } from '@/hooks/useDeviceId';
 import { usePinchZoom } from '@/hooks/usePinchZoom';
 import useResetQrLockOnFocus from '@/hooks/useResetQrLockOnFocus';
 import { getStudentId } from '@/hooks/useStudentData';
@@ -49,6 +50,7 @@ export default function CameraQR() {
 
     const studentId = await getStudentId()
     const token = await getToken()
+    const deviceid = await getDeviceId()
     
     try {
       const { status } = await Location.requestForegroundPermissionsAsync()
@@ -66,9 +68,10 @@ export default function CameraQR() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          deviceid,
         },
-        body: JSON.stringify({ // TODO: deviceid deve ir aqui?
+        body: JSON.stringify({
           signedData: data,
           latitude,
           longitude
@@ -76,8 +79,6 @@ export default function CameraQR() {
       })
 
       const result = await response.json()
-
-      console.log('result', result)
 
       if (response.ok) {
         setResponseMessage('Presença confirmada com sucesso!')
