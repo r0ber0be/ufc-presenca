@@ -53,6 +53,40 @@ export async function turmaRoutes(app: FastifyInstance) {
     }
   })
 
+  // Buscar turmas de um aluno
+  app.get<{
+    Params: { studentId: string }
+  }>('/:studentId/turmas', async (req, res) => {
+    const { studentId } = req.params
+    console.log(studentId)
+    const classes = await prisma.class.findMany({
+      where: {
+        enrollments: {
+          some: {
+            studentId,
+          },
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        schedules: {
+          select: {
+            id: true,
+            startTime: true,
+            endTime: true,
+            weekDay: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    })
+
+    return res.status(200).send(classes)
+  })
+
   // Criar nova aula (lesson)
   app.post<{
     Params: { turmaId: string }

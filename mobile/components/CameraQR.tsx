@@ -1,5 +1,8 @@
+import { getToken } from '@/hooks/useAuthToken';
+import { getDeviceId } from '@/hooks/useDeviceId';
 import { usePinchZoom } from '@/hooks/usePinchZoom';
 import useResetQrLockOnFocus from '@/hooks/useResetQrLockOnFocus';
+import { getStudentId } from '@/hooks/useStudentData';
 import { useIsFocused } from '@react-navigation/native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as Location from 'expo-location';
@@ -45,8 +48,10 @@ export default function CameraQR() {
     setLoading(true)
     setResponseMessage(null)
 
-    const alunoId = '82452ca7-0e8d-48c8-98c7-8f7af409f2c2'
-
+    const studentId = await getStudentId()
+    const token = await getToken()
+    const deviceid = await getDeviceId()
+    
     try {
       const { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
@@ -59,12 +64,14 @@ export default function CameraQR() {
       })
       const { latitude, longitude } = location.coords
       
-      const response = await fetch(`http://192.168.3.6:3333/api/${alunoId}/presenca/qr`, {
+      const response = await fetch(`http://192.168.3.6:3333/api/${studentId}/presenca/qr`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          deviceid,
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           signedData: data,
           latitude,
           longitude
@@ -72,9 +79,6 @@ export default function CameraQR() {
       })
 
       const result = await response.json()
-
-      console.log(result)
-      console.log(response.ok)
 
       if (response.ok) {
         setResponseMessage('Presença confirmada com sucesso!')
@@ -99,7 +103,7 @@ export default function CameraQR() {
     return (
       <View style={styles.container}>
         <Text style={styles.message}>Esta aplicação precisa de permissões para acessar a câmera.</Text>
-        <Button title="Conceder permissão" onPress={requestPermission} />
+        <Button title='Conceder permissão' onPress={requestPermission} />
       </View>
     )
   }

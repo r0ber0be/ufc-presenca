@@ -85,20 +85,6 @@ export async function presencaRoutes(app: FastifyInstance) {
         },
       })
 
-      const tabelaFormatada = alunos.map((aluno) => {
-        const presenceMap: boolean[] = []
-        aluno.classAttendanceRecords.forEach((record) => {
-          presenceMap.push(record.present)
-        })
-
-        return {
-          id: aluno.id,
-          registrationNumber: aluno.registrationNumber,
-          name: aluno.name,
-          presences: presenceMap,
-        }
-      })
-
       const alunosComPresencas = alunos.map((aluno) => {
         const presencesMap: { [lessonId: string]: boolean } = {}
 
