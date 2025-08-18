@@ -66,7 +66,7 @@ export function AlunoTableBody(props: AlunoData) {
             const isChecked = getCheckedState(aluno.id, date, presenca);
 
             return (
-              <Td key={lessonId} textAlign='center' px={1} py={1}>
+              <Td key={lessonId} textAlign='left' px={1} py={1}>
                 <label htmlFor={`presenca-${aluno.id}-${lessonId}`}>
                   <input
                     name='presenca'

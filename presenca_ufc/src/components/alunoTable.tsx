@@ -112,6 +112,7 @@ export default async function AlunoTable({ turmaId }: Turma) {
           colorScheme='teal'
           size='sm'
           width={{ base: 'auto', lg: '100%' }} 
+          minWidth='100%'
           layout={{ base: 'auto', lg: 'fixed' }}
         >
           <Thead>

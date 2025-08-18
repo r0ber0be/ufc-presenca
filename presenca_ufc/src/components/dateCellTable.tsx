@@ -10,7 +10,7 @@ export function DateCellTable({ date }: CellTable) {
   return (
     <Th
       fontSize='10px'
-      textAlign='center'
+      textAlign='left'
       px={1}
       minW='40px'
       maxW='60px'

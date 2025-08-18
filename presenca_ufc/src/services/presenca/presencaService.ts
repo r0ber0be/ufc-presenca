@@ -64,7 +64,11 @@ export function getPresencaChanges() {
 
 export async function salvarPresencas(turmaId: string) {
   if (presencaChanges.length === 0) return false
-  
-  await atualizarPresencas(presencaChanges, turmaId)
-  return true
+  try {
+    await atualizarPresencas(presencaChanges, turmaId)
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
 }

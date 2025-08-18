@@ -111,7 +111,7 @@ model Student {
   classAttendanceRecords ClassAttendanceRecord[]
   enrollments            Enrollment[]
 
-  @@index([registrationNumber, deviceId])
+  @@unique([registrationNumber, deviceId])
 }
 
 model Enrollment {
