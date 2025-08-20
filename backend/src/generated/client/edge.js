@@ -214,7 +214,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Workspace\\TCC 2 versão Final\\ufc-presenca\\backend\\src\\generated\\client",
+      "value": "D:\\Workspace\\TCC 2 versao Final\\ufc-presenca\\backend\\src\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -228,7 +228,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Workspace\\TCC 2 versão Final\\ufc-presenca\\backend\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\Workspace\\TCC 2 versao Final\\ufc-presenca\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

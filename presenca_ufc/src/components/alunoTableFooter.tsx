@@ -38,9 +38,9 @@ export function AlunoTableFooter(props: { turmaId: string }) {
     try {
       await salvarPresencas(turmaId)
       toast({
-        position: "top",
+        position: 'top',
         title: 'Presenças atualizadas!',
-        status: "success",
+        status: 'success',
         duration: 3000,
         isClosable: true,
       })
@@ -50,9 +50,9 @@ export function AlunoTableFooter(props: { turmaId: string }) {
       setHasInteracted(false)
     } catch {
       toast({
-        position: "top",
+        position: 'top',
         title: 'Falha ao atualizar presenças!',
-        status: "error",
+        status: 'error',
         duration: 3000,
         isClosable: true,
       })
@@ -66,10 +66,9 @@ export function AlunoTableFooter(props: { turmaId: string }) {
       display='flex'
       justifySelf='center'
       alignSelf='center'
-      marginTop="1rem"
-      loadingText="Salvando"
-      spinnerPlacement="end"
-      colorScheme="blue"
+      loadingText='Salvando'
+      spinnerPlacement='end'
+      colorScheme='blue'
       onClick={handleClick}
       isLoading={isLoading}
       isDisabled={changeCount === 0 && !hasInteracted} // ✅ considera interação
