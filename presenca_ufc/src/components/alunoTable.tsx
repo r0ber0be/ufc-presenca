@@ -2,15 +2,13 @@
 
 import { api } from '@/lib/axios/api'
 import { getCookies } from '@/utils/authUtils'
-import dynamic from 'next/dynamic'
 import { Flex, Table, TableContainer, Th, Thead, Tr } from '@chakra-ui/react'
 import { AlunoTableFooter } from './alunoTableFooter'
 import { AlunoTableBody } from './alunoTableBody'
 import { DateCellTable } from './dateCellTable'
 import { getClassReportServerAction } from '@/actions/getClassReport'
 import { getProfessor } from '@/lib/jwt-decode/decoder'
-
-const DynamicPDFReportDownloader = dynamic(() => import('@/components/pdfReportDownloader'), { ssr: true })
+import PDFReportDownloaderWrapper from './PDFReportDownloaderWrapper'
 
 type Turma = {
   turmaId: string
@@ -103,6 +101,11 @@ export default async function AlunoTable({ turmaId }: Turma) {
   const mesesAgrupados = agruparPorMes(dataDiasDeAula)
 
   const report = await getClassReportServerAction(turmaId)
+
+  if(!report) {
+    return <div>Loading...</div>
+  }
+  
   const { name } = await getProfessor()
 
   return (
@@ -158,7 +161,7 @@ export default async function AlunoTable({ turmaId }: Turma) {
 
       <Flex justifyContent='center' py={4}>
         <AlunoTableFooter turmaId={turmaId} />
-        <DynamicPDFReportDownloader report={report.data} professorName={name} />
+        <PDFReportDownloaderWrapper report={report.data} professorName={name} />
       </Flex>
     </>
   )
