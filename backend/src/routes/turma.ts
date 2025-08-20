@@ -4,6 +4,74 @@ import { generateToken } from '../utils/QRCodeToken'
 import verifyTeacherOwnsClass from '../hooks/verifyProfessorOwnsClass'
 
 export async function turmaRoutes(app: FastifyInstance) {
+  app.get<{
+    Params: { turmaId: string }
+  }>('/:turmaId/report', async (req, res) => {
+    const { turmaId } = req.params
+
+    const turma = await prisma.class.findUnique({
+      where: {
+        id: turmaId,
+      },
+    })
+
+    if (!turma) {
+      return res.status(404).send({ error: 'Turma não encontrada' })
+    }
+
+    const enrolledStudents = await prisma.student.findMany({
+      where: {
+        enrollments: {
+          some: {
+            classId: turmaId,
+          },
+        },
+      },
+      include: {
+        classAttendanceRecords: true,
+      },
+      orderBy: {
+        name: 'asc',
+      },
+    })
+
+    // total de aulas = quantidade de registros distintos de aulas
+    const totalLessons = await prisma.lesson.count({
+      where: { classId: turmaId },
+    })
+
+    const students = enrolledStudents.map((student) => {
+      const presences = student.classAttendanceRecords.filter(
+        (scar) => scar.present === true,
+      ).length
+
+      const absences = student.classAttendanceRecords.filter(
+        (scar) => scar.present === false,
+      ).length
+
+      const percentage = totalLessons > 0 ? (presences / totalLessons) * 100 : 0
+
+      return {
+        name: student.name,
+        registration: student.registrationNumber,
+        presences,
+        absences,
+        percentage: Number(percentage.toFixed(2)),
+      }
+    })
+
+    const mediaPresenca =
+      students.reduce((acc, s) => acc + s.percentage, 0) /
+      (enrolledStudents.length || 1)
+
+    return res.status(200).send({
+      name: turma.name,
+      totalLessons,
+      averagePresence: Number(mediaPresenca.toFixed(2)),
+      students,
+    })
+  })
+
   // Buscar turmas de um professor (classes)
   app.get('/turmas', async (req, res) => {
     try {
@@ -187,10 +255,6 @@ export async function turmaRoutes(app: FastifyInstance) {
           .status(400)
           .send({ message: 'Não foi possível criar a aula.' })
       }
-      // recebe o id da turma
-      // verifica os alunos pertencentes a turma
-      // cria o lesson associado a turma
-      // adiciona o classAtendanceRecord para os alunos baseado no lesson
     },
   )
 }
