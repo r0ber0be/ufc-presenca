@@ -48,7 +48,7 @@ export default function GoogleAuthTemplate(props:{ title: string, googleButtonTe
 
 			<Box fontSize='medium' textColor='HighlightText'>
 				{props.questionText} {` `}
-				<Link href={{ pathname: props.route }} passHref legacyBehavior>
+				<Link href={{ pathname: props.route }} passHref>
 					<Button
 						color='blue.300'
 						variant='link' fontSize='medium'
