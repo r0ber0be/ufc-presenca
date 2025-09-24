@@ -55,7 +55,6 @@ export async function studentSigaaLogin(login: string, password: string) {
     'div > input[type=submit]',
   )
 
-  await page.waitForNavigation()
   await page.waitForNetworkIdle()
 
   // Entrar na página do discente
