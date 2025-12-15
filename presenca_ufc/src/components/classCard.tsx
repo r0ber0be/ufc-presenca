@@ -1,13 +1,12 @@
 import { TurmaT } from "@/types/Turma";
 import { Box, Card, Flex, Heading, Link as ChakraLink, Text } from "@chakra-ui/react";
 import Link from "next/link"
-import { memo } from "react";
 
-const ClassCard = memo(function MemoizeCard({ turma }:{ turma: TurmaT }) {
+export default function ClassCard({ turma }:{ turma: TurmaT }) {
   const { id, code, name, classBlock, classRoom, schedules, _count } = turma
 
   return (
-    <ChakraLink as={Link} href={`/dashboard/classe/${id}`}>
+    <Link href={`/dashboard/classe/${id}`}>
       <Card maxW='100%'
         tabIndex={0}
         variant='filled'
@@ -69,8 +68,6 @@ const ClassCard = memo(function MemoizeCard({ turma }:{ turma: TurmaT }) {
           </Flex>
         </Flex>
       </Card>
-    </ChakraLink>
+    </Link>
   )
-})
-
-export default ClassCard
+}

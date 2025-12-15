@@ -1,12 +1,16 @@
 import * as admin from 'firebase-admin'
 import { FastifyInstance } from 'fastify'
 import { prisma } from '../lib/prisma'
+import { authPreHandler } from '../hooks/authPreHandler'
+import verifyRole from '../hooks/verifyRole'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const serviceAccount = require('../../serviceAccountKey.json')
 
 const appAdm = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
+
+const API_KEY = process.env.SECRET_KEY
 
 interface RequestBody {
   uid: string
@@ -17,6 +21,39 @@ interface RequestBody {
 }
 
 export async function professorRoutes(app: FastifyInstance) {
+  // app.post('/api/professor/sigaa/turmas', { preHandler: authPreHandler }, async (req, res) => {
+  //   console.log(req.body)
+  //   return res.status(201).send({ message: 'Dados da turma recebidos' })
+  // })
+
+  app.post(
+    '/api/professor/auth/extension',
+    { preHandler: [authPreHandler, verifyRole] },
+    async (req, res) => {
+      const { name, picture, isSynced, sub } = await req.jwtDecode<{
+        name: string
+        picture: string
+        isSynced: boolean
+        sub: string
+      }>()
+      const token = app.jwt.sign(
+        {
+          sub,
+          name,
+          isSynced,
+          picture,
+        },
+        {
+          expiresIn: '1h',
+        },
+      )
+
+      return res.status(201).send({
+        token,
+      })
+    },
+  )
+
   app.post('/api/create/professor', async (request, res) => {
     const { uid, name, email, picture } = request.body as RequestBody
     const professorExists = await prisma.teacher.findUnique({

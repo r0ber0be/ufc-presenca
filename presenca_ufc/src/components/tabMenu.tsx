@@ -6,12 +6,12 @@ export default function TabMenu(params: { id: string, index: number }) {
   return (
     <Tabs defaultIndex={index} variant='line'>
       <TabList mb='1em'>
-        <Tab as={Link} href={`/dashboard/classe/${id}`} width="50%" textAlign="center">
+        <Link href={`/dashboard/classe/${id}`} width="50%" textAlign="center">
           Presenças
-        </Tab>
-        <Tab as={Link} href={`/dashboard/classe/${id}/lesson`} width="50%" textAlign="center">
+        </Link>
+        <Link href={`/dashboard/classe/${id}/lesson`} width="50%" textAlign="center">
           QR Code
-        </Tab>
+        </Link>
       </TabList>
     </Tabs>
   )

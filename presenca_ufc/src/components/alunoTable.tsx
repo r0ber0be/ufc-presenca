@@ -62,7 +62,7 @@ export default async function AlunoTable({ turmaId }: Turma) {
     headers: { 
       Authorization: `Bearer ${token}` 
     },
-  }).catch(er=> { return er })
+  }).catch(error => { return error })
 
   const { status, data, code } = presencasAlunos
 

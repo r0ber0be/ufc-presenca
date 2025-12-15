@@ -17,7 +17,7 @@ const STUDENT_ROLE_KEY = 'ufcPresencaStudentRole'
 export async function saveStudentData() {
   const token = await getToken()
 
-  if (!token) throw new Error('Missing info')
+  if (!token) throw new Error('INformações incomp´letas.')
   const decoded = jwtDecode<StudentData>(token)
 
   await SecureStore.setItemAsync(STUDENT_ID_KEY, decoded.id)

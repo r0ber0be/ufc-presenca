@@ -22,8 +22,13 @@ app.register(fastifyJwt, {
 })
 
 app.register(fastifyCors, {
-  origin: ['https://localhost:3000', 'exp://192.168.3.6:8081'],
+  origin: [
+    'https://localhost:3000',
+    'exp://192.168.3.6:8081',
+    'https://si3.ufc.br',
+  ],
   methods: ['GET', 'POST'],
+  credentials: true,
 })
 
 app.register(fastifyHelmet, {
