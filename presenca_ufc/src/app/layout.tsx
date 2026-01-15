@@ -33,6 +33,12 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
         {/* Preload de recursos críticos */}
         <link rel="preconnect" href="http://localhost:3333" />
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
+        <meta name="apple-mobile-web-app-title" content="Presença" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href="icon.png" />
       </head>
       <body className={`${inter.className}`}>
         <Provider>{children}</Provider>

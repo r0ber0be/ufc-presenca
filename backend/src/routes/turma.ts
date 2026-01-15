@@ -2,6 +2,8 @@ import { FastifyInstance } from 'fastify'
 import { prisma } from '../lib/prisma'
 import { generateToken } from '../utils/QRCodeToken'
 import verifyTeacherOwnsClass from '../hooks/verifyProfessorOwnsClass'
+import { PrismaClientValidationError } from '../generated/client/runtime/library'
+import { buildSchedulesPayload } from '../utils/scheduleParser'
 
 export async function turmaRoutes(app: FastifyInstance) {
   app.get<{
@@ -76,6 +78,80 @@ export async function turmaRoutes(app: FastifyInstance) {
   app.get('/turmas', async (req, res) => {
     try {
       const { sub } = await req.jwtVerify<{ sub: string }>()
+      const { type } = req.query
+
+      if (type === 'extension') {
+        const professorData = await prisma.teacher.findFirst({
+          where: { uid: sub },
+          select: {
+            classes: {
+              select: {
+                id: true,
+                name: true,
+                code: true,
+                _count: {
+                  select: { lessons: true },
+                },
+                enrollments: {
+                  select: {
+                    student: {
+                      select: {
+                        name: true,
+                        registrationNumber: true,
+                        classAttendanceRecords: {
+                          where: { present: true },
+                          select: {
+                            lesson: {
+                              select: { classId: true },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        })
+
+        if (!professorData?.classes) {
+          return res.status(404).send({ message: 'Nenhuma turma encontrada' })
+        }
+
+        const turmasFormatadas = professorData.classes.map((turma) => {
+          // Evita divisão por zero se não houver aulas
+          const totalAulas = turma._count.lessons || 1
+
+          const alunos = turma.enrollments.map((enrollment) => {
+            const estudante = enrollment.student
+
+            // Precisamos contar apenas as presenças do aluno que pertencem a ESTA turma (turma.id).
+            const presencasNaTurma = estudante.classAttendanceRecords.filter(
+              (record) => record.lesson.classId === turma.id,
+            ).length
+
+            const porcentagem = ((presencasNaTurma / totalAulas) * 100).toFixed(
+              2,
+            )
+
+            return {
+              matricula: estudante.registrationNumber,
+              nome: estudante.name,
+              porcentagem: Number(porcentagem),
+            }
+          })
+
+          return {
+            id: turma.id,
+            nome: turma.name,
+            codigo: turma.code,
+            alunos,
+          }
+        })
+
+        return res.status(200).send(turmasFormatadas)
+      }
 
       const professorTurmas = await prisma.teacher.findFirst({
         where: { uid: sub },
@@ -104,19 +180,13 @@ export async function turmaRoutes(app: FastifyInstance) {
         },
       })
 
-      if (!professorTurmas) {
-        return res.status(401).send({ message: 'Não identificado no sistema' })
-      }
-
-      const { classes } = professorTurmas
-
-      if (classes.length === 0) {
+      if (!professorTurmas?.classes.length) {
         return res.status(404).send({ message: 'Nenhuma turma encontrada' })
       }
 
-      return res.status(200).send(classes)
+      return res.status(200).send(professorTurmas.classes)
     } catch (error) {
-      console.log('Erro ao buscar turmas do professor:', error)
+      console.log('Erro ao buscar turmas:', error)
       return res.status(500).send({ message: 'Erro interno do servidor' })
     }
   })
@@ -153,6 +223,90 @@ export async function turmaRoutes(app: FastifyInstance) {
     })
 
     return res.status(200).send(classes)
+  })
+
+  // TODO: type turmas properly
+  app.post<{
+    Params: { sub: string }
+    // Body: { turmas: [] }
+  }>('/sync/turmas', async (req, res) => {
+    console.log(req.user)
+    const { sub } = req.user
+    const { turmas } = req.body
+    console.log(turmas)
+    /*
+      {
+        codigo: 'QXD0043',
+        nome: 'SISTEMAS DISTRIBUÍDOS',
+        semestre: '2025.2',
+        local: 'Campus Quixadá', location
+        dataSemestre: { inicio: '08/09/2025', fim: '22/01/2026' }, semester { begin, end, ongoing}
+        quantidadeDeAlunos: '50', quantityOfEnrollments
+        capacidadeDeAlunos: '51' capacityOfEnrollments
+      }
+    */
+    try {
+      const teacher = await prisma.teacher.findUnique({
+        where: { uid: sub },
+      })
+
+      if (!teacher) {
+        return res.status(404).send({ message: 'Professor não encontrado.' })
+      }
+
+      if (!turmas || turmas.length === 0) {
+        return res.status(200).send({
+          message: 'Nenhuma turma para sincronizar.',
+        })
+      }
+
+      await prisma.$transaction(async (db) => {
+        await db.teacher.update({
+          where: {
+            uid: sub,
+          },
+          data: { isSynced: true },
+        })
+
+        const turmasAtualizadas = []
+        for (const turma of turmas) {
+          const schedulesData = buildSchedulesPayload(turma.cronograma)
+          const turmaSalva = await db.class.upsert({
+            where: {
+              code: turma.codigo,
+              teacherId: teacher.id,
+            },
+            create: {
+              code: turma.codigo,
+              name: turma.nome,
+              teacherId: teacher.id,
+
+              schedules: {
+                create: schedulesData,
+              },
+            },
+            update: {
+              name: turma.nome,
+              schedules: {
+                deleteMany: {},
+                create: schedulesData,
+              },
+            },
+          })
+          turmasAtualizadas.push(turmaSalva)
+        }
+        return turmasAtualizadas
+      })
+      return res
+        .status(201)
+        .send({ message: 'Sincronização realizada com sucesso!' })
+    } catch (error: unknown) {
+      if (error instanceof PrismaClientValidationError) {
+        return res.status(422).send({ message: 'Erro ao validar os dados.' })
+      }
+      console.log('ERRO:', error)
+      return res.status(500).send({ message: 'Erro interno do servidor.' })
+    }
   })
 
   // Criar nova aula (lesson)

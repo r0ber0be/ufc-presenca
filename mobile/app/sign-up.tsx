@@ -2,8 +2,9 @@ import { handleRegistration } from '@/api/registration'
 import Form from '@/components/Form'
 import { router } from 'expo-router'
 import { useState } from 'react'
-import { Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, View } from 'react-native'
+import { Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SignUp = () => {
   const [login, setLogin] = useState('')
