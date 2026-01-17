@@ -10,8 +10,6 @@ const appAdm = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
 
-const API_KEY = process.env.SECRET_KEY
-
 interface RequestBody {
   uid: string
   name: string

@@ -286,6 +286,7 @@ export async function alunoRoutes(app: FastifyInstance) {
           },
           data: {
             used: true,
+            usedAt: new Date(),
           },
         })
       }

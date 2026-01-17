@@ -24,14 +24,19 @@ model Teacher {
 }
 
 model Class {
-  id         String   @id @default(uuid())
-  code       String   @unique
-  name       String
-  classBlock String?
-  classRoom  String?
-  teacherId  String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                    String   @id @default(uuid())
+  code                  String   @unique
+  name                  String
+  location              String
+  ongoingSemester       String
+  semesterBeginsIn      DateTime
+  semesterEndsIn        DateTime
+  current               Boolean  @default(true)
+  quantityOfEnrollments Int
+  capacityOfEnrollments Int
+  teacherId             String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
   teacher     Teacher      @relation(fields: [teacherId], references: [id], onDelete: Cascade)
   enrollments Enrollment[]
@@ -78,13 +83,16 @@ model ClassAttendanceRecord {
 }
 
 model AttendanceToken {
-  id                String   @id @default(uuid())
-  token             String   @unique
+  id                String    @id @default(uuid())
+  token             String    @unique
   expiresAt         DateTime
-  currentUsageCount Int      @default(0)
-  used              Boolean  @default(false)
-  lessonId          String   @unique
-  createdAt         DateTime @default(now())
+  issuedAt          DateTime  @default(now())
+  currentUsageCount Int       @default(0)
+  used              Boolean   @default(false)
+  usedAt            DateTime?
+  revokedAt         DateTime?
+  lessonId          String    @unique
+  createdAt         DateTime  @default(now())
 
   lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 }

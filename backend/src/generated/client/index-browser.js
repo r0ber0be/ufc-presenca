@@ -132,8 +132,13 @@ exports.Prisma.ClassScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
-  classBlock: 'classBlock',
-  classRoom: 'classRoom',
+  location: 'location',
+  ongoingSemester: 'ongoingSemester',
+  semesterBeginsIn: 'semesterBeginsIn',
+  semesterEndsIn: 'semesterEndsIn',
+  current: 'current',
+  quantityOfEnrollments: 'quantityOfEnrollments',
+  capacityOfEnrollments: 'capacityOfEnrollments',
   teacherId: 'teacherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -166,8 +171,11 @@ exports.Prisma.AttendanceTokenScalarFieldEnum = {
   id: 'id',
   token: 'token',
   expiresAt: 'expiresAt',
+  issuedAt: 'issuedAt',
   currentUsageCount: 'currentUsageCount',
   used: 'used',
+  usedAt: 'usedAt',
+  revokedAt: 'revokedAt',
   lessonId: 'lessonId',
   createdAt: 'createdAt'
 };

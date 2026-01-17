@@ -75,9 +75,11 @@ export async function turmaRoutes(app: FastifyInstance) {
   })
 
   // Buscar turmas de um professor (classes)
-  app.get('/turmas', async (req, res) => {
+  app.get<{
+    Params: { sub: string }
+  }>('/turmas', async (req, res) => {
     try {
-      const { sub } = await req.jwtVerify<{ sub: string }>()
+      const { sub } = req.user
       const { type } = req.query
 
       if (type === 'extension') {
@@ -280,13 +282,19 @@ export async function turmaRoutes(app: FastifyInstance) {
               code: turma.codigo,
               name: turma.nome,
               teacherId: teacher.id,
-
+              location: turma.local,
+              ongoingSemester: turma.semestre,
+              semesterBeginsIn: turma.dataSemestre.inicio,
+              semesterEndsIn: turma.dataSemestre.fim,
+              quantityOfEnrollments: turma.quantidadeDeAlunos,
+              capacityOfEnrollments: turma.capacidadeDeAlunos,
               schedules: {
                 create: schedulesData,
               },
             },
             update: {
               name: turma.nome,
+              quantityOfEnrollments: turma.quantidadeDeAlunos,
               schedules: {
                 deleteMany: {},
                 create: schedulesData,
@@ -364,7 +372,7 @@ export async function turmaRoutes(app: FastifyInstance) {
                 },
                 data: {
                   used: true,
-                  expiresAt: new Date(),
+                  revokedAt: new Date(),
                 },
               })
             }
@@ -381,6 +389,7 @@ export async function turmaRoutes(app: FastifyInstance) {
                 create: {
                   token,
                   expiresAt: new Date(Date.now() + 1000 * 60 * 120),
+                  issuedAt: new Date(),
                 },
               },
             },

@@ -31,7 +31,7 @@ model Class {
   ongoingSemester        String
   semesterBeginsIn       DateTime
   semesterEndsIn         DateTime
-  current                Boolean  @default(true)
+  current                Boolean      @default(true)
   quantityOfEnrollments  Int
   capacityOfEnrollments  Int
   teacherId              String
@@ -85,8 +85,11 @@ model AttendanceToken {
   id                     String   @id @default(uuid())
   token                  String   @unique
   expiresAt              DateTime
+  issuedAt               DateTime @default(now())
   currentUsageCount      Int      @default(0)
   used                   Boolean  @default(false)
+  usedAt                 DateTime?
+  revokedAt              DateTime?
   lessonId               String   @unique
   createdAt              DateTime @default(now())
             

@@ -7,6 +7,7 @@ const handler = async (req, res) => {
   try {
     const token = await storage.get("extension-token")
 
+    console.log("TOKEN:", token)
     if(!token) {
       res.send({ success: false, isConnected: false })
     }

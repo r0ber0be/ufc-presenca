@@ -13,6 +13,7 @@ export function signToken(lessonId: string, token: string) {
     .update(payload)
     .digest('hex')
 
+  // const hashedSignature = crypto.createHash(signature).digest()
   return `${payload}.${signature}`
 }
 

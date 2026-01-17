@@ -17,6 +17,7 @@ export async function markExpiredToken() {
       },
       data: {
         used: true,
+        revokedAt: new Date(),
       },
     })
 
