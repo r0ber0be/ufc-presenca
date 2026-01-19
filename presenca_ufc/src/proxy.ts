@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 const PUBLIC_ROUTES = ['/signin', '/signup']
 const PROTECTED_ROUTES = ['/dashboard']
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const hasToken = request.cookies.has('token-ufc')
   
