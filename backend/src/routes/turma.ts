@@ -4,6 +4,8 @@ import { generateToken } from '../utils/QRCodeToken'
 import verifyTeacherOwnsClass from '../hooks/verifyProfessorOwnsClass'
 import { PrismaClientValidationError } from '../generated/client/runtime/library'
 import { buildSchedulesPayload } from '../utils/scheduleParser'
+import { safeParseBrazilianDate } from '../helpers/datesParser'
+import { parseStringToNumber } from '../helpers/numbersParser'
 
 export async function turmaRoutes(app: FastifyInstance) {
   app.get<{
@@ -163,8 +165,6 @@ export async function turmaRoutes(app: FastifyInstance) {
               id: true,
               name: true,
               code: true,
-              classBlock: true,
-              classRoom: true,
               schedules: {
                 select: {
                   startTime: true,
@@ -272,6 +272,14 @@ export async function turmaRoutes(app: FastifyInstance) {
 
         const turmasAtualizadas = []
         for (const turma of turmas) {
+          const semesterBeginsIn = safeParseBrazilianDate(turma.semestre.inicio)
+          const semesterEndsIn = safeParseBrazilianDate(turma.semestre.fim)
+          const quantityOfEnrollments = parseStringToNumber(
+            turma.quantidadeDeAlunos,
+          )
+          const capacityOfEnrollments = parseStringToNumber(
+            turma.capacidadeDeAlunos,
+          )
           const schedulesData = buildSchedulesPayload(turma.cronograma)
           const turmaSalva = await db.class.upsert({
             where: {
@@ -283,18 +291,18 @@ export async function turmaRoutes(app: FastifyInstance) {
               name: turma.nome,
               teacherId: teacher.id,
               location: turma.local,
-              ongoingSemester: turma.semestre,
-              semesterBeginsIn: turma.dataSemestre.inicio,
-              semesterEndsIn: turma.dataSemestre.fim,
-              quantityOfEnrollments: turma.quantidadeDeAlunos,
-              capacityOfEnrollments: turma.capacidadeDeAlunos,
+              ongoingSemester: turma.semestre.atual,
+              semesterBeginsIn,
+              semesterEndsIn,
+              quantityOfEnrollments,
+              capacityOfEnrollments,
               schedules: {
                 create: schedulesData,
               },
             },
             update: {
               name: turma.nome,
-              quantityOfEnrollments: turma.quantidadeDeAlunos,
+              quantityOfEnrollments,
               schedules: {
                 deleteMany: {},
                 create: schedulesData,
@@ -310,6 +318,7 @@ export async function turmaRoutes(app: FastifyInstance) {
         .send({ message: 'Sincronização realizada com sucesso!' })
     } catch (error: unknown) {
       if (error instanceof PrismaClientValidationError) {
+        console.log(error)
         return res.status(422).send({ message: 'Erro ao validar os dados.' })
       }
       console.log('ERRO:', error)

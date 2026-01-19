@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 const PUBLIC_ROUTES = ['/signin', '/signup']
 const PROTECTED_ROUTES = ['/dashboard']
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const hasToken = request.cookies.has('token-ufc')
   
@@ -13,6 +13,23 @@ export function middleware(request: NextRequest) {
   // Redirect não autenticados para login
   if (!hasToken && isProtectedRoute) {
     return NextResponse.redirect(new URL('/signin', request.url))
+  }
+
+  if (hasToken && isProtectedRoute) {
+    const token = request.cookies.get('token-ufc')?.value
+    if (token) {
+      const authCheck = await fetch('http://localhost:3333/api/turmas', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (authCheck.status === 401) {
+        const response = NextResponse.redirect(new URL('/signin', request.url))
+        response.cookies.delete('token-ufc')
+        return response
+      }
+    }
   }
 
   // Redirect autenticados para dashboard
