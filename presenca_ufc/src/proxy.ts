@@ -17,7 +17,10 @@ export async function proxy(request: NextRequest) {
 
   if (hasToken && isProtectedRoute) {
     const token = request.cookies.get('token-ufc')?.value
-    if (token) {
+
+    if (!token) return
+    
+    try {
       const authCheck = await fetch('http://localhost:3333/api/turmas', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -29,6 +32,11 @@ export async function proxy(request: NextRequest) {
         response.cookies.delete('token-ufc')
         return response
       }
+    } catch (error) {
+      console.log('[PROXY:]', error)
+      const response = NextResponse.redirect(new URL('/signin', request.url))
+      response.cookies.delete('token-ufc')
+      return response
     }
   }
 
