@@ -9,7 +9,7 @@ type Turma = {
   turmaId: string
 }
 
-export default async function QRAula({ turmaId }: Turma) {
+export default async function QRAula({ turmaId }: Readonly<Turma>) {
   console.log('QRAula', turmaId)
   const token = await getCookies()
 

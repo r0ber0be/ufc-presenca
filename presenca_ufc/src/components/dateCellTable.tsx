@@ -6,7 +6,7 @@ import { dateFormat } from "@/utils/dateFormater"
 type CellTable = {
   date: string
 }
-export function DateCellTable({ date }: CellTable) {
+export function DateCellTable({ date }: Readonly<CellTable>) {
   return (
     <Th
       fontSize='10px'

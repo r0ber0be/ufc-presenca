@@ -20,9 +20,7 @@ type AlunoData = {
   dias: Aula[]
 }
 
-export function AlunoTableBody(props: AlunoData) {
-  const { data, dias } = props
-  
+export function AlunoTableBody({ data, dias }: Readonly<AlunoData>) {
   const [, setUpdateTrigger] = useState(0)
 
   const initialPresences = useMemo(() => {

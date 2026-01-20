@@ -2,7 +2,7 @@ import { FormValuesT } from "@/types/FormTypes";
 import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-export default function FormTemplate(props:{ onSubmit:SubmitHandler<FormValuesT>, isSubmmiting: boolean, buttonText: String, loadingText: String }) {
+export default function FormTemplate(props:Readonly<{ onSubmit:SubmitHandler<FormValuesT>, isSubmmiting: boolean, buttonText: String, loadingText: String }>) {
 	const { register, handleSubmit } = useForm<FormValuesT>();
 
   return (

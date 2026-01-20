@@ -9,7 +9,7 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 
-export default function GoogleAuthTemplate(props:{ title: string, googleButtonText: string, questionText: string, actionText: string, route: string}) {
+export default function GoogleAuthTemplate(props:Readonly<{ title: string, googleButtonText: string, questionText: string, actionText: string, route: string}>) {
   const [isGoogleSubmmiting, setIsGoogleSubmmiting] = useState<boolean>(false)
   const router = useRouter()
   const toast = useToast()

@@ -6,7 +6,7 @@ const PDFReportDownloader = dynamic(() => import('./pdfReportDownloader'), {
   ssr: false,
 })
 
-export default function PDFReportDownloaderWrapper({ report, professorName }: { report: any, professorName: string }) {
+export default function PDFReportDownloaderWrapper({ report, professorName }: Readonly<{ report: any, professorName: string }>) {
   return (
     <PDFReportDownloader report={report} professorName={professorName} />
   )

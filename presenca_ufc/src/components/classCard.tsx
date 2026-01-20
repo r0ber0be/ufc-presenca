@@ -3,7 +3,7 @@ import { dateFormat } from "@/utils/dateFormater";
 import { Box, Card, Flex, Heading, Link as ChakraLink, Text } from "@chakra-ui/react";
 import Link from "next/link"
 
-export default function ClassCard({ turma }:{ turma: TurmaT }) {
+export default function ClassCard({ turma }:Readonly<{ turma: TurmaT }>) {
   console.log("turma", turma)
   const { id, code, name, schedules, ongoingSemester, quantityOfEnrollments, location, semesterBeginsIn, semesterEndsIn } = turma
 

@@ -8,8 +8,7 @@ import {
   addChangeListener
 } from '@/services/presenca/presencaService'
 
-export function AlunoTableFooter(props: { turmaId: string }) {
-  const { turmaId } = props
+export function AlunoTableFooter({ turmaId }: Readonly<{ turmaId: string }>) {
   const [isLoading, setIsLoading] = useState(false)
   const [changeCount, setChangeCount] = useState(0)
   const [hasInteracted, setHasInteracted] = useState(false)

@@ -37,8 +37,7 @@ type SucccesPresencasResponse = {
 
 type PresencasResponse = ErrorResponseStructure | SucccesPresencasResponse
 
-export default async function AlunoTable({ turmaId }: Turma) {
-  console.log('Id da turma', turmaId)
+export default async function AlunoTable({ turmaId }: Readonly<Turma>) {
   const token = await getCookies()
   
   const diasDeAula: PresencasResponse = await api.get(`/api/${turmaId}/presencas/aulas`, {

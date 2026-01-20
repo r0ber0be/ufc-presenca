@@ -19,7 +19,7 @@ export default function UnsignedPage({
 	googleTextButton,
 	question,
 	action
-}: UnsignedPageProps) {
+}: Readonly<UnsignedPageProps>) {
   return (
     <Box 
 			minH="100vh" 

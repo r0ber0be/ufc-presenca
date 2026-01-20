@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { SIGN_IN } from "@/lib/constants/routes"
 import { ERRO_CADASTRO } from "@/lib/constants/strings"
 import { changeBgByTime } from "@/utils/changeBgByTime"

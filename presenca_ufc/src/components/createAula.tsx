@@ -9,7 +9,7 @@ type Turma = {
   turmaId: string
 }
 
-export default function GenerateLesson({ turmaId }: Turma) {
+export default function GenerateLesson({ turmaId }: Readonly<Turma>) {
   const toast = useToast()
   const router = useRouter()
   const [isCreating, setIsCreating] = useState(false)

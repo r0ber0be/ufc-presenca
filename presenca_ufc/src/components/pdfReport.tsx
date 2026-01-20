@@ -17,7 +17,7 @@ type ClassReport = {
   averagePresence: number,
 }
 
-export default function PDFReport({ report, professorName }: { report: ClassReport, professorName: string }) {
+export default function PDFReport({ report, professorName }: Readonly<{ report: ClassReport, professorName: string }>) {
   console.log('there', report.students)
   const { students, name, totalLessons, averagePresence } = report
   return (

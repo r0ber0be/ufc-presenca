@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import { Box, Flex } from '@chakra-ui/react'
 
-export default function DashboardLayout({ children, }: { children: React.ReactNode }) {
+export default function DashboardLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Flex direction='column' height='100vh'>
       <Header />

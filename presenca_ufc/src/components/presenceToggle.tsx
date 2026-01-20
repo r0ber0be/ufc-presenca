@@ -11,14 +11,13 @@ interface PresenceToggleProps {
   initialAcceptPresenceByQRCode: boolean
 }
 
-export function PresenceToggle({ aulaId, turmaId, initialAcceptPresenceByQRCode }: PresenceToggleProps) {
-  console.log('PresenceToggle', aulaId, turmaId)
+export function PresenceToggle({ aulaId, turmaId, initialAcceptPresenceByQRCode }: Readonly<PresenceToggleProps>) {
   const [isChecked, setIsChecked] = useState(initialAcceptPresenceByQRCode)
   const [isPending, startTransition] = useTransition()
   const toast = useToast()
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+  const cancelRef = React.useRef<HTMLButtonElement | null>(null)
 
   const handleToggle = async () => {
     const newStatus = !isChecked
@@ -71,7 +70,9 @@ export function PresenceToggle({ aulaId, turmaId, initialAcceptPresenceByQRCode 
         onChange={onOpen}
         isDisabled={isPending}
       />
+
       {isPending && <Spinner size="sm" ml={2} />}
+      
       <AlertDialog
         motionPreset='slideInBottom'
         leastDestructiveRef={cancelRef}

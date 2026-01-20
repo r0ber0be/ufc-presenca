@@ -3,7 +3,7 @@
 import { ChangeEvent } from 'react'
 import { CheckboxValue } from '@/types/Aluno'
 
-export function CheckboxPresence({ isPresent, index, alunoID, checked, onCheckedChange }: CheckboxValue) {
+export function CheckboxPresence({ index, alunoID, checked, onCheckedChange }: Readonly<CheckboxValue>) {
   const handleChange = (ev: ChangeEvent<HTMLInputElement>) => {
     ev.preventDefault()
 
