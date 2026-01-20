@@ -15,7 +15,7 @@ export function DateCellTable({ date }: CellTable) {
       minW='40px'
       maxW='60px'
     >
-      {dateFormat(date)}
+      {dateFormat(date, 'day')}
     </Th>
   )
 }

@@ -1,9 +1,11 @@
 import { TurmaT } from "@/types/Turma";
+import { dateFormat } from "@/utils/dateFormater";
 import { Box, Card, Flex, Heading, Link as ChakraLink, Text } from "@chakra-ui/react";
 import Link from "next/link"
 
 export default function ClassCard({ turma }:{ turma: TurmaT }) {
-  const { id, code, name, classBlock, classRoom, schedules, _count } = turma
+  console.log("turma", turma)
+  const { id, code, name, schedules, ongoingSemester, quantityOfEnrollments, location, semesterBeginsIn, semesterEndsIn } = turma
 
   return (
     <Link href={`/dashboard/classe/${id}`}>
@@ -28,7 +30,8 @@ export default function ClassCard({ turma }:{ turma: TurmaT }) {
                 fontSize={{ base: 'xs', md: 'sm' }} 
                 textTransform='uppercase'
               >
-                Bloco {classBlock}, Sala {classRoom}
+                { ongoingSemester }, { location } <br/>
+                { dateFormat(semesterBeginsIn.toString()) } -  { dateFormat(semesterEndsIn.toString()) }
               </Text>
             </Box>
 
@@ -37,7 +40,7 @@ export default function ClassCard({ turma }:{ turma: TurmaT }) {
                 Presentes:
               </Heading>
               <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                0 / { _count.enrollments }
+                0 / { quantityOfEnrollments }
               </Text>
             </Box>
 

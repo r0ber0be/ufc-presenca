@@ -10,10 +10,7 @@ export type TurmaT = {
   quantityOfEnrollments: number,
   capacityOfEnrollments: number,
   acceptPresenceByQRCode: boolean,
-  schedules: ScheduleT[],
-  _count: {
-    enrollments: number,
-  }
+  schedules: ScheduleT[]
 }
 
 type ScheduleT = {

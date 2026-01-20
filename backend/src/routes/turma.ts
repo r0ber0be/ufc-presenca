@@ -165,16 +165,17 @@ export async function turmaRoutes(app: FastifyInstance) {
               id: true,
               name: true,
               code: true,
+              quantityOfEnrollments: true,
+              location: true,
+              ongoingSemester: true,
+              semesterBeginsIn: true,
+              semesterEndsIn: true,
+              current: true,
               schedules: {
                 select: {
                   startTime: true,
                   endTime: true,
                   weekDay: true,
-                },
-              },
-              _count: {
-                select: {
-                  enrollments: true,
                 },
               },
             },
