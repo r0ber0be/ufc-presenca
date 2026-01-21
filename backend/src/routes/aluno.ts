@@ -29,7 +29,7 @@ export async function alunoRoutes(app: FastifyInstance) {
     }
 
     try {
-      const { name, registrationNumber } = await studentSigaaLogin(
+      const { name, registrationNumber, classCodes } = await studentSigaaLogin(
         login,
         password,
       )
@@ -47,6 +47,30 @@ export async function alunoRoutes(app: FastifyInstance) {
         return res.status(404).send({
           message: `Este aluno ainda não foi cadastrado. Cadastre-se para continuar.`,
         })
+      }
+      console.log('CODES:', classCodes)
+
+      if (classCodes.length > 0) {
+        const classes = await prisma.class.findMany({
+          where: {
+            code: {
+              in: classCodes,
+            },
+          },
+          select: {
+            id: true,
+          },
+        })
+
+        if (classes.length > 0) {
+          await prisma.enrollment.createMany({
+            data: classes.map((turma) => ({
+              classId: turma.id,
+              studentId: student.id,
+            })),
+            skipDuplicates: true,
+          })
+        }
       }
 
       if (student.deviceId !== deviceId) {

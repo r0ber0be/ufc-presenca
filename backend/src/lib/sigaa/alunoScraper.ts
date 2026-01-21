@@ -8,6 +8,9 @@ const baseUrl = 'https://si3.ufc.br/sigaa'
 export async function studentSigaaLogin(login: string, password: string) {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
+  page.on('console', (message) => {
+    console.log('SIGAA PAGE:', message.text())
+  })
 
   await page.goto(`${baseUrl}`)
   await page.waitForNetworkIdle()
@@ -18,12 +21,9 @@ export async function studentSigaaLogin(login: string, password: string) {
   login = ''
   password = ''
 
-  await checkAndProceed(
-    page,
-    browser,
-    '/verTelaLogin.do',
+  await checkAndProceed(page, browser, '/verTelaLogin.do', [
     'td > input[type=submit]',
-  )
+  ])
 
   const loginError = await page.$(
     '#conteudo > table > tbody > tr > td > center',
@@ -44,26 +44,24 @@ export async function studentSigaaLogin(login: string, password: string) {
     page,
     browser,
     '/questionarios.jsf',
-    '#btnNaoResponderContinuar',
-    '#btnSimLembrarQuestionario',
+    ['#btnNaoResponderContinuar', '#btnSimLembrarQuestionario'],
+    { optional: true },
   )
   // Pular a página de avisos
   await checkAndProceed(
     page,
     browser,
     '/telaAvisoLogon.jsf',
-    'div > input[type=submit]',
+    ['div > input[type=submit]'],
+    { optional: true },
   )
 
   await page.waitForNetworkIdle()
 
   // Entrar na página do discente
-  await checkAndProceed(
-    page,
-    browser,
-    '/paginaInicial.do',
+  await checkAndProceed(page, browser, '/paginaInicial.do', [
     '#portais > ul > li.discente.on > a',
-  )
+  ])
 
   await page.waitForNetworkIdle()
 
@@ -76,7 +74,8 @@ export async function studentSigaaLogin(login: string, password: string) {
     page,
     '#perfil-docente > p.info-docente > span > small > b',
   )
-  console.log(registrationNumber, name)
+  const classCodes = await collectClassCodes(page)
+  console.log(registrationNumber, name, classCodes)
 
   if (!name || !registrationNumber) {
     browser.close()
@@ -90,6 +89,7 @@ export async function studentSigaaLogin(login: string, password: string) {
   return {
     name,
     registrationNumber,
+    classCodes,
   }
 }
 
@@ -97,27 +97,85 @@ async function checkAndProceed(
   page: Page,
   browser: Browser,
   pathname: string,
-  selector: string,
-  selector2?: string,
+  selectors: string[],
+  options: { optional?: boolean } = {},
 ) {
   const expectedPathname = `${baseUrl}${pathname}`
   const actualPathname = page.url().split(';')[0]
   console.log(expectedPathname, actualPathname)
 
-  if (actualPathname === expectedPathname) {
-    await Promise.all([
-      page.waitForNavigation(),
-      page.click(selector),
-      selector2 ? page.click(selector2) : '',
-    ])
-  } else {
+  if (actualPathname !== expectedPathname) {
+    if (options.optional) {
+      return false
+    }
     browser.close()
     throw new Error('Não foi possível acessar a rota do discente.')
   }
+
+  const didClick = await clickFirstAvailable(page, selectors)
+  if (!didClick) {
+    if (options.optional) {
+      return false
+    }
+    browser.close()
+    throw new Error('Não foi possível localizar o botão esperado.')
+  }
+  return true
 }
 
 async function evaluatePage(page: Page, selector: string) {
   return await page.evaluate((sel) => {
     return document.querySelector(sel)?.textContent?.trim() || null
   }, selector)
+}
+
+async function clickFirstAvailable(page: Page, selectors: string[]) {
+  for (const selector of selectors) {
+    const handle = await page.$(selector)
+    if (handle) {
+      await Promise.all([page.waitForNavigation(), page.click(selector)])
+      return true
+    }
+  }
+  return false
+}
+
+async function collectClassCodes(page: Page) {
+  await page
+    .waitForSelector('#turmas-portal a[id*="turmaVirtual"]', { timeout: 7000 })
+    .catch(() => {})
+
+  const items = await page.evaluate(() => {
+    const links = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(
+        '#turmas-portal a[id*="turmaVirtual"]',
+      ),
+    )
+
+    return links.map((a) => ({
+      text: (a.textContent || '').replace(/\s+/g, ' ').trim(),
+      href: a.href || '',
+    }))
+  })
+
+  const re = /QXD[\s-]*\d{4,5}/i
+
+  const fromLinks = items
+    .map((x) => {
+      const m = (x.text + ' ' + x.href).match(re)?.[0] ?? null
+      return m ? m.replace(/\s|-/g, '').toUpperCase() : null // normaliza p/ "QXD1234"
+    })
+    .filter((x): x is string => Boolean(x))
+
+  if (fromLinks.length > 0) {
+    return Array.from(new Set(fromLinks))
+  }
+
+  // 3) fallback no body (também mais tolerante)
+  const bodyText = await page.evaluate(() => document.body?.textContent || '')
+  const fallback = (bodyText.match(/QXD[\s-]*\d{4,5}/gi) || []).map((x) =>
+    x.replace(/\s|-/g, '').toUpperCase(),
+  )
+
+  return Array.from(new Set(fallback))
 }

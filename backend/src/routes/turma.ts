@@ -7,6 +7,31 @@ import { buildSchedulesPayload } from '../utils/scheduleParser'
 import { safeParseBrazilianDate } from '../helpers/datesParser'
 import { parseStringToNumber } from '../helpers/numbersParser'
 
+type TurmaCronogramaItem = {
+  dia: string
+  horario: string
+}
+
+type TurmaSemestrePayload = {
+  inicio: string
+  fim: string
+  atual: boolean
+}
+
+type TurmaPayload = {
+  codigo: string
+  nome: string
+  semestre: TurmaSemestrePayload
+  local: string
+  quantidadeDeAlunos: string
+  capacidadeDeAlunos: string
+  cronograma: TurmaCronogramaItem[]
+}
+
+type SyncTurmasBody = {
+  turmas: TurmaPayload[]
+}
+
 export async function turmaRoutes(app: FastifyInstance) {
   app.get<{
     Params: { turmaId: string }
@@ -228,26 +253,15 @@ export async function turmaRoutes(app: FastifyInstance) {
     return res.status(200).send(classes)
   })
 
-  // TODO: type turmas properly
+  // Sincronizar as turmas com o sigaa
   app.post<{
     Params: { sub: string }
-    // Body: { turmas: [] }
+    Body: SyncTurmasBody
   }>('/sync/turmas', async (req, res) => {
     console.log(req.user)
     const { sub } = req.user
     const { turmas } = req.body
-    console.log(turmas)
-    /*
-      {
-        codigo: 'QXD0043',
-        nome: 'SISTEMAS DISTRIBUÍDOS',
-        semestre: '2025.2',
-        local: 'Campus Quixadá', location
-        dataSemestre: { inicio: '08/09/2025', fim: '22/01/2026' }, semester { begin, end, ongoing}
-        quantidadeDeAlunos: '50', quantityOfEnrollments
-        capacidadeDeAlunos: '51' capacityOfEnrollments
-      }
-    */
+
     try {
       const teacher = await prisma.teacher.findUnique({
         where: { uid: sub },

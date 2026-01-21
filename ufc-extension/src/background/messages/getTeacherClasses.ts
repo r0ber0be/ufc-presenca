@@ -13,7 +13,6 @@ const handler = async (req, res) => {
         Authorization: `Bearer ${token}`
       }
     })
-
     
     if (!response.ok) {
       throw new Error("Falha na autenticação com o servidor.")
