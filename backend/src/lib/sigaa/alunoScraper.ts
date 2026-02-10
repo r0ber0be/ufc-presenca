@@ -25,6 +25,8 @@ export async function studentSigaaLogin(login: string, password: string) {
     'td > input[type=submit]',
   ])
 
+  await page.waitForNetworkIdle()
+
   const loginError = await page.$(
     '#conteudo > table > tbody > tr > td > center',
   )
@@ -133,7 +135,10 @@ async function clickFirstAvailable(page: Page, selectors: string[]) {
   for (const selector of selectors) {
     const handle = await page.$(selector)
     if (handle) {
-      await Promise.all([page.waitForNavigation(), page.click(selector)])
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle0' }).catch(() => null),
+        page.click(selector),
+      ])
       return true
     }
   }
