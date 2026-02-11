@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { Linking, Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Card, IconButton, Text } from "react-native-paper";
 
 type ClassInfo = {
@@ -8,22 +8,12 @@ type ClassInfo = {
   name: string;
   classBlock: string;
   classRoom: string;
-  schedules: [
-    {
-      id: string;
-      startTime: string;
-      endTime: string;
-      weekDay: string;
-    },
-  ];
-};
-
-const teste = () => {
-  console.log("dsdsf");
-};
-
-const goToClassDetails = (id: string) => {
-  Linking.openURL("https://www.google.com/");
+  schedules: {
+    id: string;
+    startTime: string;
+    endTime: string;
+    weekDay: string;
+  }[];
 };
 
 export default function ClassCard({ ...classe }: ClassInfo) {
@@ -33,8 +23,12 @@ export default function ClassCard({ ...classe }: ClassInfo) {
     <Card mode="contained" style={styles.card}>
       <Card.Content>
         <Pressable
-          onLongPress={teste}
-          onPress={() => goToClassDetails(classe.id)}
+          onPress={() =>
+            router.push({
+              pathname: "/(app)/class/[id]",
+              params: { id: classe.id },
+            })
+          }
         >
           <View style={styles.container}>
             <View style={styles.info}>
@@ -55,8 +49,6 @@ export default function ClassCard({ ...classe }: ClassInfo) {
                 size={40}
                 style={styles.qrButton}
                 onPress={() => router.push("/(app)/(tabs)/scanner")}
-                onLongPress={teste}
-                delayLongPress={700}
                 iconColor="black"
               />
             </Card.Actions>
@@ -80,10 +72,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     justifyContent: "center",
-  },
-  title: {
-    fontWeight: "bold",
-    marginBottom: 4,
   },
   scheduleText: {
     marginTop: 2,

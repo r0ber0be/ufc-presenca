@@ -48,6 +48,17 @@ export async function turmaRoutes(app: FastifyInstance) {
       return res.status(404).send({ error: 'Turma não encontrada' })
     }
 
+    const lessons = await prisma.lesson.findMany({
+      where: { classId: turmaId },
+      select: {
+        id: true,
+        date: true,
+      },
+      orderBy: {
+        date: 'asc',
+      },
+    })
+
     const enrolledStudents = await prisma.student.findMany({
       where: {
         enrollments: {
@@ -57,7 +68,17 @@ export async function turmaRoutes(app: FastifyInstance) {
         },
       },
       include: {
-        classAttendanceRecords: true,
+        classAttendanceRecords: {
+          where: {
+            lesson: {
+              classId: turmaId,
+            },
+          },
+          select: {
+            lessonId: true,
+            present: true,
+          },
+        },
       },
       orderBy: {
         name: 'asc',
@@ -65,9 +86,7 @@ export async function turmaRoutes(app: FastifyInstance) {
     })
 
     // total de aulas = quantidade de registros distintos de aulas
-    const totalLessons = await prisma.lesson.count({
-      where: { classId: turmaId },
-    })
+    const totalLessons = lessons.length
 
     const students = enrolledStudents.map((student) => {
       const presences = student.classAttendanceRecords.filter(
@@ -80,12 +99,27 @@ export async function turmaRoutes(app: FastifyInstance) {
 
       const percentage = totalLessons > 0 ? (presences / totalLessons) * 100 : 0
 
+      const attendanceByLesson = student.classAttendanceRecords.reduce(
+        (acc, attendanceRecord) => {
+          acc[attendanceRecord.lessonId] = attendanceRecord.present
+          return acc
+        },
+        {} as Record<string, boolean>,
+      )
+
+      const lessonAttendances = lessons.map((lesson) => ({
+        lessonId: lesson.id,
+        date: lesson.date,
+        present: attendanceByLesson[lesson.id] ?? false,
+      }))
+
       return {
         name: student.name,
         registration: student.registrationNumber,
         presences,
         absences,
         percentage: Number(percentage.toFixed(2)),
+        lessonAttendances,
       }
     })
 
