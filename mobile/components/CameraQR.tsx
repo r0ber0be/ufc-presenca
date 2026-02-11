@@ -1,119 +1,131 @@
-import { getToken } from '@/hooks/useAuthToken';
-import { getDeviceId } from '@/hooks/useDeviceId';
-import { usePinchZoom } from '@/hooks/usePinchZoom';
-import useResetQrLockOnFocus from '@/hooks/useResetQrLockOnFocus';
-import { getStudentId } from '@/hooks/useStudentData';
-import { useIsFocused } from '@react-navigation/native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
-import * as Location from 'expo-location';
-import { Stack } from 'expo-router';
-import { navigate } from 'expo-router/build/global-state/routing';
-import { useEffect, useRef, useState } from 'react';
-import { Animated, Button, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { GestureDetector } from 'react-native-gesture-handler';
-import { LoaderOverlay } from './LoaderOverlay';
+import { buildApiUrl } from "@/constants/api";
+import { getToken } from "@/hooks/useAuthToken";
+import { getDeviceId } from "@/hooks/useDeviceId";
+import { usePinchZoom } from "@/hooks/usePinchZoom";
+import useResetQrLockOnFocus from "@/hooks/useResetQrLockOnFocus";
+import { getStudentId } from "@/hooks/useStudentData";
+import { useIsFocused } from "@react-navigation/native";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import * as Location from "expo-location";
+import { Stack, useRouter } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Button,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { GestureDetector } from "react-native-gesture-handler";
+import { LoaderOverlay } from "./LoaderOverlay";
 
 export default function CameraQR() {
+  const router = useRouter();
   const [permission, requestPermission] = useCameraPermissions();
-  const isFocused = useIsFocused()
-  const qrLock = useRef(false)
-  const [isCameraReady, setIsCameraReady] = useState(false)
-  const cameraRef = useRef(null)
-  const { zoom, pinchGesture } = usePinchZoom()
-  const [loading, setLoading] = useState(false)
-  const [responseMessage, setResponseMessage] = useState<string | null>(null)
-  const fadeAnim = useRef(new Animated.Value(0)).current
-  
-  useResetQrLockOnFocus(qrLock)
+  const isFocused = useIsFocused();
+  const qrLock = useRef(false);
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const cameraRef = useRef(null);
+  const { zoom, pinchGesture } = usePinchZoom();
+  const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState<string | null>(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useResetQrLockOnFocus(qrLock);
 
   useEffect(() => {
     if (isFocused) {
-      setIsCameraReady(false)
+      setIsCameraReady(false);
     }
-  }, [isFocused])
+  }, [isFocused]);
 
   const onCameraReady = () => {
-    setIsCameraReady(true)
+    setIsCameraReady(true);
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 300,
-      useNativeDriver: true
-    }).start()
-  }
+      useNativeDriver: true,
+    }).start();
+  };
 
   const handleQrScanned = async ({ data }: { data: string }) => {
-    if (!data || qrLock.current || loading) return
+    if (!data || qrLock.current || loading) return;
 
-    qrLock.current = true
-    setLoading(true)
-    setResponseMessage(null)
+    qrLock.current = true;
+    setLoading(true);
+    setResponseMessage(null);
 
-    const studentId = await getStudentId()
-    const token = await getToken()
-    const deviceid = await getDeviceId()
-    
+    const studentId = await getStudentId();
+    const token = await getToken();
+    const deviceid = await getDeviceId();
+
     try {
-      const { status } = await Location.requestForegroundPermissionsAsync()
-      if (status !== 'granted') {
-        setResponseMessage('Permissão de localização negada.')
-        return
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setResponseMessage("Permissão de localização negada.");
+        return;
       }
 
       const location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.BestForNavigation
-      })
-      const { latitude, longitude } = location.coords
-      
-      const response = await fetch(`http://192.168.3.6:3333/api/${studentId}/presenca/qr`, {
-        method: 'POST',
+        accuracy: Location.Accuracy.BestForNavigation,
+      });
+      const { latitude, longitude } = location.coords;
+
+      const response = await fetch(buildApiUrl(`/${studentId}/presenca/qr`), {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
           deviceid,
         },
         body: JSON.stringify({
           signedData: data,
           latitude,
-          longitude
+          longitude,
         }),
-      })
+      });
 
-      const result = await response.json()
+      const result = await response.json();
 
       if (response.ok) {
-        setResponseMessage('Presença confirmada com sucesso!')
-        navigate('/')
+        setResponseMessage("Presença confirmada com sucesso!");
+        router.replace("/(app)/(tabs)");
       } else {
-        setResponseMessage(result?.message || 'Código inválido ou expirado.')
+        setResponseMessage(result?.message || "Código inválido ou expirado.");
       }
     } catch (error) {
-      console.error(error)
-      setResponseMessage('Erro ao conectar com o servidor.')
+      console.error(error);
+      setResponseMessage("Erro ao conectar com o servidor.");
     } finally {
-      setLoading(false)
+      setLoading(false);
       setTimeout(() => {
-        qrLock.current = false
-        setResponseMessage(null)
-      }, 4000)
+        qrLock.current = false;
+        setResponseMessage(null);
+      }, 4000);
     }
-  }
+  };
 
-  if (!permission) return <View />
+  if (!permission) return <View />;
   if (!permission.granted) {
     return (
       <View style={styles.container}>
-        <Text style={styles.message}>Esta aplicação precisa de permissões para acessar a câmera.</Text>
-        <Button title='Conceder permissão' onPress={requestPermission} />
+        <Text style={styles.message}>
+          Esta aplicação precisa de permissões para acessar a câmera.
+        </Text>
+        <Button title="Conceder permissão" onPress={requestPermission} />
       </View>
-    )
+    );
   }
 
   return (
     <SafeAreaView style={StyleSheet.absoluteFillObject}>
-      <Stack.Screen options={{ title: 'Scanner', headerShown: false }} />
-      { Platform.OS === 'android' ? <StatusBar hidden /> : null }
-      
-      { isFocused && (
+      <Stack.Screen options={{ title: "Scanner", headerShown: false }} />
+      {Platform.OS === "android" ? <StatusBar hidden /> : null}
+
+      {isFocused && (
         <>
           {!isCameraReady && <LoaderOverlay />}
           {loading && <LoaderOverlay />}
@@ -123,16 +135,18 @@ export default function CameraQR() {
             </View>
           )}
           <GestureDetector gesture={pinchGesture}>
-            <Animated.View style={[StyleSheet.absoluteFillObject,  { opacity: fadeAnim }]}>
-              <CameraView 
+            <Animated.View
+              style={[StyleSheet.absoluteFillObject, { opacity: fadeAnim }]}
+            >
+              <CameraView
                 ref={cameraRef}
-                style={StyleSheet.absoluteFillObject} 
-                facing='back'
+                style={StyleSheet.absoluteFillObject}
+                facing="back"
                 mirror={true}
                 zoom={zoom}
                 onCameraReady={onCameraReady}
                 barcodeScannerSettings={{
-                  barcodeTypes: ['qr'],
+                  barcodeTypes: ["qr"],
                 }}
                 onBarcodeScanned={handleQrScanned}
               />
@@ -141,26 +155,26 @@ export default function CameraQR() {
         </>
       )}
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center' },
-  message: { textAlign: 'center', padding: 10 },
+  container: { flex: 1, justifyContent: "center" },
+  message: { textAlign: "center", padding: 10 },
   responseOverlay: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 60,
     left: 0,
     right: 0,
-    alignItems: 'center',
+    alignItems: "center",
     zIndex: 11,
   },
   responseText: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    color: '#fff',
+    backgroundColor: "rgba(0,0,0,0.6)",
+    color: "#fff",
     fontSize: 16,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
   },
-})
+});

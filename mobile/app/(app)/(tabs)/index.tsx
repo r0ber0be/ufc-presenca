@@ -1,75 +1,80 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import ClassCard from '@/components/ClassCard'
-import { ThemedView } from '@/components/ThemedView'
-import { getToken } from '@/hooks/useAuthToken'
-import { getStudentId } from '@/hooks/useStudentData'
-import { useEffect, useState } from 'react'
+import ClassCard from "@/components/ClassCard";
+import { ThemedView } from "@/components/ThemedView";
+import { buildApiUrl } from "@/constants/api";
+import { getToken } from "@/hooks/useAuthToken";
+import { getStudentId } from "@/hooks/useStudentData";
+import { useEffect, useState } from "react";
 
 type ClassInfo = {
-  id: string,
-  code: string,
-  name: string,
-  classBlock: string,
-  classRoom: string,
-  schedules: [{
-    id: string,
-    startTime: string,
-    endTime: string,
-    weekDay: string,
-  }],
-}
+  id: string;
+  code: string;
+  name: string;
+  classBlock: string;
+  classRoom: string;
+  schedules: [
+    {
+      id: string;
+      startTime: string;
+      endTime: string;
+      weekDay: string;
+    },
+  ];
+};
 
 export default function HomeScreen() {
-  const [classes, setClasses] = useState<ClassInfo[]>([])
-  const [error, setError] = useState<string | null>()
+  const [classes, setClasses] = useState<ClassInfo[]>([]);
+  const [error, setError] = useState<string | null>();
 
   useEffect(() => {
     async function loadClasses() {
       const studentId = await getStudentId();
       const token = await getToken();
 
-      const res = await fetch(`http://192.168.3.6:3333/api/${studentId}/turmas`, {
-        method: 'GET',
+      const res = await fetch(buildApiUrl(`/${studentId}/turmas`), {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      const data = await res.json()
+      const data = await res.json();
 
-      if(data.message) {
-        setError(data.message)
+      if (data.message) {
+        setError(data.message);
       } else {
-        setClasses(data)
+        setClasses(data);
       }
     }
-    loadClasses()
-  }, [])
+    loadClasses();
+  }, []);
 
-  if(error) {
+  if (error) {
     return (
       <View>
         <Text style={styles.text}>{error}</Text>
       </View>
-    )
+    );
   }
 
   if (classes.length === 0) {
     return (
       <View>
-        <Text style={styles.text}>Bem vindo! Você não está matriculado em nenhuma turma</Text>
+        <Text style={styles.text}>
+          Bem vindo! Você não está matriculado em nenhuma turma
+        </Text>
       </View>
-    )
+    );
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <ThemedView>
-          { classes.map((classe: ClassInfo, index) => (
+          {classes.map((classe: ClassInfo, index) => (
             <ClassCard key={index} {...classe} />
           ))}
         </ThemedView>
@@ -81,9 +86,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
   text: {
-    color: 'white',
-  }
-})
+    color: "white",
+  },
+});
