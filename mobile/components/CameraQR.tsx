@@ -1,6 +1,6 @@
 import { buildApiUrl } from "@/constants/api";
 import { getToken } from "@/hooks/useAuthToken";
-import { getDeviceId } from "@/hooks/useDeviceId";
+import { getOrCreateDeviceId } from "@/hooks/useDeviceId";
 import { usePinchZoom } from "@/hooks/usePinchZoom";
 import useResetQrLockOnFocus from "@/hooks/useResetQrLockOnFocus";
 import { getStudentId } from "@/hooks/useStudentData";
@@ -60,9 +60,14 @@ export default function CameraQR() {
 
     const studentId = await getStudentId();
     const token = await getToken();
-    const deviceid = await getDeviceId();
+    const deviceId = await getOrCreateDeviceId();
 
     try {
+      if (!deviceId?.trim()) {
+        setResponseMessage("Não foi possível identificar este dispositivo.");
+        return;
+      }
+
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setResponseMessage("Permissão de localização negada.");
@@ -79,7 +84,7 @@ export default function CameraQR() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          deviceid,
+          deviceId,
         },
         body: JSON.stringify({
           signedData: data,

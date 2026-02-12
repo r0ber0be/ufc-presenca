@@ -1,6 +1,6 @@
 import { buildApiUrl } from "@/constants/api";
 import { saveToken } from "@/hooks/useAuthToken";
-import { getDeviceId } from "@/hooks/useDeviceId";
+import { getOrCreateDeviceId } from "@/hooks/useDeviceId";
 import { saveStudentData } from "@/hooks/useStudentData";
 import { authenticateUser } from "@/utils/authWithBiometrics";
 import { Alert } from "react-native";
@@ -14,7 +14,12 @@ type UserProps = {
 export async function handleLogin({ login, password, onSuccess }: UserProps) {
   try {
     await authenticateUser();
-    const deviceId = await getDeviceId();
+    const deviceId = await getOrCreateDeviceId();
+
+    if (!deviceId?.trim()) {
+      throw new Error("Não foi possível identificar este dispositivo.");
+    }
+
     const response = await fetch(buildApiUrl("/aluno/login"), {
       method: "POST",
       headers: {
