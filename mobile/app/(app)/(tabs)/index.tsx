@@ -20,14 +20,12 @@ type ClassInfo = {
   name: string;
   classBlock: string;
   classRoom: string;
-  schedules: [
-    {
-      id: string;
-      startTime: string;
-      endTime: string;
-      weekDay: string;
-    },
-  ];
+  schedules: {
+    id: string;
+    startTime: string;
+    endTime: string;
+    weekDay: string;
+  }[];
 };
 
 export default function HomeScreen() {
