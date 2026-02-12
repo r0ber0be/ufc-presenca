@@ -106,8 +106,8 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
+    <SafeAreaView edges={["left", "right"]} style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         <ThemedView>
           {classes.map((classe: ClassInfo) => (
             <ClassCard key={classe.id} {...classe} />
@@ -121,10 +121,16 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#334155",
   },
   text: {
-    color: "white",
+    fontFamily: "serif",
+    textAlign: "center",
+  },
+  scrollContent: {
+    paddingHorizontal: 12,
+    paddingTop: 8,
+    paddingBottom: 18,
   },
   feedbackContainer: {
     flex: 1,
@@ -132,6 +138,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 24,
     gap: 12,
-    backgroundColor: "black",
   },
 });

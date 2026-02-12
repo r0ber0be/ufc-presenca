@@ -38,7 +38,7 @@ export default function ClassCard({ ...classe }: ClassInfo) {
 
               {schedules.map(({ id, weekDay, startTime, endTime }) => (
                 <Text key={id} style={styles.scheduleText} variant="bodyMedium">
-                  📅 {weekDay} ⏰ {startTime} - {endTime}
+                  {weekDay} • {startTime} - {endTime}
                 </Text>
               ))}
             </View>
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 10,
     overflow: "hidden",
+    borderRadius: 14,
   },
   container: {
     flexDirection: "row",
@@ -72,9 +73,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     justifyContent: "center",
+    gap: 2,
+  },
+  title: {
+    fontWeight: "700",
+    fontFamily: "serif",
+    letterSpacing: 0.4,
   },
   scheduleText: {
     marginTop: 2,
+    fontFamily: "serif",
   },
   actions: {
     justifyContent: "flex-end", // alinha o QR code à direita
