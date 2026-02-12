@@ -1,12 +1,18 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import ClassCard from "@/components/ClassCard";
 import { ThemedView } from "@/components/ThemedView";
 import { buildApiUrl } from "@/constants/api";
 import { getToken } from "@/hooks/useAuthToken";
 import { getStudentId } from "@/hooks/useStudentData";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type ClassInfo = {
   id: string;
@@ -26,35 +32,64 @@ type ClassInfo = {
 
 export default function HomeScreen() {
   const [classes, setClasses] = useState<ClassInfo[]>([]);
-  const [error, setError] = useState<string | null>();
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadClasses() {
-      const studentId = await getStudentId();
-      const token = await getToken();
+      try {
+        const studentId = await getStudentId();
+        const token = await getToken();
 
-      const res = await fetch(buildApiUrl(`/${studentId}/turmas`), {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+        if (!studentId || !token) {
+          router.replace("/sign-in");
+          return;
+        }
 
-      const data = await res.json();
+        const response = await fetch(buildApiUrl(`/${studentId}/turmas`), {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      if (data.message) {
-        setError(data.message);
-      } else {
+        const data = await response.json();
+
+        if (!response.ok) {
+          setError(data?.message ?? "Não foi possível carregar as turmas.");
+          return;
+        }
+
+        if (data.message) {
+          setError(data.message);
+          return;
+        }
+
         setClasses(data);
+      } catch {
+        setError("Ocorreu um erro ao carregar as turmas.");
+      } finally {
+        setIsLoading(false);
       }
     }
+
     loadClasses();
-  }, []);
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <View style={styles.feedbackContainer}>
+        <ActivityIndicator size="large" color="#1d4ed8" />
+        <Text style={styles.text}>Carregando turmas...</Text>
+      </View>
+    );
+  }
 
   if (error) {
     return (
-      <View>
+      <View style={styles.feedbackContainer}>
         <Text style={styles.text}>{error}</Text>
       </View>
     );
@@ -62,7 +97,7 @@ export default function HomeScreen() {
 
   if (classes.length === 0) {
     return (
-      <View>
+      <View style={styles.feedbackContainer}>
         <Text style={styles.text}>
           Bem vindo! Você não está matriculado em nenhuma turma
         </Text>
@@ -74,8 +109,8 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <ThemedView>
-          {classes.map((classe: ClassInfo, index) => (
-            <ClassCard key={index} {...classe} />
+          {classes.map((classe: ClassInfo) => (
+            <ClassCard key={classe.id} {...classe} />
           ))}
         </ThemedView>
       </ScrollView>
@@ -90,5 +125,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+  },
+  feedbackContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 24,
+    gap: 12,
+    backgroundColor: "black",
   },
 });
