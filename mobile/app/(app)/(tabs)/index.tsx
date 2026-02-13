@@ -4,9 +4,10 @@ import { buildApiUrl } from "@/constants/api";
 import { getToken } from "@/hooks/useAuthToken";
 import { getStudentId } from "@/hooks/useStudentData";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -32,49 +33,57 @@ export default function HomeScreen() {
   const [classes, setClasses] = useState<ClassInfo[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    async function loadClasses() {
-      try {
-        const studentId = await getStudentId();
-        const token = await getToken();
+  const loadClasses = useCallback(async () => {
+    try {
+      setError(null);
 
-        if (!studentId || !token) {
-          router.replace("/sign-in");
-          return;
-        }
+      const studentId = await getStudentId();
+      const token = await getToken();
 
-        const response = await fetch(buildApiUrl(`/${studentId}/turmas`), {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          setError(data?.message ?? "Não foi possível carregar as turmas.");
-          return;
-        }
-
-        if (data.message) {
-          setError(data.message);
-          return;
-        }
-
-        setClasses(data);
-      } catch {
-        setError("Ocorreu um erro ao carregar as turmas.");
-      } finally {
-        setIsLoading(false);
+      if (!studentId || !token) {
+        router.replace("/sign-in");
+        return;
       }
-    }
 
-    loadClasses();
+      const response = await fetch(buildApiUrl(`/${studentId}/turmas`), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data?.message ?? "Não foi possível carregar as turmas.");
+        return;
+      }
+
+      if (data.message) {
+        setError(data.message);
+        return;
+      }
+      setClasses(data);
+    } catch {
+      setError("Ocorreu um erro ao carregar as turmas.");
+    } finally {
+      setIsLoading(false);
+      setRefreshing(false);
+    }
   }, [router]);
+
+  useEffect(() => {
+    loadClasses();
+  }, [loadClasses]);
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    loadClasses();
+  }, [loadClasses]);
 
   if (isLoading) {
     return (
@@ -105,7 +114,12 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView edges={["left", "right"]} style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+      >
         <ThemedView
           style={styles.listContainer}
           lightColor="#334155"

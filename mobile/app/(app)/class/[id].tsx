@@ -2,8 +2,8 @@ import { buildApiUrl } from "@/constants/api";
 import { getValidSessionToken } from "@/hooks/useSession";
 import { getStudentRegistration } from "@/hooks/useStudentData";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { ActivityIndicator, Card, Divider, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -32,6 +32,7 @@ type ClassReport = {
 export default function ClassDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [report, setReport] = useState<ClassReport | null>(null);
   const [studentReport, setStudentReport] = useState<ClassReportStudent | null>(
@@ -42,74 +43,78 @@ export default function ClassDetailsScreen() {
 
   const className = report?.name || "Detalhes da turma";
 
-  useEffect(() => {
-    async function loadClassReport() {
-      if (!id) {
-        setError("Turma não informada.");
-        setIsLoading(false);
+  const loadClassReport = useCallback(async () => {
+    if (!id) {
+      setError("Turma não informada.");
+      setIsLoading(false);
+      setRefreshing(false);
+      return;
+    }
+
+    try {
+      setError(null);
+
+      const [studentRegistration, token] = await Promise.all([
+        getStudentRegistration(),
+        getValidSessionToken(),
+      ]);
+
+      if (!token) {
+        router.replace("/sign-in");
         return;
       }
 
-      try {
-        const [studentRegistration, token] = await Promise.all([
-          getStudentRegistration(),
-          getValidSessionToken(),
-        ]);
-
-        if (!token) {
-          router.replace("/sign-in");
-          return;
-        }
-
-        if (!studentRegistration) {
-          setError("Matrícula do aluno não encontrada.");
-          setIsLoading(false);
-          return;
-        }
-
-        const response = await fetch(buildApiUrl(`/${id}/report`), {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = (await response.json()) as
-          | ClassReport
-          | { message: string };
-
-        if (!response.ok || "message" in data) {
-          setError(
-            "message" in data
-              ? data.message
-              : "Não foi possível carregar os detalhes da turma.",
-          );
-          setIsLoading(false);
-          return;
-        }
-
-        const currentStudent = data.students.find(
-          ({ registration }) => registration.toString() === studentRegistration,
-        );
-
-        if (!currentStudent) {
-          setError("Não foi possível localizar suas presenças nesta turma.");
-          setIsLoading(false);
-          return;
-        }
-
-        setReport(data);
-        setStudentReport(currentStudent);
-      } catch {
-        setError("Erro ao carregar os detalhes da turma.");
-      } finally {
-        setIsLoading(false);
+      if (!studentRegistration) {
+        setError("Matrícula do aluno não encontrada.");
+        return;
       }
-    }
 
-    loadClassReport();
+      const response = await fetch(buildApiUrl(`/${id}/report`), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = (await response.json()) as ClassReport | { message: string };
+
+      if (!response.ok || "message" in data) {
+        setError(
+          "message" in data
+            ? data.message
+            : "Não foi possível carregar os detalhes da turma.",
+        );
+        return;
+      }
+
+      const currentStudent = data.students.find(
+        ({ registration }) => registration.toString() === studentRegistration,
+      );
+
+      if (!currentStudent) {
+        setError("Não foi possível localizar suas presenças nesta turma.");
+        return;
+      }
+
+      setReport(data);
+      setStudentReport(currentStudent);
+    } catch {
+      setError("Erro ao carregar os detalhes da turma.");
+    } finally {
+      setIsLoading(false);
+      setRefreshing(false);
+    }
   }, [id, router]);
+
+  useEffect(() => {
+    loadClassReport();
+  }, [loadClassReport]);
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    loadClassReport();
+  }, [loadClassReport]);
 
   if (isLoading) {
     return (
@@ -142,7 +147,12 @@ export default function ClassDetailsScreen() {
           headerTintColor: "#111827",
         }}
       />
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+      >
         <Card>
           <Card.Content>
             <Text variant="bodyLarge">
