@@ -127,10 +127,16 @@ export default function ClassDetailsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Stack.Screen options={{ title: className }} />
+      <Stack.Screen
+        options={{
+          title: className,
+          headerStyle: { backgroundColor: "#fff" },
+          headerTitleStyle: { color: "#111827" },
+          headerTintColor: "#111827",
+        }}
+      />
       <ScrollView contentContainerStyle={styles.content}>
         <Card>
-          <Card.Title title="Resumo" />
           <Card.Content>
             <Text variant="bodyLarge">
               Presenças: {studentReport?.presences}
@@ -193,7 +199,7 @@ export default function ClassDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#334155",
   },
   content: {
     padding: 16,

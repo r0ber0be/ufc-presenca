@@ -4,7 +4,7 @@ export default function AppLayout() {
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="class/[id]" options={{ headerShown: false }} />
+      <Stack.Screen name="class/[id]" options={{ headerShown: true }} />
     </Stack>
   );
 }
