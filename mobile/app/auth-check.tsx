@@ -1,32 +1,32 @@
-import { getToken } from '@/hooks/useAuthToken'
-import { SplashScreen, useRouter } from 'expo-router'
-import { useEffect } from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import { getValidSessionToken } from "@/hooks/useSession";
+import { SplashScreen, useRouter } from "expo-router";
+import { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 export default function AuthCheck() {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     async function verifyAuth() {
       try {
-        const token = await getToken()
+        const token = await getValidSessionToken();
         if (token) {
-          router.replace('/(app)/(tabs)')
-        } else {
-          router.replace('/sign-in')
+          router.replace("/(app)/(tabs)");
+          return;
         }
+        router.replace("/sign-in");
       } finally {
-        await SplashScreen.hideAsync()
+        await SplashScreen.hideAsync();
       }
     }
-    verifyAuth()
-  }, [])
+    verifyAuth();
+  }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActivityIndicator size='large' />
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" />
     </View>
-  )
+  );
 }

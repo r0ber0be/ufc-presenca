@@ -5,8 +5,8 @@ import { Platform } from "react-native";
 import Header from "@/components/Header";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
-import { getToken } from "@/hooks/useAuthToken";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { getValidSessionToken } from "@/hooks/useSession";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function TabLayout() {
@@ -18,13 +18,16 @@ export default function TabLayout() {
   const router = useRouter();
 
   useEffect(() => {
-    getToken().then((token) => {
+    async function validateSession() {
+      const token = await getValidSessionToken();
       if (!token) {
         router.replace("/sign-in");
       }
+
       setLoading(false);
-    });
-  }, []);
+    }
+    validateSession();
+  }, [router]);
 
   if (loading) return null;
 

@@ -1,7 +1,7 @@
 import { buildApiUrl } from "@/constants/api";
-import { getToken } from "@/hooks/useAuthToken";
+import { getValidSessionToken } from "@/hooks/useSession";
 import { getStudentRegistration } from "@/hooks/useStudentData";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { ActivityIndicator, Card, Divider, Text } from "react-native-paper";
@@ -38,6 +38,8 @@ export default function ClassDetailsScreen() {
     null,
   );
 
+  const router = useRouter();
+
   const className = report?.name || "Detalhes da turma";
 
   useEffect(() => {
@@ -51,8 +53,13 @@ export default function ClassDetailsScreen() {
       try {
         const [studentRegistration, token] = await Promise.all([
           getStudentRegistration(),
-          getToken(),
+          getValidSessionToken(),
         ]);
+
+        if (!token) {
+          router.replace("/sign-in");
+          return;
+        }
 
         if (!studentRegistration) {
           setError("Matrícula do aluno não encontrada.");
@@ -102,7 +109,7 @@ export default function ClassDetailsScreen() {
     }
 
     loadClassReport();
-  }, [id]);
+  }, [id, router]);
 
   if (isLoading) {
     return (

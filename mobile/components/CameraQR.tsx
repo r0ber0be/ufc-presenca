@@ -1,8 +1,8 @@
 import { buildApiUrl } from "@/constants/api";
-import { getToken } from "@/hooks/useAuthToken";
 import { getOrCreateDeviceId } from "@/hooks/useDeviceId";
 import { usePinchZoom } from "@/hooks/usePinchZoom";
 import useResetQrLockOnFocus from "@/hooks/useResetQrLockOnFocus";
+import { getValidSessionToken } from "@/hooks/useSession";
 import { getStudentId } from "@/hooks/useStudentData";
 import { useIsFocused } from "@react-navigation/native";
 import { CameraView, useCameraPermissions } from "expo-camera";
@@ -59,10 +59,21 @@ export default function CameraQR() {
     setResponseMessage(null);
 
     const studentId = await getStudentId();
-    const token = await getToken();
+    const token = await getValidSessionToken();
     const deviceId = await getOrCreateDeviceId();
 
     try {
+      if (!token) {
+        setResponseMessage("Sua sessão expirou. Faça login novamente.");
+        router.replace("/sign-in");
+        return;
+      }
+
+      if (!studentId) {
+        setResponseMessage("Aluno não identificado. Faça login novamente.");
+        return;
+      }
+
       if (!deviceId?.trim()) {
         setResponseMessage("Não foi possível identificar este dispositivo.");
         return;
