@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
   },
   scheduleText: {
     marginTop: 2,
-    fontFamily: "serif",
   },
   actions: {
     justifyContent: "flex-end", // alinha o QR code à direita

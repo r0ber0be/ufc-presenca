@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "PRESENÇAS",
+    "name": "UFC PRESENÇA",
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/splash-icon.png",
+    "icon": "./assets/images/icon-10-10.png",
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -15,12 +15,9 @@
       "supportsTablet": true
     },
     "android": {
-      "permissions": [
-        "CAMERA",
-        "ACCESS_FINE_LOCATION"
-      ],
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION"],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash-icon.png",
+        "foregroundImage": "./assets/images/icon-10-10.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
@@ -28,7 +25,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/splash-icon.png"
+      "favicon": "./assets/images/icon-10-10.png"
     },
     "plugins": [
       "expo-router",
@@ -42,7 +39,7 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#ffffff",
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash.png",
           "dark": {
             "image": "./assets/images/splash-icon.png",
             "backgroundColor": "#000000"
@@ -57,7 +54,7 @@
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
       ],
-      [ "expo-location" ]
+      ["expo-location"]
     ],
     "experiments": {
       "typedRoutes": true

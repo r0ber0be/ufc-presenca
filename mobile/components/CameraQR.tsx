@@ -13,13 +13,13 @@ import {
   Animated,
   Button,
   Platform,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import { GestureDetector } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LoaderOverlay } from "./LoaderOverlay";
 
 export default function CameraQR() {

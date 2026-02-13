@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#374151",
     fontWeight: "500",
+    fontFamily: "serif",
   },
   valueBox: {
     minHeight: 48,
