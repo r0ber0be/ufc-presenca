@@ -10,8 +10,10 @@ import * as Location from "expo-location";
 import { Stack, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   Animated,
   Button,
+  Linking,
   Platform,
   StatusBar,
   StyleSheet,
@@ -32,6 +34,7 @@ export default function CameraQR() {
   const { zoom, pinchGesture } = usePinchZoom();
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
+  const [showSettingsCTA, setShowSettingsCTA] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useResetQrLockOnFocus(qrLock);
@@ -51,12 +54,69 @@ export default function CameraQR() {
     }).start();
   };
 
+  const showErrorMessage = (
+    message: string,
+    options?: { showSettingsCTA?: boolean },
+  ) => {
+    setResponseMessage(message);
+    setShowSettingsCTA(Boolean(options?.showSettingsCTA));
+  };
+
+  const clearResponseState = () => {
+    qrLock.current = false;
+    setResponseMessage(null);
+    setShowSettingsCTA(false);
+  };
+
+  const openAppSettings = async () => {
+    try {
+      await Linking.openSettings();
+    } catch {
+      Alert.alert("Erro", "Não foi possível abrir as configurações do app.");
+    }
+  };
+
+  const getCategorizedErrorMessage = (status: number, message?: string) => {
+    const normalizedMessage = (message || "").toLowerCase();
+
+    if (status === 401 || normalizedMessage.includes("token")) {
+      return "Sessão expirada. Faça login novamente.";
+    }
+
+    if (
+      status === 403 ||
+      normalizedMessage.includes("fora") ||
+      normalizedMessage.includes("área")
+    ) {
+      return "Você está fora da área permitida para registrar presença.";
+    }
+
+    if (
+      status === 410 ||
+      normalizedMessage.includes("expir") ||
+      normalizedMessage.includes("inválid")
+    ) {
+      return "QR expirado ou inválido. Solicite um novo código.";
+    }
+
+    if (
+      status >= 500 ||
+      normalizedMessage.includes("network") ||
+      normalizedMessage.includes("internet")
+    ) {
+      return "Sem internet ou servidor indisponível. Tente novamente.";
+    }
+
+    return message || "Não foi possível validar o QR Code.";
+  };
+
   const handleQrScanned = async ({ data }: { data: string }) => {
     if (!data || qrLock.current || loading) return;
 
     qrLock.current = true;
     setLoading(true);
     setResponseMessage(null);
+    setShowSettingsCTA(false);
 
     const studentId = await getStudentId();
     const token = await getValidSessionToken();
@@ -64,24 +124,35 @@ export default function CameraQR() {
 
     try {
       if (!token) {
-        setResponseMessage("Sua sessão expirou. Faça login novamente.");
+        showErrorMessage("Token inválido ou expirado. Faça login novamente.");
         router.replace("/sign-in");
         return;
       }
 
       if (!studentId) {
-        setResponseMessage("Aluno não identificado. Faça login novamente.");
+        showErrorMessage("Aluno não identificado. Faça login novamente.");
         return;
       }
 
       if (!deviceId?.trim()) {
-        setResponseMessage("Não foi possível identificar este dispositivo.");
+        showErrorMessage("Não foi possível identificar este dispositivo.");
         return;
       }
 
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
+      if (!servicesEnabled) {
+        showErrorMessage(
+          "GPS indisponível. Ative a localização do dispositivo.",
+        );
+        return;
+      }
+
+      const { status, canAskAgain } =
+        await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setResponseMessage("Permissão de localização negada.");
+        showErrorMessage("Permissão de localização negada.", {
+          showSettingsCTA: !canAskAgain,
+        });
         return;
       }
 
@@ -108,30 +179,50 @@ export default function CameraQR() {
 
       if (response.ok) {
         setResponseMessage("Presença confirmada com sucesso!");
+        setShowSettingsCTA(false);
         router.replace("/(app)/(tabs)");
       } else {
-        setResponseMessage(result?.message || "Código inválido ou expirado.");
+        const categorizedError = getCategorizedErrorMessage(
+          response.status,
+          result?.message,
+        );
+        showErrorMessage(categorizedError);
       }
     } catch (error) {
       console.error(error);
-      setResponseMessage("Erro ao conectar com o servidor.");
+      showErrorMessage(
+        "Sem internet ou servidor indisponível. Tente novamente.",
+      );
     } finally {
       setLoading(false);
+      qrLock.current = false;
+
       setTimeout(() => {
-        qrLock.current = false;
         setResponseMessage(null);
+        setShowSettingsCTA(false);
       }, 4000);
     }
   };
 
   if (!permission) return <View />;
   if (!permission.granted) {
+    const showCameraSettingsCTA = !permission.canAskAgain;
+
     return (
       <View style={styles.container}>
         <Text style={styles.message}>
-          Esta aplicação precisa de permissões para acessar a câmera.
+          {showCameraSettingsCTA
+            ? "Permissão de câmera negada permanentemente. Abra as configurações para liberar o acesso."
+            : "Esta aplicação precisa de permissões para acessar a câmera."}
         </Text>
-        <Button title="Conceder permissão" onPress={requestPermission} />
+        {showCameraSettingsCTA ? (
+          <Button
+            title="Abrir configurações do app"
+            onPress={openAppSettings}
+          />
+        ) : (
+          <Button title="Conceder permissão" onPress={requestPermission} />
+        )}
       </View>
     );
   }
@@ -148,6 +239,15 @@ export default function CameraQR() {
           {responseMessage && (
             <View style={styles.responseOverlay}>
               <Text style={styles.responseText}>{responseMessage}</Text>
+              <View style={styles.responseActions}>
+                {showSettingsCTA && (
+                  <Button
+                    title="Abrir configurações do app"
+                    onPress={openAppSettings}
+                  />
+                )}
+                <Button title="Tentar novamente" onPress={clearResponseState} />
+              </View>
             </View>
           )}
           <GestureDetector gesture={pinchGesture}>
@@ -184,6 +284,7 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: "center",
     zIndex: 11,
+    gap: 12,
   },
   responseText: {
     backgroundColor: "rgba(0,0,0,0.6)",
@@ -192,5 +293,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
+  },
+  responseActions: {
+    gap: 8,
   },
 });
