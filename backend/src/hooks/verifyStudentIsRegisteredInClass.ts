@@ -10,15 +10,15 @@ export default async function verifyStudentIsRegisteredInClass(
   const { studentId } = req.params as { studentId: string }
   const studentSub = req.user.sub
 
-  console.log(req.params)
-
   if (studentId !== studentSub) {
+    req.log.warn('conflicting_student_identifiers')
     return res.status(401).send({ message: 'Informações conflitantes.' })
   }
 
   const { isValid, lessonId, token } = verifySignedToken(signedData)
 
   if (!isValid || !studentSub || !lessonId) {
+    req.log.warn('invalid_signed_qr_payload')
     return res.status(401).send({ message: 'Dados inválidos.' })
   }
 
@@ -36,6 +36,7 @@ export default async function verifyStudentIsRegisteredInClass(
   })
 
   if (!lesson) {
+    req.log.warn({ lessonId }, 'student_not_enrolled_in_lesson_class')
     return res.status(403).send({ message: 'Acesso negado.' })
   }
 

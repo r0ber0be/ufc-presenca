@@ -4,16 +4,16 @@ export default async function verifyRole(
   req: FastifyRequest,
   res: FastifyReply,
 ) {
-  console.log('aqui')
   try {
     const { role } = await req.jwtDecode<{ role: string }>()
-    console.log('dentro do try catch', role)
+
     if (role !== 'teacher') {
+      req.log.warn('access_denied_invalid_role')
       return res.status(403).send({ message: 'Acesso negado.' })
     }
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.log('[DEBUG]:', error)
+      req.log.warn({ err: error }, 'jwt_decode_failed')
       return res
         .status(401)
         .send({ message: 'Acesso negado. Você não é um professor.' })

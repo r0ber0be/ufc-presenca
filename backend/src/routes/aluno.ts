@@ -14,7 +14,7 @@ export async function alunoRoutes(app: FastifyInstance) {
     const { login, password } = req.body
     const deviceId = req.headers.deviceid
 
-    console.log(deviceId)
+    req.log.debug('student_login_attempt')
 
     if (!login || !password) {
       return res
@@ -48,7 +48,11 @@ export async function alunoRoutes(app: FastifyInstance) {
           message: `Este aluno ainda não foi cadastrado. Cadastre-se para continuar.`,
         })
       }
-      console.log('CODES:', classCodes)
+
+      req.log.debug(
+        { totalClassCodes: classCodes.length },
+        'student_classes_loaded',
+      )
 
       if (classCodes.length > 0) {
         const classes = await prisma.class.findMany({
@@ -95,7 +99,7 @@ export async function alunoRoutes(app: FastifyInstance) {
       return res.status(200).send({ message: `Seja bem vindo ${name}!`, token })
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.log(error)
+        req.log.warn({ err: error }, 'student_login_failed')
         return res.status(400).send({ message: error.message })
       }
       return res.status(500).send({ message: 'Erro interno do servidor' })
@@ -180,7 +184,10 @@ export async function alunoRoutes(app: FastifyInstance) {
     { preHandler: [authPreHandler, verifyStudentIsRegisteredInClass] },
     async (req, res) => {
       const { latitude, longitude } = req.body
-      console.log('latlong', latitude, longitude)
+      req.log.debug(
+        { hasCoordinates: latitude != null && longitude != null },
+        'attendance_qr_attempt',
+      )
       const { lessonId, token } = req
       const { studentId } = req.params
       const deviceId = req.headers.deviceid
@@ -253,7 +260,7 @@ export async function alunoRoutes(app: FastifyInstance) {
           lesson.longitude,
         )
       } catch (error) {
-        console.log(error)
+        req.log.warn({ err: error }, 'student_outside_classroom_radius')
         return res
           .status(400)
           .send({ message: 'Você não está próximo a sala de aula.' })

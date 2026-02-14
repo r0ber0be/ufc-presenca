@@ -8,7 +8,7 @@ export default async function verifyTeacherOwnsLesson(
   const { aulaId } = req.params as { aulaId: string }
   const userId = req.user?.sub
 
-  console.log(aulaId, userId)
+  req.log.debug({ aulaId }, 'verifying_teacher_lesson_ownership')
 
   if (!aulaId || !userId) {
     return res.status(400).send({ message: 'Requisição inválida.' })
@@ -26,6 +26,7 @@ export default async function verifyTeacherOwnsLesson(
   })
 
   if (!aula) {
+    req.log.warn({ aulaId }, 'lesson_access_denied')
     return res.status(403).send({ message: 'Acesso negado a esta aula.' })
   }
 }

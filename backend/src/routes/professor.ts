@@ -19,11 +19,6 @@ interface RequestBody {
 }
 
 export async function professorRoutes(app: FastifyInstance) {
-  // app.post('/api/professor/sigaa/turmas', { preHandler: authPreHandler }, async (req, res) => {
-  //   console.log(req.body)
-  //   return res.status(201).send({ message: 'Dados da turma recebidos' })
-  // })
-
   app.post(
     '/api/professor/auth/extension',
     { preHandler: [authPreHandler, verifyRole] },
@@ -106,7 +101,7 @@ export async function professorRoutes(app: FastifyInstance) {
     })
 
     if (!professor) {
-      console.log('Professor não existe')
+      req.log.info('creating_teacher_record')
       professor = await prisma.teacher.create({
         data: {
           uid,

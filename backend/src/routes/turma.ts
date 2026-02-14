@@ -248,7 +248,7 @@ export async function turmaRoutes(app: FastifyInstance) {
 
       return res.status(200).send(professorTurmas.classes)
     } catch (error) {
-      console.log('Erro ao buscar turmas:', error)
+      req.log.error({ err: error }, 'failed_to_fetch_classes')
       return res.status(500).send({ message: 'Erro interno do servidor' })
     }
   })
@@ -258,7 +258,7 @@ export async function turmaRoutes(app: FastifyInstance) {
     Params: { studentId: string }
   }>('/:studentId/turmas', async (req, res) => {
     const { studentId } = req.params
-    console.log(studentId)
+    req.log.debug('fetching_student_classes')
     const classes = await prisma.class.findMany({
       where: {
         enrollments: {
@@ -292,7 +292,7 @@ export async function turmaRoutes(app: FastifyInstance) {
     Params: { sub: string }
     Body: SyncTurmasBody
   }>('/sync/turmas', async (req, res) => {
-    console.log(req.user)
+    req.log.info('sync_classes_started')
     const { sub } = req.user
     const { turmas } = req.body
 
@@ -340,7 +340,8 @@ export async function turmaRoutes(app: FastifyInstance) {
               name: turma.nome,
               teacherId: teacher.id,
               location: turma.local,
-              ongoingSemester: turma.semestre.atual,
+              current: turma.semestre.atual,
+              ongoingSemester: turma.semestre.inicio,
               semesterBeginsIn,
               semesterEndsIn,
               quantityOfEnrollments,
@@ -367,10 +368,10 @@ export async function turmaRoutes(app: FastifyInstance) {
         .send({ message: 'Sincronização realizada com sucesso!' })
     } catch (error: unknown) {
       if (error instanceof PrismaClientValidationError) {
-        console.log(error)
+        req.log.warn({ err: error }, 'invalid_sync_payload')
         return res.status(422).send({ message: 'Erro ao validar os dados.' })
       }
-      console.log('ERRO:', error)
+      req.log.error({ err: error }, 'sync_classes_failed')
       return res.status(500).send({ message: 'Erro interno do servidor.' })
     }
   })
@@ -400,7 +401,7 @@ export async function turmaRoutes(app: FastifyInstance) {
         }
 
         const token = generateToken()
-        console.log('Token gerado', token)
+        req.log.debug({ turmaId }, 'lesson_token_generated')
 
         await prisma.$transaction(async (db) => {
           const lastLesson = await db.lesson.findFirst({
@@ -471,7 +472,7 @@ export async function turmaRoutes(app: FastifyInstance) {
         })
         return res.status(201).send({ message: 'Aula cadastrada!' })
       } catch (error) {
-        console.log('Não foi possível criar a aula', error)
+        req.log.error({ err: error, turmaId }, 'lesson_creation_failed')
         return res
           .status(400)
           .send({ message: 'Não foi possível criar a aula.' })

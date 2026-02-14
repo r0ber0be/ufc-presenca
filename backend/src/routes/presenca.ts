@@ -100,7 +100,10 @@ export async function presencaRoutes(app: FastifyInstance) {
         }
       })
 
-      console.log(alunosComPresencas)
+      req.log.debug(
+        { turmaId, totalAlunos: alunosComPresencas.length },
+        'students_attendance_loaded',
+      )
 
       return res.status(200).send(alunosComPresencas)
     },
@@ -137,7 +140,7 @@ export async function presencaRoutes(app: FastifyInstance) {
         },
       })
 
-      if (!lesson || !lesson.attendanceToken?.token) {
+      if (!lesson?.attendanceToken?.token) {
         return res
           .status(404)
           .send({ message: 'Nenhuma aula ativa encontrada.' })
@@ -147,7 +150,7 @@ export async function presencaRoutes(app: FastifyInstance) {
 
       const signedToken = signToken(id, attendanceToken.token)
 
-      console.log(signedToken)
+      req.log.debug({ lessonId: id, turmaId }, 'signed_qr_token_generated')
       return res
         .status(200)
         .send({ id, classId, acceptPresenceByQRCode, signedToken })
