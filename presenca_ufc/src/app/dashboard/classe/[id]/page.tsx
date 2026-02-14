@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic"
+import dynamic from 'next/dynamic'
 
 const DynamicAlunoTable = dynamic(() => import('@/components/alunoTable'))
 

@@ -147,7 +147,6 @@ export default async function AlunoTable({ turmaId }: Readonly<Turma>) {
             </Tr>
             {/* Linha dos dias */}
             <Tr>
-              {/* Célula vazia para alinhar com a coluna 'Aluno' */}
               <Th width='150px' />
               {dataDiasDeAula.map((aula: { date: string, id: string }) => (
                 <DateCellTable date={aula.date} key={aula.id} />

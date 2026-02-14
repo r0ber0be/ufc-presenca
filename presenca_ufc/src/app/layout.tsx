@@ -26,12 +26,14 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
+  const preconnectApiUrl = process.env.NEXT_PUBLIC_API_URL
+
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <head content-type='utf-8'>
         <meta name="theme-color" content="#ffffff" />
         {/* Preload de recursos críticos */}
-        <link rel="preconnect" href="http://localhost:3333" />
+        {preconnectApiUrl ? <link rel="preconnect" href={preconnectApiUrl} /> : null}
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
         <meta name="apple-mobile-web-app-title" content="Presença" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

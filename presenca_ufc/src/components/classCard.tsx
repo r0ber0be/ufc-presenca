@@ -46,22 +46,22 @@ export default function ClassCard({ turma }:Readonly<{ turma: TurmaT }>) {
 
             <Box minW='100px' p='10px' alignContent='center' textAlign='center'>
               <Heading size='xs' textTransform='uppercase'>
-                { schedules[0].weekDay } - { schedules[1]?.weekDay || '' }
+                { schedules[0]?.weekDay } - { schedules[1]?.weekDay || '' }
               </Heading>
               {
-                schedules[0].startTime == schedules[1]?.startTime ? 
+                schedules[0]?.startTime == schedules[1]?.startTime ? 
                   <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                    { schedules[0].startTime } às { schedules[0].endTime }
+                    { schedules[0]?.startTime } às { schedules[0]?.endTime }
                   </Text> 
                 :
                 <>
                   <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                    { schedules[0].startTime } às { schedules[0].endTime }
+                    { schedules[0]?.startTime } às { schedules[0]?.endTime }
                   </Text>
                   {
                     schedules.length > 1 ? 
                       <Text pt='2' align='center' fontSize={{ base: 'xs', md: 'sm' }}>
-                        { schedules[1].startTime } às { schedules[1].endTime }
+                        { schedules[1]?.startTime } às { schedules[1]?.endTime }
                       </Text>
                       : <></>
                   }

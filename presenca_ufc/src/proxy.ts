@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const PUBLIC_ROUTES = ['/signin', '/signup']
 const PROTECTED_ROUTES = ['/dashboard']
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -19,9 +20,15 @@ export async function proxy(request: NextRequest) {
     const token = request.cookies.get('token-ufc')?.value
 
     if (!token) return
+
+    if (!API_URL) {
+      const response = NextResponse.redirect(new URL('/signin', request.url))
+      response.cookies.delete('token-ufc')
+      return response
+    }
     
     try {
-      const authCheck = await fetch('http://localhost:3333/api/turmas', {
+      const authCheck = await fetch(new URL('/api/turmas', API_URL), {
         headers: {
           Authorization: `Bearer ${token}`,
         },

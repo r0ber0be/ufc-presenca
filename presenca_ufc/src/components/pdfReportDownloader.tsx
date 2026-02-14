@@ -4,12 +4,12 @@ import { PDFDownloadLink } from '@react-pdf/renderer'
 import PDFReport from './pdfReport'
 
 const PDFReportDownloader = ({ report, professorName }: { report: any, professorName: string }) => {
-  const turma = 'Matematica'
+  const { name } = report
   return (
      <div className='p-4'>
       <PDFDownloadLink
         document={<PDFReport report={report} professorName={professorName} />}
-        fileName={`${turma}-relatorio-presencas.pdf`}
+        fileName={`${name} - RELATÓRIO DE PRESENÇAS.pdf`}
       >
         {({ loading }) =>
           loading ? (
