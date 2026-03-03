@@ -2,8 +2,13 @@
 
 import { api } from '@/lib/axios/api'
 import { getCookies } from '@/utils/authUtils'
+import * as z from 'zod'
+
+const Coordinates = z.object({ latitude: z.number(), longitude: z.number() })
 
 export async function createLessonServerAction( turmaId: string, latitude: number, longitude: number) {
+  const coordinates = Coordinates.parse({ latitude, longitude })
+  
   try {
     const token = await getCookies()
 
@@ -13,10 +18,7 @@ export async function createLessonServerAction( turmaId: string, latitude: numbe
 
     const backendResponse = await api.post(
       `/api/${turmaId}/aula`,
-      {
-        latitude,
-        longitude
-      },
+      coordinates,
       {
         headers: {
           Authorization: `Bearer ${token}`,

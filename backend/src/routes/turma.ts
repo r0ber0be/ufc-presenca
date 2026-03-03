@@ -137,7 +137,7 @@ export async function turmaRoutes(app: FastifyInstance) {
 
   // Buscar turmas de um professor (classes)
   app.get<{
-    Params: { sub: string }
+    Querystring: { type: string }
   }>('/turmas', async (req, res) => {
     try {
       const { sub } = req.user
@@ -297,7 +297,7 @@ export async function turmaRoutes(app: FastifyInstance) {
     const { turmas } = req.body
 
     try {
-      const teacher = await prisma.teacher.findUnique({
+      const teacher = await prisma.teacher.findFirst({
         where: { uid: sub },
       })
 
