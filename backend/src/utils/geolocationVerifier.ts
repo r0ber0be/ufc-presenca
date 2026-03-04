@@ -17,5 +17,5 @@ export async function geolocationVerifier(
     return true
   }
   console.log('está fora')
-  throw new Error()
+  throw new Error('Fora da área da aula.')
 }

@@ -4,6 +4,7 @@ import { usePinchZoom } from "@/hooks/usePinchZoom";
 import useResetQrLockOnFocus from "@/hooks/useResetQrLockOnFocus";
 import { getValidSessionToken } from "@/hooks/useSession";
 import { getStudentId } from "@/hooks/useStudentData";
+import { authenticateUser } from "@/utils/authWithBiometrics";
 import { useIsFocused } from "@react-navigation/native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Location from "expo-location";
@@ -136,6 +137,16 @@ export default function CameraQR() {
 
       if (!deviceId?.trim()) {
         showErrorMessage("Não foi possível identificar este dispositivo.");
+        return;
+      }
+
+      try {
+        await authenticateUser();
+      } catch (bioError) {
+        console.warn(bioError);
+        showErrorMessage(
+          "PIN ou Biometria necessária para confirmar presença.",
+        );
         return;
       }
 
